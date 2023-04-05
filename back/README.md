@@ -1,3 +1,17 @@
+### INSTALL DEPENDENCIES
+```
+npm install
+```
+
+### RUN SERVER
+```
+npm run dev
+```
+### RUN PRISMA MIGRATIONS
+```
+npx prisma migrate dev --name init
+```
+
 # CONVENTIONAL COMMITS
 
 ---
