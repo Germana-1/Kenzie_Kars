@@ -48,10 +48,13 @@ model Announcement {
   year        Int
   mileage     Int
   price       Decimal  @db.Decimal()
+  priceFipe   Decimal  @db.Decimal()
   fuelType    String   @db.VarChar(50)
   color       String   @db.VarChar(50)
+  banner      String   @db.VarChar(100)
   description String   @db.Text
   isActive    Boolean  @default(true)
+  isGoodBuy   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
