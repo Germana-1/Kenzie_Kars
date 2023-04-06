@@ -22,7 +22,20 @@ model User {
   account_type String    @db.VarChar(50)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  deletedAt    DateTime?
+  addresses Address[]
+  announcements Announcement[]
+}
+
+model Address {
+  id           Int     @id @default(autoincrement())
+  street       String  @db.VarChar(255)
+  number       String  @db.VarChar(10)
+  complement   String  @db.VarChar(255)
+  city         String  @db.VarChar(255)
+  state        String  @db.VarChar(255)
+  zipCode      String  @db.VarChar(10)
+  userId       String?
+  user         User?   @relation(fields: [userId],references: [id])
 }
 
 model Announcement {
@@ -38,5 +51,23 @@ model Announcement {
   isActive     Boolean   @default(true)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  userId       String    @default(uuid())
+  userId       String?
+  user         User?   @relation(fields: [userId],references: [id])
+  images       Image[]
+  comments     Comments[]
+}
+
+model Image {
+  id               String          @id @default(uuid())
+  announcementId   String?
+  announcement     Announcement?   @relation(fields: [announcementId],references: [id])
+}
+
+model Comments {
+  id               String          @id @default(uuid())
+  comment          String          @db.Text
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  announcementId   String?
+  announcement     Announcement?   @relation(fields: [announcementId],references: [id]) 
 }
