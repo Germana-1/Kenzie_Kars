@@ -11,66 +11,74 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  name         String    @db.VarChar(150)
-  email        String    @unique @db.VarChar(255)
-  cpf          String    @unique @db.VarChar(20)
-  phone        String    @db.VarChar(20)
-  birthdate    String    @db.VarChar(20)
-  description  String?   @db.Text
-  password     String    @db.VarChar(50)
-  account_type String    @db.VarChar(50)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  addresses    Address[]
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(50)
+  email       String   @unique @db.VarChar(50)
+  cpf         String   @unique @db.VarChar(20)
+  phone       String   @db.VarChar(20)
+  birthdate   DateTime @db.Date()
+  description String?  @db.Text
+  password    String   @db.VarChar(50)
+  accountType String   @db.VarChar(50)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  addresses     Address[]
   announcements Announcement[]
-  comments     Comments[]
+  comments      Comments[]
 }
 
 model Address {
-  id           String  @id @default(uuid())
-  street       String  @db.VarChar(255)
-  number       String  @db.VarChar(10)
-  complement   String? @db.VarChar(255)
-  city         String  @db.VarChar(255)
-  state        String  @db.VarChar(255)
-  zipCode      String  @db.VarChar(10)
-  userId       String
-  user         User    @relation(fields: [userId],references: [id])
+  id         String  @id @default(uuid())
+  street     String  @db.VarChar(50)
+  number     String  @db.VarChar(10)
+  complement String? @db.VarChar(50)
+  city       String  @db.VarChar(50)
+  state      String  @db.VarChar(50)
+  zipCode    String  @db.VarChar(10)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Announcement {
-  id           String    @id @default(uuid())
-  brand        String    @db.VarChar(255)
-  model        String    @db.VarChar(255)
-  year         Int    
-  mileage      Int   
-  price        Decimal   @db.Decimal()
-  fuelType     String    @db.VarChar(255)
-  color        String    @db.VarChar(255)
-  description  String    @db.Text
-  isActive     Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  userId       String
-  user         User      @relation(fields: [userId],references: [id])
-  images       Image[]
-  comments     Comments[]
+  id          String   @id @default(uuid())
+  brand       String   @db.VarChar(50)
+  model       String   @db.VarChar(50)
+  year        Int
+  mileage     Int
+  price       Decimal  @db.Decimal()
+  fuelType    String   @db.VarChar(50)
+  color       String   @db.VarChar(50)
+  description String   @db.Text
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images   Image[]
+  comments Comments[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Image {
-  id               String         @id @default(uuid())
-  announcementId   String
-  announcement     Announcement   @relation(fields: [announcementId],references: [id])
+  id     String @id @default(uuid())
+  imgUrl String @db.VarChar(255)
+
+  announcementId String
+  announcement   Announcement @relation(fields: [announcementId], references: [id])
 }
 
 model Comments {
-  id               String          @id @default(uuid())
-  comment          String          @db.Text
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-  announcementId   String
-  announcement     Announcement    @relation(fields: [announcementId],references: [id]) 
-  userId           String
-  user             User            @relation(fields: [userId],references: [id])
+  id        String   @id @default(uuid())
+  comment   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  announcementId String
+  announcement   Announcement @relation(fields: [announcementId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
