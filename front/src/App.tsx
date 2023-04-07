@@ -1,7 +1,9 @@
+import { Flex, Text } from "@chakra-ui/react";
+
 export const App = () => {
     return (
-        <>
-            <h1>Hello World</h1>
-        </>
+        <Flex>
+            <Text>Hello World</Text>
+        </Flex>
     );
 };
