@@ -1,9 +1,10 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
 
 export const App = () => {
-    return (
-        <Flex>
-            <Text>Hello World</Text>
-        </Flex>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+    </Routes>
+  );
 };
