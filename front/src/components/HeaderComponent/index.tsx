@@ -3,7 +3,6 @@ import {
   Button,
   ButtonGroup,
   Flex,
-  Hide,
   IconButton,
   Menu,
   MenuButton,
@@ -13,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-import { Colors } from "../../styles";
+import { Colors } from "../../styles/colors";
 import logo from "../../assets/logo.svg";
 
 export const HeaderComponent = () => {
