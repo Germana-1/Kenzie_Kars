@@ -1,6 +1,6 @@
 import { Container } from "@chakra-ui/react";
 
-import { AnnounceDetailTitle } from "../../components/AnnounceDetailTitle";
+import { AnnounceDetailTitleComponent } from "../../components/AnnounceDetailTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
 
 export const AnnounceDetailPage = () => {
@@ -8,7 +8,7 @@ export const AnnounceDetailPage = () => {
     <>
       <HeaderComponent />
       <Container maxW="1440" centerContent>
-        <AnnounceDetailTitle />
+        <AnnounceDetailTitleComponent />
       </Container>
     </>
   );
