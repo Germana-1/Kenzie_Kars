@@ -1,7 +1,8 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 
 import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { TextH5, TextH7 } from "../FontComponents";
+import { Colors } from "../../styles/colors";
 
 export const AnnounceDetailTitleComponent = () => {
   return (
@@ -11,8 +12,11 @@ export const AnnounceDetailTitleComponent = () => {
       gap={"20px"}
       p={"28px 44px"}
       borderRadius={"4px"}
+      backgroundColor={Colors.white}
     >
       <TextH5 weigth="600">Mercedes Benz A 200 CGI ADVANCE SEDAN</TextH5>
+
+      <Spacer />
 
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Flex gap={"10px"}>
