@@ -23,9 +23,12 @@ export const HeaderComponent = () => {
         bg={Colors.grey10}
         p={4}
         h="80px"
+        w="100%"
         alignItems="center"
         borderBottom="2px"
         borderBottomColor={Colors.grey6}
+        position="fixed"
+        zIndex="1"
       >
         <Box flex="1" mr={5}>
           <img src={logo} alt="logo" />
