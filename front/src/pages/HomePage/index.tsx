@@ -1,22 +1,24 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Show, useMediaQuery } from "@chakra-ui/react";
 
 import { HeaderComponent } from "../../components/HeaderComponent";
 
 import { BannerComponent } from "../../components/BannerComponent";
-import { CardComponent } from "../../components/CardComponent";
+
+import { ListCardComponent } from "../../components/ListCardComponent";
+
+import { ListFiltersComponent } from "../../components/ListFiltersComponent";
 
 export const HomePage = () => {
   return (
     <Flex flexDirection={"column"}>
       <HeaderComponent />
       <BannerComponent />
-      <Flex justifyContent="flex-start" w="fit-content" overflowX="auto">
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
+      <Flex w="100%" justifyContent="space-between">
+        <Show above="768px">
+          <ListFiltersComponent />
+        </Show>
+
+        <ListCardComponent />
       </Flex>
     </Flex>
   );

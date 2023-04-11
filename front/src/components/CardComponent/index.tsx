@@ -1,22 +1,16 @@
-import {
-  Avatar,
-  Card,
-  CardBody,
-  Flex,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Avatar, Flex, Heading, Image, Text, Box } from "@chakra-ui/react";
 import { Colors } from "../../styles";
 
 export const CardComponent = () => {
   return (
-    <Card w="312px" margin="20px">
+    <Box minW="312px" maxW="312px" margin="20px">
       <Image
         src="https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg"
         alt="Green double couch with wooden legs"
+        border={`2px solid ${Colors.grey10}`}
+        _hover={{ cursor: "pointer", border: `2px solid ${Colors.brand1}` }}
       />
-      <CardBody display="flex" flexDirection="column" gap="16px">
+      <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
         <Heading size="16px">Mobi</Heading>
         <Text
           fontSize="14px"
@@ -62,7 +56,7 @@ export const CardComponent = () => {
             R$ 00.000,00
           </Text>
         </Flex>
-      </CardBody>
-    </Card>
+      </Flex>
+    </Box>
   );
 };
