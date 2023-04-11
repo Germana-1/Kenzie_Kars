@@ -1,5 +1,5 @@
 import { useMediaQuery, List, ListItem } from "@chakra-ui/react";
-import { Colors } from "../../styles";
+import { Colors } from "../../styles/colors";
 
 interface FilterProps {
   titleFilter: string;

@@ -1,6 +1,6 @@
 import { Button, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 
-import { Colors } from "../../styles";
+import { Colors } from "../../styles/colors";
 import logo from "../../assets/logoWhite.svg";
 import { ChevronUpIcon } from "@chakra-ui/icons";
 

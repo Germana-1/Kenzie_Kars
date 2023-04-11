@@ -1,5 +1,5 @@
 import { Avatar, Flex, Heading, Image, Text, Box } from "@chakra-ui/react";
-import { Colors } from "../../styles";
+import { Colors } from "../../styles/colors";
 
 export const CardComponent = () => {
   return (
