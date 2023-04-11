@@ -12,7 +12,7 @@ export const AnnounceDetailTitleComponent = () => {
       gap={"20px"}
       p={"28px 44px"}
       borderRadius={"4px"}
-      backgroundColor={Colors.white}
+      backgroundColor={Colors.grey10}
     >
       <TextH5 weigth="600">Mercedes Benz A 200 CGI ADVANCE SEDAN</TextH5>
 
@@ -20,8 +20,8 @@ export const AnnounceDetailTitleComponent = () => {
 
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Flex gap={"10px"}>
-          <ButtonBrand4 width="sm">2013</ButtonBrand4>
-          <ButtonBrand4 width="sm">0 KM</ButtonBrand4>
+          <ButtonBrand4 size="sm">2013</ButtonBrand4>
+          <ButtonBrand4 size="sm">0 KM</ButtonBrand4>
         </Flex>
 
         <TextH7 weigth="500">R$ 00.000,00</TextH7>

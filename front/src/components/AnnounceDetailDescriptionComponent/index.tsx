@@ -12,7 +12,7 @@ export const AnnounceDetailDescriptionComponent = () => {
       gap={"20px"}
       p={"28px 44px"}
       borderRadius={"4px"}
-      backgroundColor={Colors.white}
+      backgroundColor={Colors.grey10}
     >
       <TextH6 weigth="600">Descrição</TextH6>
 
