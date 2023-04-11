@@ -1,4 +1,4 @@
-import { Flex, Show, useMediaQuery } from "@chakra-ui/react";
+import { Flex, Show } from "@chakra-ui/react";
 
 import { HeaderComponent } from "../../components/HeaderComponent";
 
@@ -7,6 +7,8 @@ import { BannerComponent } from "../../components/BannerComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";
 
 import { ListFiltersComponent } from "../../components/ListFiltersComponent";
+
+import { FooterComponent } from "../../components/FooterComponent";
 
 export const HomePage = () => {
   return (
@@ -20,6 +22,7 @@ export const HomePage = () => {
 
         <ListCardComponent />
       </Flex>
+      <FooterComponent />
     </Flex>
   );
 };
