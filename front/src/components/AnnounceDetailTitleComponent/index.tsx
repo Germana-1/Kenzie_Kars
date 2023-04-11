@@ -1,6 +1,7 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 
-import { FontSizes } from "../../styles/fontSizes";
+import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
+import { TextH5, TextH7 } from "../FontComponents";
 import { Colors } from "../../styles/colors";
 
 export const AnnounceDetailTitleComponent = () => {
@@ -9,44 +10,25 @@ export const AnnounceDetailTitleComponent = () => {
       w={"750px"}
       direction={"column"}
       gap={"20px"}
-      borderRadius={"4px"}
       p={"28px 44px"}
+      borderRadius={"4px"}
+      backgroundColor={Colors.white}
     >
-      <Text fontSize={FontSizes.heading_5_600} fontWeight={"600"} mb={"25px"}>
-        Mercedes Benz A 200 CGI ADVANCE SEDAN
-      </Text>
+      <TextH5 weigth="600">Mercedes Benz A 200 CGI ADVANCE SEDAN</TextH5>
+
+      <Spacer />
 
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Flex gap={"10px"}>
-          <Button
-            size={"sm"}
-            fontSize={FontSizes.body_2_500}
-            fontWeight={"500"}
-            backgroundColor={Colors.brand4}
-            color={Colors.brand1}
-          >
-            2013
-          </Button>
-          <Button
-            size={"sm"}
-            fontSize={FontSizes.body_2_500}
-            fontWeight={"500"}
-            backgroundColor={Colors.brand4}
-            color={Colors.brand1}
-          >
-            0 KM
-          </Button>
+          <ButtonBrand4 width="sm">2013</ButtonBrand4>
+          <ButtonBrand4 width="sm">0 KM</ButtonBrand4>
         </Flex>
 
-        <Text fontSize={FontSizes.heading_7_500} fontWeight={"500"}>
-          R$ 00.000,00
-        </Text>
+        <TextH7 weigth="500">R$ 00.000,00</TextH7>
       </Flex>
 
       <Box>
-        <Button backgroundColor={Colors.brand1} color={Colors.grey9}>
-          Comprar
-        </Button>
+        <ButtonBrand1>Comprar</ButtonBrand1>
       </Box>
     </Flex>
   );
