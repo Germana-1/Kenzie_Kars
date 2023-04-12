@@ -9,7 +9,6 @@ export const AnnounceDetailCommentsComponent = () => {
 
   return (
     <Flex
-      w={"750px"}
       direction={"column"}
       gap={"50px"}
       p={"28px 44px"}

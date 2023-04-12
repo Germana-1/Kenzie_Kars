@@ -24,7 +24,7 @@ export const ModalCarGalleryComponent = ({
 }: IModalCarGallery) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"3xl"}>
-      <ModalOverlay />
+      <ModalOverlay top={"50px"} />
       <ModalContent>
         <ModalHeader>Imagem do veículo</ModalHeader>
         <ModalCloseButton />
