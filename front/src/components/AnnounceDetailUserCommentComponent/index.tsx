@@ -19,16 +19,23 @@ export const AnnounceDetailUserCommentComponent = () => {
         <TextB2 fontWeight={"500"}>Samuel Leão</TextB2>
       </Flex>
 
-      <Box position={"relative"}>
+      <Flex direction={"column"} gap={"10px"} position={"relative"}>
         <Textarea
           placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
           resize={"none"}
           height={"150px"}
         />
-        <Box position={"absolute"} right={"8px"} bottom={"8px"} zIndex={1}>
-          <ButtonBrand1 size="sm">Comentar</ButtonBrand1>
+        <Box
+          position={{ sm: "absolute" }}
+          right={"8px"}
+          bottom={"8px"}
+          zIndex={1}
+        >
+          <ButtonBrand1 size="sm" width={"100%"}>
+            Comentar
+          </ButtonBrand1>
         </Box>
-      </Box>
+      </Flex>
 
       <Wrap>
         <CommentSugestionComponent>Gostei muito!</CommentSugestionComponent>

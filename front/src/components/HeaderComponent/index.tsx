@@ -21,7 +21,7 @@ export const HeaderComponent = () => {
       <Flex
         as={"header"}
         bg={Colors.grey10}
-        p={4}
+        p={"4px 50px"}
         h="80px"
         w="100%"
         alignItems="center"

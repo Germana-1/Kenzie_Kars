@@ -1,11 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  useMediaQuery,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, useMediaQuery } from "@chakra-ui/react";
 
 import bannerMobile from "../../assets/bannerMobile.svg";
 import bannerWeb from "../../assets/bannerWeb.svg";

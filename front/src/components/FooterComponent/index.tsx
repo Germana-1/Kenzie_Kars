@@ -1,8 +1,8 @@
 import { Button, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import { ChevronUpIcon } from "@chakra-ui/icons";
 
 import { Colors } from "../../styles/colors";
 import logo from "../../assets/logoWhite.svg";
-import { ChevronUpIcon } from "@chakra-ui/icons";
 
 export const FooterComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");

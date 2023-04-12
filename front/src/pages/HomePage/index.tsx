@@ -26,7 +26,8 @@ export const HomePage = () => {
       <HeaderComponent />
       <BannerComponent />
       <Flex
-        w="100%"
+        w="96%"
+        margin={"0 auto"}
         justifyContent="space-between"
         alignItems={isMobile ? "center" : "start"}
         flexDir={isMobile ? "column" : "row"}

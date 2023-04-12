@@ -8,6 +8,7 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
+
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 

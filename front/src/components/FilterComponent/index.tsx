@@ -1,5 +1,7 @@
 import { useMediaQuery, List, ListItem } from "@chakra-ui/react";
+
 import { Colors } from "../../styles/colors";
+import { FontSizes } from "../../styles/fontSizes";
 
 interface FilterProps {
   titleFilter: string;
@@ -18,7 +20,7 @@ export const FilterComponent = ({ titleFilter, filters }: FilterProps) => {
         <ListItem
           key={filter}
           cursor="pointer"
-          fontSize="20px"
+          fontSize={FontSizes.heading6}
           fontWeight="500"
           color={Colors.grey3}
           marginStart="40px"
