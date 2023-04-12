@@ -14,11 +14,11 @@ export const AnnounceDetailDescriptionComponent = () => {
       borderRadius={"4px"}
       backgroundColor={Colors.grey10}
     >
-      <TextH6 weigth="600">Descrição</TextH6>
+      <TextH6 fontWeight="600">Descrição</TextH6>
 
       <Spacer />
 
-      <TextB1 weigth="400" color={Colors.grey2}>
+      <TextB1 fontWeight="400" color={Colors.grey2}>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and

@@ -1,15 +1,8 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
 
-interface IButton {
-  children: React.ReactNode;
-  width?: string;
-  onClick?: () => void;
-  size?: string;
-}
-
-export const ButtonGray0 = ({ children, size }: IButton) => {
+export const ButtonGray0 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -25,7 +18,7 @@ export const ButtonGray0 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonGray6 = ({ children, size }: IButton) => {
+export const ButtonGray6 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -41,7 +34,7 @@ export const ButtonGray6 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonGray5 = ({ children, size }: IButton) => {
+export const ButtonGray5 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -54,8 +47,7 @@ export const ButtonGray5 = ({ children, size }: IButton) => {
   );
 };
 
-
-export const ButtonBrand1 = ({ children, width, onClick, size }: IButton) => {
+export const ButtonBrand1 = ({ children, size, width, onClick }: ButtonProps) => {
   return (
     <Button
       w={width}
@@ -73,20 +65,24 @@ export const ButtonBrand1 = ({ children, width, onClick, size }: IButton) => {
   );
 };
 
-export const ButtonBrand4 = ({ children, size }: IButton) => {
+export const ButtonBrand4 = ({ children, size, cursor }: ButtonProps) => {
   return (
     <Button
       size={size}
       fontWeight={"600"}
       backgroundColor={Colors.brand4}
       color={Colors.brand1}
+      cursor={cursor}
+      _hover={{
+        backgroundColor: Colors.brand4,
+      }}
     >
       {children}
     </Button>
   );
 };
 
-export const ButtonGray10 = ({ children, size }: IButton) => {
+export const ButtonGray10 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -104,7 +100,7 @@ export const ButtonGray10 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonGray10OutlineG4 = ({ children, size }: IButton) => {
+export const ButtonGray10OutlineG4 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -123,7 +119,7 @@ export const ButtonGray10OutlineG4 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonBrand1OutlineBrand1 = ({ children, size }: IButton) => {
+export const ButtonBrand1OutlineBrand1 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -140,7 +136,7 @@ export const ButtonBrand1OutlineBrand1 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonTransparent = ({ children, size }: IButton) => {
+export const ButtonTransparent = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -156,7 +152,7 @@ export const ButtonTransparent = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonAlert3 = ({ children, size }: IButton) => {
+export const ButtonAlert3 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -169,7 +165,7 @@ export const ButtonAlert3 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonSuccess3 = ({ children, size }: IButton) => {
+export const ButtonSuccess3 = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}
@@ -182,7 +178,7 @@ export const ButtonSuccess3 = ({ children, size }: IButton) => {
   );
 };
 
-export const ButtonBrand3Disable = ({ children, size }: IButton) => {
+export const ButtonBrand3Disable = ({ children, size }: ButtonProps) => {
   return (
     <Button
       size={size}

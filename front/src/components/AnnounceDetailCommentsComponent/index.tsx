@@ -5,6 +5,8 @@ import { TextH6 } from "../FontComponents";
 import { CommentComponent } from "../CommentComponent";
 
 export const AnnounceDetailCommentsComponent = () => {
+  const comments = [1, 2, 3];
+
   return (
     <Flex
       w={"750px"}
@@ -14,11 +16,11 @@ export const AnnounceDetailCommentsComponent = () => {
       borderRadius={"4px"}
       backgroundColor={Colors.grey10}
     >
-      <TextH6 weigth="600">Comentários</TextH6>
+      <TextH6 fontWeight="600">Comentários</TextH6>
 
-      <CommentComponent />
-      <CommentComponent />
-      <CommentComponent />
+      {comments.map((el) => {
+        return <CommentComponent />;
+      })}
     </Flex>
   );
 };

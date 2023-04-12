@@ -1,0 +1,15 @@
+export const responseBodyUser = {
+    accountType: true,
+    addresses: true,
+    announcements: true,
+    birthdate: true,
+    comments: true,
+    cpf: true,
+    createdAt: true,
+    description: true,
+    email: true,
+    id: true,
+    name: true,
+    phone: true,
+    updatedAt: true,
+};
