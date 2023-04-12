@@ -1,12 +1,11 @@
-import { IEmployer, IHired } from "./../../interface/users.interface";
+import { Announcement, User } from "@prisma/client";
 import * as express from "express";
 
 declare global {
-  namespace Express {
-    interface Request {
-      user: {
-        id?: string;
-      };
+    namespace Express {
+        interface Request {
+            user: User;
+            annoucement: Announcement;
+        }
     }
-  }
 }
