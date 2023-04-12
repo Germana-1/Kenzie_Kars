@@ -28,7 +28,7 @@ export const HeaderComponent = () => {
         borderBottom="2px"
         borderBottomColor={Colors.grey6}
         position="fixed"
-        zIndex="1"
+        zIndex="10000"
       >
         <Box flex="1" mr={5}>
           <img src={logo} alt="logo" />
