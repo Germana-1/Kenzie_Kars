@@ -17,7 +17,7 @@ export const AnnounceDetailUserCommentComponent = () => {
     >
       <Flex gap={"10px"} alignItems="center">
         <Avatar w={"32px"} h={"32px"} />
-        <TextB2 weigth={"500"}>Samuel Leão</TextB2>
+        <TextB2 fontWeight={"500"}>Samuel Leão</TextB2>
       </Flex>
 
       <Box position={"relative"}>

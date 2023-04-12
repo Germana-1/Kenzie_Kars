@@ -8,6 +8,7 @@ import { AnnounceDetailUserCommentComponent } from "../../components/AnnounceDet
 import { FooterComponent } from "../../components/FooterComponent";
 import { AnnouceDetailMainPicComponent } from "../../components/AnnouceDetailMainPicComponent";
 import { AnnounceDetailGalleryComponent } from "../../components/AnnounceDetailGalleryComponent";
+import { AnnounceDetailAnnouncerInfoComponent } from "../../components/AnnounceDetailAnnouncerInfoComponent";
 
 export const AnnounceDetailPage = () => {
   return (
@@ -18,24 +19,26 @@ export const AnnounceDetailPage = () => {
         }
       >
         <HeaderComponent />
-        <Container maxW="1440" pt={"130px"}>
-          <Flex gap={"25px"}>
-            <Flex direction={"column"} gap={"25px"}>
-              <AnnouceDetailMainPicComponent />
-              <AnnounceDetailTitleComponent />
-              <AnnounceDetailDescriptionComponent />
+        <Container maxW="1440px" pt={"130px"} centerContent>
+          <Box>
+            <Flex gap={"25px"} wrap={"wrap"}>
+              <Flex direction={"column"} gap={"25px"}>
+                <AnnouceDetailMainPicComponent />
+                <AnnounceDetailTitleComponent />
+                <AnnounceDetailDescriptionComponent />
+              </Flex>
+
+              <Flex direction={"column"} gap={"25px"}>
+                <AnnounceDetailGalleryComponent />
+                <AnnounceDetailAnnouncerInfoComponent />
+              </Flex>
             </Flex>
 
-            <Flex direction={"column"} gap={"25px"}>
-              <AnnounceDetailGalleryComponent />
-              <AnnounceDetailGalleryComponent />
+            <Flex direction={"column"} gap={"25px"} mt={"25px"}>
+              <AnnounceDetailCommentsComponent />
+              <AnnounceDetailUserCommentComponent />
             </Flex>
-          </Flex>
-
-          <Flex direction={"column"} gap={"25px"} mt={"25px"}>
-            <AnnounceDetailCommentsComponent />
-            <AnnounceDetailUserCommentComponent />
-          </Flex>
+          </Box>
         </Container>
         <FooterComponent />
       </Box>

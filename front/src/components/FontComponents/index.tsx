@@ -1,97 +1,95 @@
-import { Text } from "@chakra-ui/react";
+import { Text, TextProps } from "@chakra-ui/react";
 import { FontSizes } from "../../styles/fontSizes";
 
-interface IText {
-  children: React.ReactNode;
-  weigth: "400" | "500" | "600" | "700";
-  color?: string;
-}
-
-export const TextH1 = ({ children, weigth, color }: IText) => {
+export const TextH1 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading1} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading1} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH62 = ({ children, weigth, color }: IText) => {
+export const TextH2 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading2} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading2} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH3 = ({ children, weigth, color }: IText) => {
+export const TextH3 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading3} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading3} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH4 = ({ children, weigth, color }: IText) => {
+export const TextH4 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading4} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading4} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH5 = ({ children, weigth, color }: IText) => {
+export const TextH5 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading5} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading5} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH6 = ({ children, weigth, color }: IText) => {
+export const TextH6 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading6} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading6} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextH7 = ({ children, weigth, color }: IText) => {
+export const TextH7 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading7} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.heading7} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextB1 = ({ children, weigth, color }: IText) => {
+export const TextB1 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.body2} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.body2} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextB2 = ({ children, weigth, color }: IText) => {
+export const TextB2 = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.body2} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.body2} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
 };
 
-export const TextBBT = ({ children, weigth, color }: IText) => {
+export const TextBBT = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.buttonBigText} fontWeight={weigth} color={color}>
+    <Text
+      fontSize={FontSizes.buttonBigText}
+      fontWeight={fontWeight}
+      color={color}
+    >
       {children}
     </Text>
   );
 };
 
-export const TextBMT = ({ children, weigth, color }: IText) => {
+export const TextBMT = ({ children, fontWeight, color }: TextProps) => {
   return (
     <Text
       fontSize={FontSizes.buttonMediumText}
-      fontWeight={weigth}
+      fontWeight={fontWeight}
       color={color}
     >
       {children}
@@ -99,11 +97,11 @@ export const TextBMT = ({ children, weigth, color }: IText) => {
   );
 };
 
-export const TextIPH = ({ children, weigth, color }: IText) => {
+export const TextIPH = ({ children, fontWeight, color }: TextProps) => {
   return (
     <Text
       fontSize={FontSizes.inputPlaceholder}
-      fontWeight={weigth}
+      fontWeight={fontWeight}
       color={color}
     >
       {children}
@@ -111,9 +109,9 @@ export const TextIPH = ({ children, weigth, color }: IText) => {
   );
 };
 
-export const TextIL = ({ children, weigth, color }: IText) => {
+export const TextIL = ({ children, fontWeight, color }: TextProps) => {
   return (
-    <Text fontSize={FontSizes.inputLabel} fontWeight={weigth} color={color}>
+    <Text fontSize={FontSizes.inputLabel} fontWeight={fontWeight} color={color}>
       {children}
     </Text>
   );
