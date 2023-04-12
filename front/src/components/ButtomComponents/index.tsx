@@ -5,6 +5,7 @@ import { Colors } from "../../styles/colors";
 interface IButton {
   children: React.ReactNode;
   width?: string;
+  onClick?: () => void;
 }
 
 export const ButtonGray0 = ({ children, width }: IButton) => {
@@ -52,16 +53,17 @@ export const ButtonGray5 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonBrand1 = ({ children, width }: IButton) => {
+export const ButtonBrand1 = ({ children, width, onClick }: IButton) => {
   return (
     <Button
-      size={width}
+      w={width}
       fontWeight={"600"}
       backgroundColor={Colors.brand1}
       color={Colors.white}
       _hover={{
         backgroundColor: Colors.brand2,
       }}
+      onClick={onClick}
     >
       {children}
     </Button>
