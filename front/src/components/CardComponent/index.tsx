@@ -1,9 +1,36 @@
-import { Avatar, Flex, Heading, Image, Text, Box } from "@chakra-ui/react";
+import {
+  Avatar,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  Box,
+  Tag,
+  TagLabel,
+} from "@chakra-ui/react";
+import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 
 export const CardComponent = () => {
   return (
-    <Box minW="312px" maxW="312px" margin="20px">
+    <Box minW="312px" maxW="312px" margin="20px" position="relative">
+      <Tag
+        w="15px"
+        h="27"
+        bg={Colors.random7}
+        borderRadius="2px"
+        position="absolute"
+        left="286px"
+        top="2px"
+      >
+        <TagLabel
+          color={Colors.white}
+          fontWeight="500"
+          fontSize={FontSizes.buttonMediumText}
+        >
+          $
+        </TagLabel>
+      </Tag>
       <Image
         src="https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg"
         alt="Green double couch with wooden legs"
