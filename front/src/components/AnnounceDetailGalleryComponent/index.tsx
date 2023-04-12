@@ -12,7 +12,6 @@ export const AnnounceDetailGalleryComponent = () => {
   return (
     <>
       <Flex
-        w={"380px"}
         direction={"column"}
         gap={"20px"}
         p={"28px 44px"}
@@ -21,7 +20,7 @@ export const AnnounceDetailGalleryComponent = () => {
       >
         <TextH6 fontWeight="600">Fotos</TextH6>
 
-        <Flex gap={"20px"} wrap={"wrap"}>
+        <Flex gap={"20px"} wrap={"wrap"} justifyContent={"center"}>
           {cars.map((el) => {
             return (
               <Box

@@ -8,7 +8,6 @@ import { ButtonBrand1 } from "../ButtomComponents";
 export const AnnounceDetailUserCommentComponent = () => {
   return (
     <Flex
-      w={"750px"}
       direction={"column"}
       gap={"20px"}
       p={"28px 44px"}

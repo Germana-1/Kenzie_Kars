@@ -7,7 +7,6 @@ import { ButtonGray0 } from "../ButtomComponents";
 export const AnnounceDetailAnnouncerInfoComponent = () => {
   return (
     <Flex
-      w={"380px"}
       direction={"column"}
       justifyContent={"center"}
       alignItems={"center"}

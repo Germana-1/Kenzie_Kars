@@ -19,26 +19,34 @@ export const AnnounceDetailPage = () => {
         }
       >
         <HeaderComponent />
-        <Container maxW="1440px" pt={"130px"} centerContent>
-          <Box>
-            <Flex gap={"25px"} wrap={"wrap"}>
-              <Flex direction={"column"} gap={"25px"}>
-                <AnnouceDetailMainPicComponent />
-                <AnnounceDetailTitleComponent />
-                <AnnounceDetailDescriptionComponent />
-              </Flex>
-
-              <Flex direction={"column"} gap={"25px"}>
-                <AnnounceDetailGalleryComponent />
-                <AnnounceDetailAnnouncerInfoComponent />
-              </Flex>
+        <Container maxW="1200px" pt={"130px"}>
+          <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
+            <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
+              <AnnouceDetailMainPicComponent />
+              <AnnounceDetailTitleComponent />
+              <AnnounceDetailDescriptionComponent />
             </Flex>
 
-            <Flex direction={"column"} gap={"25px"} mt={"25px"}>
-              <AnnounceDetailCommentsComponent />
-              <AnnounceDetailUserCommentComponent />
+            <Flex
+              direction={"column"}
+              gap={"25px"}
+              w={{ sm: "750px", xl: "380px" }}
+            >
+              <AnnounceDetailGalleryComponent />
+              <AnnounceDetailAnnouncerInfoComponent />
             </Flex>
-          </Box>
+          </Flex>
+
+          <Flex
+            direction={"column"}
+            gap={"25px"}
+            mt={"25px"}
+            maxW={"750px"}
+            mx={{ md: "auto", xl: "initial" }}
+          >
+            <AnnounceDetailCommentsComponent />
+            <AnnounceDetailUserCommentComponent />
+          </Flex>
         </Container>
         <FooterComponent />
       </Box>

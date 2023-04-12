@@ -7,7 +7,6 @@ import { Colors } from "../../styles/colors";
 export const AnnounceDetailTitleComponent = () => {
   return (
     <Flex
-      w={"750px"}
       direction={"column"}
       gap={"20px"}
       p={"28px 44px"}
@@ -18,7 +17,12 @@ export const AnnounceDetailTitleComponent = () => {
 
       <Spacer />
 
-      <Flex alignItems={"center"} justifyContent={"space-between"}>
+      <Flex
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        wrap={"wrap"}
+        gap={"20px"}
+      >
         <Flex gap={"10px"}>
           <ButtonBrand4 size="sm" cursor={"default"}>
             2013
