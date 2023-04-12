@@ -13,7 +13,7 @@ export const mockedData = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
-    isGoodBuy: true,
+    isGoodBuy: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -34,7 +34,7 @@ export const mockedData = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
-    isGoodBuy: true,
+    isGoodBuy: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -76,7 +76,7 @@ export const mockedData = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
-    isGoodBuy: true,
+    isGoodBuy: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -118,7 +118,7 @@ export const mockedData = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
-    isGoodBuy: true,
+    isGoodBuy: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -181,7 +181,7 @@ export const mockedData = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
-    isGoodBuy: true,
+    isGoodBuy: false,
     user: {
       name: "Nome do usuário",
       avatar:
