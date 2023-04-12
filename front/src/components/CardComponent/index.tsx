@@ -19,24 +19,33 @@ interface IProps {
 
 export const CardComponent = ({ annouce }: IProps) => {
   return (
-    <Box minW="312px" maxW="312px" margin="20px" position="relative">
-      <Tag
-        w="15px"
-        h="27"
-        bg={Colors.random7}
-        borderRadius="2px"
-        position="absolute"
-        left="286px"
-        top="2px"
-      >
-        <TagLabel
-          color={Colors.white}
-          fontWeight="500"
-          fontSize={FontSizes.buttonMediumText}
+    <Box
+      minW="312px"
+      maxW="312px"
+      margin="20px"
+      position="relative"
+      cursor="pointer"
+    >
+      {annouce.isGoodBuy && (
+        <Tag
+          w="15px"
+          h="27"
+          bg={Colors.random7}
+          borderRadius="2px"
+          position="absolute"
+          left="286px"
+          top="2px"
         >
-          $
-        </TagLabel>
-      </Tag>
+          <TagLabel
+            color={Colors.white}
+            fontWeight="500"
+            fontSize={FontSizes.buttonMediumText}
+          >
+            $
+          </TagLabel>
+        </Tag>
+      )}
+
       <Image
         src={annouce.banner}
         alt="Green double couch with wooden legs"
