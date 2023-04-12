@@ -12,7 +12,7 @@ export const AnnounceDetailCommentsComponent = () => {
       gap={"50px"}
       p={"28px 44px"}
       borderRadius={"4px"}
-      backgroundColor={Colors.white}
+      backgroundColor={Colors.grey10}
     >
       <TextH6 weigth="600">Comentários</TextH6>
 

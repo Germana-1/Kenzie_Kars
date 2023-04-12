@@ -6,12 +6,13 @@ interface IButton {
   children: React.ReactNode;
   width?: string;
   onClick?: () => void;
+  size?: string;
 }
 
-export const ButtonGray0 = ({ children, width }: IButton) => {
+export const ButtonGray0 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey0}
       color={Colors.white}
@@ -24,10 +25,10 @@ export const ButtonGray0 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonGray6 = ({ children, width }: IButton) => {
+export const ButtonGray6 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey6}
       color={Colors.grey2}
@@ -40,10 +41,10 @@ export const ButtonGray6 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonGray5 = ({ children, width }: IButton) => {
+export const ButtonGray5 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey5}
       color={Colors.grey2}
@@ -53,10 +54,12 @@ export const ButtonGray5 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonBrand1 = ({ children, width, onClick }: IButton) => {
+
+export const ButtonBrand1 = ({ children, width, onClick, size }: IButton) => {
   return (
     <Button
       w={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.brand1}
       color={Colors.white}
@@ -70,10 +73,10 @@ export const ButtonBrand1 = ({ children, width, onClick }: IButton) => {
   );
 };
 
-export const ButtonBrand4 = ({ children, width }: IButton) => {
+export const ButtonBrand4 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.brand4}
       color={Colors.brand1}
@@ -83,10 +86,10 @@ export const ButtonBrand4 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonGray10 = ({ children, width }: IButton) => {
+export const ButtonGray10 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey10}
       color={Colors.grey0}
@@ -101,10 +104,10 @@ export const ButtonGray10 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonGray10OutlineG4 = ({ children, width }: IButton) => {
+export const ButtonGray10OutlineG4 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.white}
       color={Colors.grey0}
@@ -120,10 +123,10 @@ export const ButtonGray10OutlineG4 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonBrand1OutlineBrand1 = ({ children, width }: IButton) => {
+export const ButtonBrand1OutlineBrand1 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey10}
       color={Colors.brand1}
@@ -137,10 +140,10 @@ export const ButtonBrand1OutlineBrand1 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonTransparent = ({ children, width }: IButton) => {
+export const ButtonTransparent = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor="transparent"
       color={Colors.grey0}
@@ -153,10 +156,10 @@ export const ButtonTransparent = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonAlert3 = ({ children, width }: IButton) => {
+export const ButtonAlert3 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.alert3}
       color={Colors.alert1}
@@ -166,10 +169,10 @@ export const ButtonAlert3 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonSuccess3 = ({ children, width }: IButton) => {
+export const ButtonSuccess3 = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.success3}
       color={Colors.success1}
@@ -179,10 +182,10 @@ export const ButtonSuccess3 = ({ children, width }: IButton) => {
   );
 };
 
-export const ButtonBrand3Disable = ({ children, width }: IButton) => {
+export const ButtonBrand3Disable = ({ children, size }: IButton) => {
   return (
     <Button
-      size={width}
+      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.brand3}
       color={Colors.brand4}
