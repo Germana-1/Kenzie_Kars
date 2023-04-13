@@ -35,7 +35,7 @@ export const ListCardComponent = () => {
     <Flex
       as="ul"
       flexWrap={isMobile ? "nowrap" : "wrap"}
-      justifyContent="flex-end"
+      justifyContent={isMobile ? "space-between" : "flex-end"}
       overflowX="auto"
       maxW={isMobile ? "100%" : "85%"}
     >
