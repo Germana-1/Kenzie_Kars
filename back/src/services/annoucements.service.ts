@@ -1,62 +1,63 @@
 import { Announcement } from "@prisma/client";
+
 import { prisma } from "../database";
 import * as Interfaces from "../interfaces";
 import * as Utils from "../utils";
 
 export const getAllAnnoucementsService = async () => {
-    return await prisma.announcement.findMany({
-        select: Utils.getAllAnnoucementsOptions,
-    });
+  return await prisma.announcement.findMany({
+    select: Utils.getAllAnnoucementsOptions,
+  });
 };
 
 export const createAnnoucementService = async (
-    body: Announcement
+  body: Announcement
 ): Promise<Announcement> => {
-    return prisma.announcement.create({
-        data: {
-            ...body,
-        },
-        include: {
-            user: {
-                select: Utils.responseBodyUser,
-            },
-        },
-    });
+  return prisma.announcement.create({
+    data: {
+      ...body,
+    },
+    include: {
+      user: {
+        select: Utils.responseBodyUser,
+      },
+    },
+  });
 };
 
 export const getOneAnnoucementService = async (
-    id: string
+  id: string
 ): Promise<Announcement> => {
-    return await prisma.announcement.findFirst({
-        where: {
-            id,
-        },
-        include: {
-            user: {
-                select: Utils.responseBodyUser,
-            },
-        },
-    });
+  return await prisma.announcement.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      user: {
+        select: Utils.responseBodyUser,
+      },
+    },
+  });
 };
 
 export const updateAnnoucementService = async (
-    id: string,
-    body: Interfaces.IUpdateAnnoucementRequest
+  id: string,
+  body: Interfaces.IUpdateAnnoucementRequest
 ): Promise<Announcement> => {
-    return await prisma.announcement.update({
-        where: {
-            id,
-        },
-        data: body,
-    });
+  return await prisma.announcement.update({
+    where: {
+      id,
+    },
+    data: body,
+  });
 };
 
 export const deleteAnnoucementService = async (
-    id: string
+  id: string
 ): Promise<Announcement> => {
-    return await prisma.announcement.delete({
-        where: {
-            id,
-        },
-    });
+  return await prisma.announcement.delete({
+    where: {
+      id,
+    },
+  });
 };
