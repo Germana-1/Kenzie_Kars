@@ -19,16 +19,8 @@ const years = ["2023", "2022", "2021"];
 const fuel = ["Diesel", "Etanol", "Gasolina", "Flex"];
 
 export const ListFiltersComponent = () => {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
-    <Flex
-      flexDirection="column"
-      gap="42px"
-      marginTop="16px"
-      w={isMobile ? "100%" : "20%"}
-      minW={isMobile ? "100%" : "250px"}
-      maxW={isMobile ? "100%" : "300px"}
-    >
+    <Flex flexDirection="column" gap="42px" marginTop="16px">
       <FilterComponent titleFilter={"Marca"} filters={brands} />
       <FilterComponent titleFilter={"Modelo"} filters={models} />
       <FilterComponent titleFilter={"Cor"} filters={colors} />

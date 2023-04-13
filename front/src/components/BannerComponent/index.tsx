@@ -6,7 +6,7 @@ import { Colors } from "../../styles/colors";
 import { FontSizes } from "../../styles/fontSizes";
 
 export const BannerComponent = () => {
-  const [isMobile] = useMediaQuery("(max-width: 400px)");
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <Box position="relative" marginTop="80px">
       <Image src={isMobile ? bannerMobile : bannerWeb} alt="banner" w="100%" />
