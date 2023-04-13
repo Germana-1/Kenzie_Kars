@@ -1,5 +1,6 @@
-import * as Service from "../services/annoucements.service";
 import { Request, Response } from "express";
+
+import * as Service from "../services/annoucements.service";
 
 export const createAnnoucementController = async (
     req: Request,

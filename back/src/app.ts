@@ -1,9 +1,10 @@
 import "reflect-metadata";
 import "express-async-errors";
 import "dotenv/config";
+import express from "express";
+
 import { errorHandler } from "./errors";
 import { routes } from "./routes";
-import express from "express";
 
 const app = express();
 

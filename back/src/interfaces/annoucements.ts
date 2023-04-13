@@ -1,4 +1,4 @@
-import { Image, Comments, Announcement, Address } from "@prisma/client";
+import { Comments, Announcement, Address } from "@prisma/client";
 
 export interface IGetAllAnnoucementsResponse {
     accountType: string;
