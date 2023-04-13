@@ -4,8 +4,11 @@ import { Colors } from "../../styles/colors";
 import { TextB2 } from "../FontComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
+import React, { useState } from "react";
 
 export const AnnounceDetailUserCommentComponent = () => {
+  const [quickAnswer, setQuickAnswer] = useState("");
+
   return (
     <Flex
       direction={"column"}
@@ -24,6 +27,8 @@ export const AnnounceDetailUserCommentComponent = () => {
           placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
           resize={"none"}
           height={"150px"}
+          value={quickAnswer}
+          onChange={(e) => setQuickAnswer(e.target.value)}
         />
         <Box
           position={{ sm: "absolute" }}
@@ -37,7 +42,13 @@ export const AnnounceDetailUserCommentComponent = () => {
         </Box>
       </Flex>
 
-      <Wrap>
+      <Wrap
+        onClick={(e) => {
+          const { innerText, tagName } = e.target as HTMLElement;
+
+          if (tagName === "LI") setQuickAnswer(innerText);
+        }}
+      >
         <CommentSugestionComponent>Gostei muito!</CommentSugestionComponent>
         <CommentSugestionComponent>Incrível</CommentSugestionComponent>
         <CommentSugestionComponent>

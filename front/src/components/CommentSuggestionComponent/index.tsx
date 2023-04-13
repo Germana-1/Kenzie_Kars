@@ -1,12 +1,8 @@
-import { WrapItem } from "@chakra-ui/react";
+import { WrapItem, WrapItemProps } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
 
-interface ICommentSugestion {
-  children: React.ReactNode;
-}
-
-export const CommentSugestionComponent = ({ children }: ICommentSugestion) => {
+export const CommentSugestionComponent = ({ children }: WrapItemProps) => {
   return (
     <WrapItem
       backgroundColor={Colors.grey7}

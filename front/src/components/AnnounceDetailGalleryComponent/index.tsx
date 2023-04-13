@@ -21,7 +21,7 @@ export const AnnounceDetailGalleryComponent = () => {
         <TextH6 fontWeight="600">Fotos</TextH6>
 
         <Flex gap={"20px"} wrap={"wrap"} justifyContent={"center"}>
-          {cars.map((el) => {
+          {cars.map((el, i) => {
             return (
               <Box
                 backgroundColor={Colors.grey7}
@@ -30,6 +30,7 @@ export const AnnounceDetailGalleryComponent = () => {
                 borderRadius={"4px"}
                 cursor={"pointer"}
                 onClick={onOpen}
+                key={i}
               >
                 <Image
                   src={car}

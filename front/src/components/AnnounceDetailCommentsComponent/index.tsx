@@ -17,8 +17,8 @@ export const AnnounceDetailCommentsComponent = () => {
     >
       <TextH6 fontWeight="600">Comentários</TextH6>
 
-      {comments.map((el) => {
-        return <CommentComponent />;
+      {comments.map((el, i) => {
+        return <CommentComponent key={i} />;
       })}
     </Flex>
   );
