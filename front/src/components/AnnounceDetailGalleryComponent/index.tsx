@@ -1,15 +1,10 @@
-import { Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
-import car from "../../assets/unsplash_ZVgPUWC9Mjs.png";
 import { Colors } from "../../styles/colors";
 import { TextH6 } from "../FontComponents";
-import { ModalCarGalleryComponent } from "../ModalCarGalleryComponent";
 import { GalleryCarousel } from "../GalleryCarouselComponent";
 
 export const AnnounceDetailGalleryComponent = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cars = [1, 2, 3, 4, 5, 6];
-
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",
@@ -52,8 +47,6 @@ export const AnnounceDetailGalleryComponent = () => {
           <GalleryCarousel items={images} />
         </Flex>
       </Flex>
-
-      <ModalCarGalleryComponent isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
