@@ -47,16 +47,23 @@ export const ButtonGray5 = ({ children, size }: ButtonProps) => {
   );
 };
 
-export const ButtonBrand1 = ({ children, size, width, onClick }: ButtonProps) => {
+export const ButtonBrand1 = ({
+  children,
+  size,
+  width,
+  isDisabled,
+  onClick,
+}: ButtonProps) => {
   return (
     <Button
-      w={width}
       size={size}
+      width={width}
+      isDisabled={isDisabled}
       fontWeight={"600"}
-      backgroundColor={Colors.brand1}
+      backgroundColor={isDisabled ? Colors.brand3 : Colors.brand1}
       color={Colors.white}
       _hover={{
-        backgroundColor: Colors.brand2,
+        backgroundColor: isDisabled ? Colors.brand3 : Colors.brand2,
       }}
       onClick={onClick}
     >
