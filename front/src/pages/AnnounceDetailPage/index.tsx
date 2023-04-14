@@ -31,6 +31,7 @@ export const AnnounceDetailPage = () => {
               direction={"column"}
               gap={"25px"}
               w={{ sm: "750px", xl: "380px" }}
+              maxW={"100%"}
             >
               <AnnounceDetailGalleryComponent />
               <AnnounceDetailAnnouncerInfoComponent />
