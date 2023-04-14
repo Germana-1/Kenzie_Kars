@@ -4,10 +4,10 @@ import { Colors } from "../../styles/colors";
 import { TextB2 } from "../FontComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const AnnounceDetailUserCommentComponent = () => {
-  const [quickAnswer, setQuickAnswer] = useState("");
+  const [comment, setComment] = useState("");
 
   return (
     <Flex
@@ -27,8 +27,8 @@ export const AnnounceDetailUserCommentComponent = () => {
           placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
           resize={"none"}
           height={"150px"}
-          value={quickAnswer}
-          onChange={(e) => setQuickAnswer(e.target.value)}
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
         />
         <Box
           position={{ sm: "absolute" }}
@@ -36,7 +36,11 @@ export const AnnounceDetailUserCommentComponent = () => {
           bottom={"8px"}
           zIndex={1}
         >
-          <ButtonBrand1 size="sm" width={"100%"}>
+          <ButtonBrand1
+            size="sm"
+            width={"100%"}
+            isDisabled={comment.trim().length ? false : true}
+          >
             Comentar
           </ButtonBrand1>
         </Box>
@@ -46,7 +50,7 @@ export const AnnounceDetailUserCommentComponent = () => {
         onClick={(e) => {
           const { innerText, tagName } = e.target as HTMLElement;
 
-          if (tagName === "LI") setQuickAnswer(innerText);
+          if (tagName === "LI") setComment(innerText);
         }}
       >
         <CommentSugestionComponent>Gostei muito!</CommentSugestionComponent>
