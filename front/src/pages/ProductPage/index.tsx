@@ -1,14 +1,14 @@
 import { Box, Container, Flex } from "@chakra-ui/react";
 
-import { AnnounceDetailTitleComponent } from "../../components/AnnounceDetailTitleComponent";
+import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
-import { AnnounceDetailDescriptionComponent } from "../../components/AnnounceDetailDescriptionComponent";
-import { AnnounceDetailCommentsComponent } from "../../components/AnnounceDetailCommentsComponent";
-import { AnnounceDetailUserCommentComponent } from "../../components/AnnounceDetailUserCommentComponent";
+import { ProductDescriptionComponent } from "../../components/ProductDescriptionComponent";
+import { ProductCommentsComponent } from "../../components/ProductCommentsComponent";
+import { ProductUserCommentComponent } from "../../components/ProductUserCommentComponent";
 import { FooterComponent } from "../../components/FooterComponent";
-import { AnnouceDetailMainPicComponent } from "../../components/AnnouceDetailMainPicComponent";
-import { AnnounceDetailGalleryComponent } from "../../components/AnnounceDetailGalleryComponent";
-import { AnnounceDetailAnnouncerInfoComponent } from "../../components/AnnounceDetailAnnouncerInfoComponent";
+import { ProductBannerComponent } from "../../components/ProductBannerComponent";
+import { ProductGalleryComponent } from "../../components/ProductGalleryComponent";
+import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 
 export const AnnounceDetailPage = () => {
   return (
@@ -22,9 +22,9 @@ export const AnnounceDetailPage = () => {
         <Container maxW="1200px" pt={"130px"}>
           <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
             <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
-              <AnnouceDetailMainPicComponent />
-              <AnnounceDetailTitleComponent />
-              <AnnounceDetailDescriptionComponent />
+              <ProductBannerComponent />
+              <ProductTitleComponent />
+              <ProductDescriptionComponent />
             </Flex>
 
             <Flex
@@ -33,8 +33,8 @@ export const AnnounceDetailPage = () => {
               w={{ sm: "750px", xl: "380px" }}
               maxW={"100%"}
             >
-              <AnnounceDetailGalleryComponent />
-              <AnnounceDetailAnnouncerInfoComponent />
+              <ProductGalleryComponent />
+              <ProductAnnouncerInfoComponent />
             </Flex>
           </Flex>
 
@@ -45,8 +45,8 @@ export const AnnounceDetailPage = () => {
             maxW={"750px"}
             mx={{ md: "auto", xl: "initial" }}
           >
-            <AnnounceDetailCommentsComponent />
-            <AnnounceDetailUserCommentComponent />
+            <ProductCommentsComponent />
+            <ProductUserCommentComponent />
           </Flex>
         </Container>
         <FooterComponent />

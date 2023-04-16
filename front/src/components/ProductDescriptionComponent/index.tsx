@@ -4,7 +4,7 @@ import { TextH6 } from "../FontComponents";
 import { TextB1 } from "../FontComponents";
 import { Colors } from "../../styles/colors";
 
-export const AnnounceDetailDescriptionComponent = () => {
+export const ProductDescriptionComponent = () => {
   return (
     <Flex
       direction={"column"}
