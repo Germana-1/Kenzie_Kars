@@ -1,7 +1,7 @@
 import { Avatar, Flex } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
-import { TextB1, TextH6 } from "../FontComponents";
+import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonGray0 } from "../ButtomComponents";
 
 export const ProductAnnouncerInfoComponent = () => {
