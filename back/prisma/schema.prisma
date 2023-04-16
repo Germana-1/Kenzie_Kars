@@ -20,6 +20,7 @@ model User {
   description String?  @db.Text
   password    String   @db.VarChar(100)
   accountType String   @db.VarChar(50)
+  avatar      String?  @db.VarChar(100)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
