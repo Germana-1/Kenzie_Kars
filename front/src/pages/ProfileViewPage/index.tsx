@@ -3,7 +3,7 @@ import { Avatar, Box, Container, Flex } from "@chakra-ui/react";
 import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";
-import { TextB1, TextH5, TextH6 } from "../../components/FontComponents";
+import { TextB1, TextH5, TextH6 } from "../../components/TextComponents";
 import { ButtonBrand4 } from "../../components/ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";

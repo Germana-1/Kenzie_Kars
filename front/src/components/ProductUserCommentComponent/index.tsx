@@ -1,7 +1,7 @@
 import { Avatar, Box, Flex, Textarea, Wrap } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
-import { TextB2 } from "../FontComponents";
+import { TextB2 } from "../TextComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
 import { useState } from "react";

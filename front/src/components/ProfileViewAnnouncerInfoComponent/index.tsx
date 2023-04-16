@@ -1,6 +1,6 @@
 import { Avatar, Flex } from "@chakra-ui/react";
 
-import { TextB1, TextH6 } from "../FontComponents";
+import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
 
