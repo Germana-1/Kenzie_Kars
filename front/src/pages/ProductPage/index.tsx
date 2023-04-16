@@ -10,7 +10,7 @@ import { ProductBannerComponent } from "../../components/ProductBannerComponent"
 import { ProductGalleryComponent } from "../../components/ProductGalleryComponent";
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 
-export const AnnounceDetailPage = () => {
+export const ProductPage = () => {
   return (
     <>
       <Box
