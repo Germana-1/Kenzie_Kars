@@ -17,7 +17,9 @@ export const ProfileViewAnnouncerInfoComponent = () => {
 
       <Flex gap={"10px"} alignItems={"center"}>
         <TextH6 fontWeight={"600"}>Samuel Leão</TextH6>
-        <ButtonBrand4 size={"sm"}>Anunciante</ButtonBrand4>
+        <ButtonBrand4 size={"sm"} cursor={"default"}>
+          Anunciante
+        </ButtonBrand4>
       </Flex>
 
       <TextB1 fontWeight={"400"} color={Colors.grey2}>
