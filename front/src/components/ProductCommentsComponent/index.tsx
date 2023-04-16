@@ -4,7 +4,7 @@ import { Colors } from "../../styles/colors";
 import { TextH6 } from "../FontComponents";
 import { CommentComponent } from "../CommentComponent";
 
-export const AnnounceDetailCommentsComponent = () => {
+export const ProductCommentsComponent = () => {
   const comments = [1, 2, 3];
 
   return (

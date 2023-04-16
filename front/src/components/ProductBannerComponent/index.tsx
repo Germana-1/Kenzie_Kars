@@ -3,7 +3,7 @@ import { Flex, Image } from "@chakra-ui/react";
 import car from "../../assets/unsplash_ZVgPUWC9Mjs.png";
 import { Colors } from "../../styles/colors";
 
-export const AnnouceDetailMainPicComponent = () => {
+export const ProductBannerComponent = () => {
   return (
     <Flex
       h={"350px"}

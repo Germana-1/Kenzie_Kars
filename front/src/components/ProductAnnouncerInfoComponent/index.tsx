@@ -4,7 +4,7 @@ import { Colors } from "../../styles/colors";
 import { TextB1, TextH6 } from "../FontComponents";
 import { ButtonGray0 } from "../ButtomComponents";
 
-export const AnnounceDetailAnnouncerInfoComponent = () => {
+export const ProductAnnouncerInfoComponent = () => {
   return (
     <Flex
       direction={"column"}

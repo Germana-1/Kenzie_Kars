@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { HomePage } from "../pages/HomePage";
-import { AnnounceDetailPage } from "../pages/AnnounceDetailPage";
+import { AnnounceDetailPage } from "../pages/ProductPage";
 
 export const RoutesMain = () => {
   return (

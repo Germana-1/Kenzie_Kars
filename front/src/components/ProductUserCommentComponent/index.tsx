@@ -6,7 +6,7 @@ import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
 import { useState } from "react";
 
-export const AnnounceDetailUserCommentComponent = () => {
+export const ProductUserCommentComponent = () => {
   const [comment, setComment] = useState("");
 
   return (
