@@ -1,12 +1,10 @@
-import { Avatar, Box, Container, Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 
 import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
-import { ListCardComponent } from "../../components/ListCardComponent";
-import { TextB1, TextH5, TextH6 } from "../../components/TextComponents";
-import { ButtonBrand4 } from "../../components/ButtomComponents";
-import { Colors } from "../../styles/colors";
+import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
+import { ListCardComponent } from "../../components/_deletar";
 
 export const ProfileViewPage = () => {
   return (
@@ -22,7 +20,9 @@ export const ProfileViewPage = () => {
         <Container maxW="1200px" pt={"130px"}>
           <ProfileViewAnnouncerInfoComponent />
 
-          <TextH5 fontWeight={"600"}>Anúncios</TextH5>
+          <TextH5 fontWeight={"600"} my={"30px"}>
+            Anúncios
+          </TextH5>
 
           <ListCardComponent />
         </Container>
