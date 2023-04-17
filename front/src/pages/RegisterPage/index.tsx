@@ -8,6 +8,7 @@ import { InputFormComponent } from "./../../components/InputFormComponent/index"
 import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
 import { registerUserSchema } from "../../schemas";
 import { ErrorComponent } from "./../../components/ErrorComponent/index";
+import { FooterComponent } from "./../../components/FooterComponent/index";
 
 const formStyle = {
     width: "100%",
@@ -241,6 +242,7 @@ export const RegisterPage = () => {
                     </form>
                 </Flex>
             </Flex>
+            <FooterComponent />
         </>
     );
 };
