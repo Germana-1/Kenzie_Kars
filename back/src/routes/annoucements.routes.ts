@@ -6,32 +6,32 @@ import * as Schema from "../schemas";
 
 const annoucementsRoutes = Router();
 
-annoucementsRoutes.get("/", Controller.getAllAnnoucementController);
+annoucementsRoutes.get("/", Controller.getAllAnnouncementController);
 
 annoucementsRoutes.post(
     "/",
     Middlewares.validateSchema(Schema.createAnnoucementSchema),
     Middlewares.verifyDuplicateAnnoucementMiddleware,
-    Controller.createAnnoucementController
+    Controller.createAnnouncementController
 );
 
 annoucementsRoutes.get(
     "/:id",
     Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.getOneAnnoucementController
+    Controller.getOneAnnouncementController
 );
 
 annoucementsRoutes.patch(
     "/:id",
     Middlewares.validateSchema(Schema.updateAnnoucementSchema),
     Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.updateAnnoucementController
+    Controller.updateAnnouncementController
 );
 
 annoucementsRoutes.delete(
     "/:id",
     Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.deleteAnnoucementController
+    Controller.deleteAnnouncementController
 );
 
 export { annoucementsRoutes };

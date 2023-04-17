@@ -11,22 +11,22 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  name        String   @db.VarChar(50)
-  email       String   @unique @db.VarChar(50)
-  cpf         String   @unique @db.VarChar(20)
-  phone       String   @db.VarChar(20)
-  birthdate   DateTime @db.Date()
-  description String?  @db.Text
-  password    String   @db.VarChar(100)
-  accountType String   @db.VarChar(50)
-  avatar      String?  @db.VarChar(100)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  id            String         @id @default(uuid())
+  name          String         @db.VarChar(50)
+  email         String         @unique @db.VarChar(50)
+  cpf           String         @unique @db.VarChar(20)
+  phone         String         @db.VarChar(20)
+  birthdate     DateTime       @db.Date()
+  description   String?        @db.Text
+  password      String         @db.VarChar(50)
+  accountType   String         @db.VarChar(50)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   addresses     Address[]
   announcements Announcement[]
-  comments      Comments[]
+  comments      Comment[]
+
+  @@map("users")
 }
 
 model Address {
@@ -37,52 +37,54 @@ model Address {
   city       String  @db.VarChar(50)
   state      String  @db.VarChar(50)
   zipCode    String  @db.VarChar(10)
+  userId     String
+  user       User    @relation(fields: [userId], references: [id])
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  @@map("addresses")
 }
 
 model Announcement {
-  id          String   @id @default(uuid())
-  brand       String   @db.VarChar(50)
-  model       String   @db.VarChar(50)
+  id          String    @id @default(uuid())
+  brand       String    @db.VarChar(50)
+  model       String    @db.VarChar(50)
   year        Int
   mileage     Int
-  price       Decimal  @db.Decimal()
-  priceFipe   Decimal  @db.Decimal()
-  fuelType    String   @db.VarChar(50)
-  color       String   @db.VarChar(50)
-  banner      String   @db.VarChar(100)
-  description String   @db.Text
-  isActive    Boolean  @default(true)
-  isGoodBuy   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  price       Decimal   @db.Decimal()
+  priceFipe   Decimal   @db.Decimal()
+  fuelType    String    @db.VarChar(50)
+  color       String    @db.VarChar(50)
+  banner      String    @db.VarChar(100)
+  description String    @db.Text
+  isActive    Boolean   @default(true)
+  isGoodBuy   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  images      Image[]
+  comments    Comment[]
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
 
-  images   Image[]
-  comments Comments[]
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  @@map("announcements")
 }
 
 model Image {
-  id     String @id @default(uuid())
-  imgUrl String @db.VarChar(255)
-
+  id             String       @id @default(uuid())
+  imgUrl         String       @db.VarChar(255)
   announcementId String
   announcement   Announcement @relation(fields: [announcementId], references: [id])
+
+  @@map("images")
 }
 
-model Comments {
-  id        String   @id @default(uuid())
-  comment   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+model Comment {
+  id             String       @id @default(uuid())
+  comment        String       @db.Text
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   announcementId String
   announcement   Announcement @relation(fields: [announcementId], references: [id])
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  @@map("comments")
 }
