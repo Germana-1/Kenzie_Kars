@@ -49,6 +49,7 @@ export const CardComponent = ({ annouce, isProfile }: IProps) => {
           position="absolute"
           left="286px"
           top="2px"
+          hidden={!annouce.isActive && true}
         >
           <TagLabel
             color={Colors.white}

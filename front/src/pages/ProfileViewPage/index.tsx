@@ -5,15 +5,14 @@ import { HeaderComponent } from "../../components/HeaderComponent";
 import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
 import { ListCardComponent } from "../../components/_deletar";
+import { Colors } from "../../styles/colors";
 
 export const ProfileViewPage = () => {
   return (
     <>
       <Flex
         flexDirection={"column"}
-        bgGradient={
-          "linear(0deg, rgba(233,236,239,1) 90%, rgba(69,41,230,1) 90%)"
-        }
+        bgGradient={`linear(0deg, ${Colors.grey8} 90%, ${Colors.brand1} 90%)`}
       >
         <HeaderComponent />
 

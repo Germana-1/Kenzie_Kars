@@ -9,14 +9,13 @@ import { FooterComponent } from "../../components/FooterComponent";
 import { ProductBannerComponent } from "../../components/ProductBannerComponent";
 import { ProductGalleryComponent } from "../../components/ProductGalleryComponent";
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
+import { Colors } from "../../styles/colors";
 
 export const ProductPage = () => {
   return (
     <>
       <Box
-        bgGradient={
-          "linear(0deg, rgba(233,236,239,1) 70%, rgba(69,41,230,1) 70%)"
-        }
+        bgGradient={`linear(0deg, ${Colors.grey8} 70%, ${Colors.brand1} 70%)`}
       >
         <HeaderComponent />
         <Container maxW="1200px" pt={"130px"}>
