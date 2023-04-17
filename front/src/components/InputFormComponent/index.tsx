@@ -8,12 +8,17 @@ import {
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import { Colors } from "../../styles/colors";
+import { ErrorComponent } from "./../ErrorComponent/index";
+import { FieldValues, UseFormRegister, FieldErrors } from "react-hook-form";
 
 interface IInputFormComponent extends InputProps {
     mask?: string;
     labelText: string;
     hasTextArea?: boolean;
     placeholderTextArea?: string;
+    register: UseFormRegister<FieldValues>;
+    name: string;
+    errors: FieldErrors<FieldValues>;
 }
 
 export const InputFormComponent = ({
@@ -21,6 +26,9 @@ export const InputFormComponent = ({
     mask,
     hasTextArea,
     placeholderTextArea,
+    register,
+    name,
+    errors,
     ...rest
 }: IInputFormComponent) => {
     return (
@@ -28,7 +36,7 @@ export const InputFormComponent = ({
             <FormLabel fontSize={14} fontWeight={500}>
                 {labelText}
             </FormLabel>
-            {!hasTextArea ? (
+            {mask ? (
                 <Input
                     as={InputMask}
                     mask={mask}
@@ -36,6 +44,16 @@ export const InputFormComponent = ({
                     fontWeight={400}
                     border={`1.5px solid ${Colors.grey7}`}
                     borderRadius={4}
+                    {...register(name)}
+                    {...rest}
+                />
+            ) : !hasTextArea ? (
+                <Input
+                    fontSize={"16px"}
+                    fontWeight={400}
+                    border={`1.5px solid ${Colors.grey7}`}
+                    borderRadius={4}
+                    {...register(name)}
                     {...rest}
                 />
             ) : (
@@ -46,8 +64,10 @@ export const InputFormComponent = ({
                     borderRadius={4}
                     resize={"none"}
                     placeholder={placeholderTextArea}
+                    {...register(name)}
                 />
             )}
+            {errors[name] && <ErrorComponent text={errors[name]?.message} />}
         </Flex>
     );
 };
