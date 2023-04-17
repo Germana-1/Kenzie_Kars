@@ -126,19 +126,19 @@ export const ButtonGray10OutlineG4 = ({ children, size }: ButtonProps) => {
   );
 };
 
-export const ButtonBrand1OutlineBrand1 = ({ children, size }: ButtonProps) => {
+export const ButtonBrand1OutlineBrand1 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
-      size={size}
       fontWeight={"600"}
       backgroundColor={Colors.grey10}
       color={Colors.brand1}
-      outline={Colors.brand1}
+      border={`1.5px solid ${Colors.brand1}`}
       _hover={{
         backgroundColor: Colors.brand4,
       }}
+      {...rest}
     >
-      {children}
+      {rest.children}
     </Button>
   );
 };
