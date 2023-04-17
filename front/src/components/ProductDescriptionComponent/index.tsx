@@ -1,10 +1,10 @@
 import { Flex, Spacer } from "@chakra-ui/react";
 
-import { TextH6 } from "../FontComponents";
-import { TextB1 } from "../FontComponents";
+import { TextH6 } from "../TextComponents";
+import { TextB1 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
 
-export const AnnounceDetailDescriptionComponent = () => {
+export const ProductDescriptionComponent = () => {
   return (
     <Flex
       direction={"column"}

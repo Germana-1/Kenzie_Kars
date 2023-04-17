@@ -1,10 +1,10 @@
 import { Flex } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
-import { TextH6 } from "../FontComponents";
+import { TextH6 } from "../TextComponents";
 import { GalleryCarousel } from "../GalleryCarouselComponent";
 
-export const AnnounceDetailGalleryComponent = () => {
+export const ProductGalleryComponent = () => {
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",

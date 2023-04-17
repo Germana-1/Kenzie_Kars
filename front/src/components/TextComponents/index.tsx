@@ -33,10 +33,15 @@ export const TextH4 = ({ children, fontWeight, color }: TextProps) => {
   );
 };
 
-export const TextH5 = ({ children, fontWeight, color }: TextProps) => {
+export const TextH5 = (props: TextProps) => {
   return (
-    <Text fontSize={FontSizes.heading5} fontWeight={fontWeight} color={color}>
-      {children}
+    <Text
+      fontSize={FontSizes.heading5}
+      fontWeight={props.fontWeight}
+      color={props.color}
+      {...props}
+    >
+      {props.children}
     </Text>
   );
 };

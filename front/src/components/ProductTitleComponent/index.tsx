@@ -1,10 +1,10 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 
 import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
-import { TextH6, TextH7 } from "../FontComponents";
+import { TextH6, TextH7 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
 
-export const AnnounceDetailTitleComponent = () => {
+export const ProductTitleComponent = () => {
   return (
     <Flex
       direction={"column"}
