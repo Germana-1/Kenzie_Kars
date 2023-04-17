@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { CardComponent } from "../../components/CardComponent";
 import { useEffect, useState } from "react";
@@ -17,7 +17,6 @@ export interface IAnnouce {
   description: string;
   banner: string;
   isGoodBuy: boolean;
-  isActive: boolean;
   user: {
     name: string;
     avatar: string;
@@ -25,7 +24,6 @@ export interface IAnnouce {
 }
 
 export const ListCardComponent = () => {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
   const [annouceList, setAnnouceList] = useState<IAnnouce[]>([]);
 
   useEffect(() => {
@@ -33,23 +31,10 @@ export const ListCardComponent = () => {
   }, []);
 
   return (
-    <Flex
-      as="ul"
-      flexWrap={isMobile ? "nowrap" : "wrap"}
-      justifyContent={isMobile ? "space-between" : "flex-end"}
-      overflowX="auto"
-      maxW={isMobile ? "100%" : "85%"}
-    >
-      {annouceList.map(
-        (annouce) =>
-          annouce.isActive && (
-            <CardComponent
-              annouce={annouce}
-              key={annouce.id}
-              isProfile={annouce.isActive}
-            />
-          )
-      )}
+    <Flex wrap={"wrap"} justifyContent={"center"}>
+      {annouceList.map((annouce) => (
+        <CardComponent annouce={annouce} key={annouce.id} />
+      ))}
     </Flex>
   );
 };
