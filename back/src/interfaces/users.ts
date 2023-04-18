@@ -34,3 +34,8 @@ export interface IAddress {
   zipCode: string;
   userId?: string;
 }
+
+export interface IUserLogin {
+  email: string;
+  password: string;
+}
