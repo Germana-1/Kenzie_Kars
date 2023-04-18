@@ -118,20 +118,20 @@ export const ButtonGray10OutlineG4 = ({ ...rest }: ButtonProps) => {
 };
 
 export const ButtonBrand1OutlineBrand1 = ({ ...rest }: ButtonProps) => {
-    return (
-        <Button
-            fontWeight={"600"}
-            backgroundColor={Colors.grey10}
-            color={Colors.brand1}
-            outline={Colors.brand1}
-            _hover={{
-                backgroundColor: Colors.brand4,
-            }}
-            {...rest}
-        >
-            {rest.children}
-        </Button>
-    );
+  return (
+    <Button
+      fontWeight={"600"}
+      backgroundColor={Colors.grey10}
+      color={Colors.brand1}
+      border={`1.5px solid ${Colors.brand1}`}
+      _hover={{
+        backgroundColor: Colors.brand4,
+      }}
+      {...rest}
+    >
+      {rest.children}
+    </Button>
+  );
 };
 
 export const ButtonTransparent = ({ ...rest }: ButtonProps) => {

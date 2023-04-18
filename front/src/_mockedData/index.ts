@@ -14,6 +14,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: false,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -35,6 +36,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: false,
+    isActive: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -56,6 +58,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -77,6 +80,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: false,
+    isActive: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -98,6 +102,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -119,6 +124,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: false,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -140,6 +146,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -161,6 +168,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -182,6 +190,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: false,
+    isActive: false,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -203,6 +212,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -224,6 +234,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: true,
     user: {
       name: "Nome do usuário",
       avatar:
@@ -245,6 +256,7 @@ export const mockedData = [
     banner:
       "https://www.automaistv.com.br/wp-content/uploads/2022/01/fiat_mobi_like_52_edited-990x594.jpg",
     isGoodBuy: true,
+    isActive: false,
     user: {
       name: "Nome do usuário",
       avatar:

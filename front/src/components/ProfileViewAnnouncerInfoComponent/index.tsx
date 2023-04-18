@@ -1,7 +1,7 @@
 import { Avatar, Flex } from "@chakra-ui/react";
 
 import { TextB1, TextH6 } from "../TextComponents";
-import { ButtonBrand4 } from "../ButtomComponents";
+import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
 
 export const ProfileViewAnnouncerInfoComponent = () => {
@@ -27,6 +27,10 @@ export const ProfileViewAnnouncerInfoComponent = () => {
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s
       </TextB1>
+
+      <ButtonBrand1OutlineBrand1 alignSelf={"flex-start"}>
+        Criar anúncio
+      </ButtonBrand1OutlineBrand1>
     </Flex>
   );
 };

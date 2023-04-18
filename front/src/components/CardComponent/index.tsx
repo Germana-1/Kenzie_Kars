@@ -11,13 +11,34 @@ import {
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
-import { IAnnouce } from "../ListCardComponent";
+import { ButtonBrand4 } from "../ButtomComponents";
 
 interface IProps {
   annouce: IAnnouce;
+  hideTag: boolean;
 }
 
-export const CardComponent = ({ annouce }: IProps) => {
+interface IAnnouce {
+  id: string;
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  color: string;
+  price: number;
+  priceFipe: number;
+  fuelType: string;
+  description: string;
+  banner: string;
+  isGoodBuy: boolean;
+  isActive: boolean;
+  user: {
+    name: string;
+    avatar: string;
+  };
+}
+
+export const CardComponent = ({ annouce, hideTag }: IProps) => {
   return (
     <Box
       minW="312px"
@@ -26,6 +47,18 @@ export const CardComponent = ({ annouce }: IProps) => {
       position="relative"
       cursor="pointer"
     >
+      <Tag
+        position={"absolute"}
+        top={"0"}
+        left={"0"}
+        borderRadius={"initial"}
+        backgroundColor={annouce.isActive ? Colors.brand1 : Colors.grey4}
+        hidden={hideTag ? true : false}
+        color={Colors.white}
+        fontSize={FontSizes.body2}
+      >
+        {annouce.isActive ? "Ativo" : "Inativo"}
+      </Tag>
       {annouce.isGoodBuy && (
         <Tag
           w="15px"
@@ -35,6 +68,7 @@ export const CardComponent = ({ annouce }: IProps) => {
           position="absolute"
           left="286px"
           top="2px"
+          hidden={!annouce.isActive && true}
         >
           <TagLabel
             color={Colors.white}
@@ -49,8 +83,12 @@ export const CardComponent = ({ annouce }: IProps) => {
       <Image
         src={annouce.banner}
         alt="Green double couch with wooden legs"
-        border={`2px solid ${Colors.grey10}`}
-        _hover={{ cursor: "pointer", border: `2px solid ${Colors.brand1}` }}
+        border={`2px solid ${Colors.grey4}`}
+        _hover={{
+          border: `2px solid ${
+            annouce.isActive ? Colors.brand1 : Colors.grey4
+          }`,
+        }}
       />
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
         <Heading size="16px">{`${annouce.brand} - ${annouce.model}`}</Heading>
@@ -70,28 +108,10 @@ export const CardComponent = ({ annouce }: IProps) => {
         </Flex>
         <Flex justifyContent="space-between">
           <Flex gap="10px">
-            <Text
-              bg={Colors.brand4}
-              color={Colors.brand1}
-              fontSize="14px"
-              fontWeight="500"
-              padding="4px"
-            >
-              {`${annouce.mileage} KM`}
-            </Text>
-            <Text
-              bg={Colors.brand4}
-              color={Colors.brand1}
-              fontSize="14px"
-              fontWeight="500"
-              padding="4px"
-            >
-              {annouce.year}
-            </Text>
+            <ButtonBrand4 size={"sm"}>{`${annouce.mileage} KM`}</ButtonBrand4>
+            <ButtonBrand4 size={"sm"}>{annouce.year}</ButtonBrand4>
           </Flex>
-          <Text fontSize="16px" fontWeight="500" color={Colors.grey1}>
-            {`R$${annouce.price}`}
-          </Text>
+          <ButtonBrand4 size={"sm"}>{`R$ ${annouce.price}`}</ButtonBrand4>
         </Flex>
       </Flex>
     </Box>
