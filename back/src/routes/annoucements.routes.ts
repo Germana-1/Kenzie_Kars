@@ -11,6 +11,7 @@ annoucementsRoutes.get("/", Controller.getAllAnnouncementController);
 annoucementsRoutes.post(
   "/",
   Middlewares.ensureAuthMiddleware,
+  Middlewares.verifyIfUserIsSeller,
   Middlewares.validateSchema(Schema.createAnnouncementSchema),
   Controller.createAnnouncementController
 );
@@ -23,14 +24,18 @@ annoucementsRoutes.get(
 
 annoucementsRoutes.patch(
   "/:id",
+  Middlewares.ensureAuthMiddleware,
   Middlewares.validateSchema(Schema.updateAnnouncementSchema),
   Middlewares.verifyNotExistAnnoucementMiddleware,
+  Middlewares.verifyIfUserIsAnnouncementOwnerMiddleware,
   Controller.updateAnnouncementController
 );
 
 annoucementsRoutes.delete(
   "/:id",
+  Middlewares.ensureAuthMiddleware,
   Middlewares.verifyNotExistAnnoucementMiddleware,
+  Middlewares.verifyIfUserIsAnnouncementOwnerMiddleware,
   Controller.deleteAnnouncementController
 );
 
