@@ -4,7 +4,7 @@ export interface IGetAllAnnoucementsResponse {
     accountType: string;
     addresses: Address[];
     announcements: Announcement[];
-    comments: Comments[];
+    comments: Comment[];
     birthdate: Date;
     cpf: string;
     createdAt: Date;

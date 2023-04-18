@@ -1,7 +1,8 @@
-import * as Interfaces from "../interfaces/annoucements";
 import * as yup from "yup";
 
-export const createAnnoucementSchema: yup.SchemaOf<Interfaces.ICreateAnnoucementRequest> =
+import * as Interfaces from "../interfaces";
+
+export const createAnnouncementSchema: yup.SchemaOf<Interfaces.ICreateAnnoucementRequest> =
   yup.object().shape({
     brand: yup.string().required(),
     model: yup.string().required(),
@@ -13,9 +14,17 @@ export const createAnnoucementSchema: yup.SchemaOf<Interfaces.ICreateAnnoucement
     fuelType: yup.string().required(),
     description: yup.string().required(),
     banner: yup.string().required(),
+    images: yup
+      .array()
+      .of(
+        yup.object().shape({
+          imgUrl: yup.string().required(),
+        })
+      )
+      .notRequired(),
   });
 
-export const updateAnnoucementSchema: yup.SchemaOf<Interfaces.IUpdateAnnoucementRequest> =
+export const updateAnnouncementSchema: yup.SchemaOf<Interfaces.IUpdateAnnoucementRequest> =
   yup.object().shape({
     brand: yup.string(),
     model: yup.string(),

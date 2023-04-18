@@ -1,23 +1,61 @@
-import { Announcement } from "@prisma/client";
+import { Announcement, Image } from "@prisma/client";
 
 import { prisma } from "../database";
 import * as Interfaces from "../interfaces";
 import * as Utils from "../utils";
 
-export const getAllAnnoucementsService = async () => {
+export const getAllAnnouncementsService = async () => {
   return await prisma.announcement.findMany({
     select: Utils.getAllAnnoucementsOptions,
   });
 };
 
-export const createAnnoucementService = async (
-  body: Announcement
-): Promise<Announcement> => {
-  return prisma.announcement.create({
-    data: {
-      ...body,
+interface IDataCreateAnnouncementRequest {
+  id: string;
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  price: number;
+  priceFipe: number;
+  fuelType: string;
+  color: string;
+  banner: string;
+  description: string;
+  isActive: boolean;
+  isGoodBuy: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  images?: any; // !Tipagem Indefinida!
+}
+
+export const createAnnouncementService = async (
+  body: IDataCreateAnnouncementRequest
+) => {
+  const images = body.images;
+  delete body.images;
+  const newAnnouncement = await prisma.announcement.create({
+    data: body,
+  });
+  if (images.length) {
+    images.forEach(async (image: Image) => {
+      return await prisma.image.create({
+        data: {
+          ...image,
+          announcementId: newAnnouncement.id,
+        },
+      });
+    });
+  }
+
+  return await prisma.announcement.findFirst({
+    where: {
+      id: newAnnouncement.id,
     },
     include: {
+      images: true,
+      comments: true,
       user: {
         select: Utils.responseBodyUser,
       },
@@ -25,7 +63,7 @@ export const createAnnoucementService = async (
   });
 };
 
-export const getOneAnnoucementService = async (
+export const getOneAnnouncementService = async (
   id: string
 ): Promise<Announcement> => {
   return await prisma.announcement.findFirst({
@@ -40,7 +78,7 @@ export const getOneAnnoucementService = async (
   });
 };
 
-export const updateAnnoucementService = async (
+export const updateAnnouncementService = async (
   id: string,
   body: Interfaces.IUpdateAnnoucementRequest
 ): Promise<Announcement> => {
@@ -52,7 +90,7 @@ export const updateAnnoucementService = async (
   });
 };
 
-export const deleteAnnoucementService = async (
+export const deleteAnnouncementService = async (
   id: string
 ): Promise<Announcement> => {
   return await prisma.announcement.delete({
