@@ -9,29 +9,29 @@ const annoucementsRoutes = Router();
 annoucementsRoutes.get("/", Controller.getAllAnnouncementController);
 
 annoucementsRoutes.post(
-    "/",
-    Middlewares.validateSchema(Schema.createAnnoucementSchema),
-    Middlewares.verifyDuplicateAnnoucementMiddleware,
-    Controller.createAnnouncementController
+  "/",
+  Middlewares.validateSchema(Schema.createAnnouncementSchema),
+  Middlewares.verifyDuplicateAnnoucementMiddleware,
+  Controller.createAnnouncementController
 );
 
 annoucementsRoutes.get(
-    "/:id",
-    Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.getOneAnnouncementController
+  "/:id",
+  Middlewares.verifyNotExistAnnoucementMiddleware,
+  Controller.getOneAnnouncementController
 );
 
 annoucementsRoutes.patch(
-    "/:id",
-    Middlewares.validateSchema(Schema.updateAnnoucementSchema),
-    Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.updateAnnouncementController
+  "/:id",
+  Middlewares.validateSchema(Schema.updateAnnouncementSchema),
+  Middlewares.verifyNotExistAnnoucementMiddleware,
+  Controller.updateAnnouncementController
 );
 
 annoucementsRoutes.delete(
-    "/:id",
-    Middlewares.verifyNotExistAnnoucementMiddleware,
-    Controller.deleteAnnouncementController
+  "/:id",
+  Middlewares.verifyNotExistAnnoucementMiddleware,
+  Controller.deleteAnnouncementController
 );
 
 export { annoucementsRoutes };
