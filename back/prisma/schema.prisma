@@ -22,8 +22,8 @@ model User {
   accountType   String         @db.VarChar(50)
   avatar        String?        @db.VarChar(100)
   createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  addresses     Address[]
+  updatedAt     DateTime       @updatedAt 
+  address       Address?      
   announcements Announcement[]
   comments      Comment[]
 
@@ -38,7 +38,7 @@ model Address {
   city       String  @db.VarChar(50)
   state      String  @db.VarChar(50)
   zipCode    String  @db.VarChar(10)
-  userId     String
+  userId     String  @unique
   user       User    @relation(fields: [userId], references: [id])
 
   @@map("addresses")
