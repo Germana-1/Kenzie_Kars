@@ -1,4 +1,5 @@
 import { Announcement, Image } from "@prisma/client";
+import { Request } from "express";
 
 import { prisma } from "../database";
 import * as Interfaces from "../interfaces";
@@ -30,29 +31,10 @@ interface IDataCreateAnnouncementRequest {
   images?: any; // !Tipagem Indefinida!
 }
 
-export const createAnnouncementService = async (
-  body: IDataCreateAnnouncementRequest
-) => {
-  const images = body.images;
-  delete body.images;
+export const createAnnouncementService = async (req: Request) => {
+  const { images, ...newBody } = req.body;
   const newAnnouncement = await prisma.announcement.create({
-    data: body,
-  });
-  if (images.length) {
-    images.forEach(async (image: Image) => {
-      return await prisma.image.create({
-        data: {
-          ...image,
-          announcementId: newAnnouncement.id,
-        },
-      });
-    });
-  }
-
-  return await prisma.announcement.findFirst({
-    where: {
-      id: newAnnouncement.id,
-    },
+    data: { ...newBody, userId: req.authUser.id },
     include: {
       images: true,
       comments: true,
@@ -61,6 +43,19 @@ export const createAnnouncementService = async (
       },
     },
   });
+
+  const imageList = await Promise.all(
+    images.map(async (image: Image) => {
+      return await prisma.image.create({
+        data: {
+          ...image,
+          announcementId: newAnnouncement.id,
+        },
+      });
+    })
+  );
+
+  return { ...newAnnouncement, images: imageList };
 };
 
 export const getOneAnnouncementService = async (

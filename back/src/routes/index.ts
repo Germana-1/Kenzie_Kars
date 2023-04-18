@@ -5,7 +5,7 @@ import { loginRoutes } from "./login.routes";
 
 const routes = Router();
 
-routes.use("/annoucements", annoucementsRoutes);
+routes.use("/announcements", annoucementsRoutes);
 routes.use("/users", usersRoutes);
 routes.use("/login", loginRoutes);
 
