@@ -1,4 +1,4 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 
 import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -9,47 +9,44 @@ import { FooterComponent } from "../../components/FooterComponent";
 import { ProductBannerComponent } from "../../components/ProductBannerComponent";
 import { ProductGalleryComponent } from "../../components/ProductGalleryComponent";
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
-import { Colors } from "../../styles/colors";
+import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
 
 export const ProductPage = () => {
   return (
     <>
-      <Box
-        bgGradient={`linear(0deg, ${Colors.grey8} 70%, ${Colors.brand1} 70%)`}
-      >
-        <HeaderComponent />
-        <Container maxW="1200px" pt={"130px"}>
-          <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
-            <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
-              <ProductBannerComponent />
-              <ProductTitleComponent />
-              <ProductDescriptionComponent />
-            </Flex>
-
-            <Flex
-              direction={"column"}
-              gap={"25px"}
-              w={{ sm: "750px", xl: "380px" }}
-              maxW={"100%"}
-            >
-              <ProductGalleryComponent />
-              <ProductAnnouncerInfoComponent />
-            </Flex>
+      <HeaderComponent />
+      <PurpleBackgroundComponent />
+      <Container maxW="1200px" pt={"130px"}>
+        <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
+          <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
+            <ProductBannerComponent />
+            <ProductTitleComponent />
+            <ProductDescriptionComponent />
           </Flex>
 
           <Flex
             direction={"column"}
             gap={"25px"}
-            mt={"25px"}
-            maxW={"750px"}
-            mx={{ md: "auto", xl: "initial" }}
+            w={{ sm: "750px", xl: "380px" }}
+            maxW={"100%"}
           >
-            <ProductCommentsComponent />
-            <ProductUserCommentComponent />
+            <ProductGalleryComponent />
+            <ProductAnnouncerInfoComponent />
           </Flex>
-        </Container>
-        <FooterComponent />
-      </Box>
+        </Flex>
+
+        <Flex
+          direction={"column"}
+          gap={"25px"}
+          mt={"25px"}
+          maxW={"750px"}
+          mx={{ md: "auto", xl: "initial" }}
+        >
+          <ProductCommentsComponent />
+          <ProductUserCommentComponent />
+        </Flex>
+      </Container>
+      <FooterComponent />
     </>
   );
 };
