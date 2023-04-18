@@ -6,6 +6,7 @@ export const ButtonGray0 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.grey0}
       color={Colors.white}
       _hover={{
@@ -22,6 +23,7 @@ export const ButtonGray6 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.grey6}
       color={Colors.grey2}
       _hover={{
@@ -38,6 +40,7 @@ export const ButtonGray5 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.grey5}
       color={Colors.grey2}
       {...rest}
@@ -69,6 +72,7 @@ export const ButtonBrand4 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.brand4}
       color={Colors.brand1}
       _hover={{
@@ -85,6 +89,7 @@ export const ButtonGray10 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.grey10}
       color={Colors.grey0}
       outline={`1.5px solid ${Colors.grey0}`}
@@ -102,6 +107,7 @@ export const ButtonGray10OutlineG4 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.white}
       color={Colors.grey0}
       outline={Colors.grey4}
@@ -121,6 +127,7 @@ export const ButtonBrand1OutlineBrand1 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.grey10}
       color={Colors.brand1}
       border={`1.5px solid ${Colors.brand1}`}
@@ -138,6 +145,7 @@ export const ButtonTransparent = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor="transparent"
       color={Colors.grey0}
       _hover={{
@@ -154,6 +162,7 @@ export const ButtonAlert3 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.alert3}
       color={Colors.alert1}
       {...rest}
@@ -167,6 +176,7 @@ export const ButtonSuccess3 = ({ ...rest }: ButtonProps) => {
   return (
     <Button
       fontWeight={600}
+      borderRadius={"4px"}
       backgroundColor={Colors.success3}
       color={Colors.success1}
       {...rest}
