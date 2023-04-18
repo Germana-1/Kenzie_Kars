@@ -4,8 +4,8 @@ import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
 import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
-import { ListCardComponent } from "../../components/_deletar";
 import { Colors } from "../../styles/colors";
+import { ListCardComponent } from "../../components/ListCardComponent";
 
 export const ProfileViewPage = () => {
   return (
@@ -23,7 +23,7 @@ export const ProfileViewPage = () => {
             Anúncios
           </TextH5>
 
-          <ListCardComponent />
+          <ListCardComponent filterActive={false} hideTag={false} />
         </Container>
 
         <FooterComponent />

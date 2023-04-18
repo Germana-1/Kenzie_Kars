@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex } from "@chakra-ui/react";
+import { Avatar, Flex } from "@chakra-ui/react";
 
 import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";

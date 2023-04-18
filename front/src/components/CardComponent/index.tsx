@@ -11,15 +11,34 @@ import {
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
-import { IAnnouce } from "../ListCardComponent";
 import { ButtonBrand4 } from "../ButtomComponents";
 
 interface IProps {
   annouce: IAnnouce;
-  isProfile: boolean;
+  hideTag: boolean;
 }
 
-export const CardComponent = ({ annouce, isProfile }: IProps) => {
+interface IAnnouce {
+  id: string;
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  color: string;
+  price: number;
+  priceFipe: number;
+  fuelType: string;
+  description: string;
+  banner: string;
+  isGoodBuy: boolean;
+  isActive: boolean;
+  user: {
+    name: string;
+    avatar: string;
+  };
+}
+
+export const CardComponent = ({ annouce, hideTag }: IProps) => {
   return (
     <Box
       minW="312px"
@@ -34,7 +53,7 @@ export const CardComponent = ({ annouce, isProfile }: IProps) => {
         left={"0"}
         borderRadius={"initial"}
         backgroundColor={annouce.isActive ? Colors.brand1 : Colors.grey4}
-        hidden={isProfile ? true : false}
+        hidden={hideTag ? true : false}
         color={Colors.white}
         fontSize={FontSizes.body2}
       >

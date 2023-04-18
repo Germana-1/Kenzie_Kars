@@ -35,7 +35,7 @@ export const HomePage = () => {
         <Show above="768px">
           <ListFiltersComponent />
         </Show>
-        <ListCardComponent />
+        <ListCardComponent filterActive hideTag />
         <Show below="768px">
           <Flex margin="90px" alignItems="center">
             <ButtonBrand1 width="279px" onClick={onOpen}>

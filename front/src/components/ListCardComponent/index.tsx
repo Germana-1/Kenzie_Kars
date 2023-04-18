@@ -1,55 +1,42 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { CardComponent } from "../../components/CardComponent";
-import { useEffect, useState } from "react";
 import { mockedData } from "../../_mockedData";
 
-export interface IAnnouce {
-  id: string;
-  brand: string;
-  model: string;
-  year: number;
-  mileage: number;
-  color: string;
-  price: number;
-  priceFipe: number;
-  fuelType: string;
-  description: string;
-  banner: string;
-  isGoodBuy: boolean;
-  isActive: boolean;
-  user: {
-    name: string;
-    avatar: string;
-  };
+interface IListCardComponent {
+  filterActive: boolean;
+  hideTag: boolean;
 }
 
-export const ListCardComponent = () => {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
-  const [annouceList, setAnnouceList] = useState<IAnnouce[]>([]);
-
-  useEffect(() => {
-    setAnnouceList(mockedData);
-  }, []);
-
+export const ListCardComponent = ({
+  filterActive,
+  hideTag,
+}: IListCardComponent) => {
   return (
     <Flex
-      as="ul"
-      flexWrap={isMobile ? "nowrap" : "wrap"}
-      justifyContent={isMobile ? "space-between" : "flex-end"}
-      overflowX="auto"
-      maxW={isMobile ? "100%" : "85%"}
+      justifyContent={{ sm: "space-between", lg: "flex-end" }}
+      wrap={{ sm: "nowrap", lg: "wrap" }}
+      overflowX={"auto"}
+      maxW={"100%"}
     >
-      {annouceList.map(
-        (annouce) =>
-          annouce.isActive && (
+      {filterActive
+        ? mockedData.map(
+            (annouce) =>
+              annouce.isActive && (
+                <CardComponent
+                  annouce={annouce}
+                  hideTag={hideTag}
+                  key={annouce.id}
+                />
+              )
+          )
+        : mockedData.map((annouce) => (
             <CardComponent
               annouce={annouce}
+              hideTag={hideTag}
               key={annouce.id}
-              isProfile={annouce.isActive}
             />
-          )
-      )}
+          ))}
     </Flex>
   );
 };
