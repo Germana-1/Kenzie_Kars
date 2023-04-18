@@ -1,4 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { TextB1 } from "../TextComponents";
 
 interface IError {
     text: any;
@@ -7,7 +8,7 @@ interface IError {
 export const ErrorComponent = ({ text }: IError) => {
     return (
         <Flex justifyContent={"flex-start"} alignItems={"center"} py={2}>
-            <Text fontWeight={500}>* {text}</Text>
+            <TextB1 fontWeight={500}>* {text}</TextB1>
         </Flex>
     );
 };
