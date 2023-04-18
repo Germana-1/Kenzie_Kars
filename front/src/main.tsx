@@ -10,9 +10,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider>
-        <GlobalStyle>
-          <App />
-        </GlobalStyle>
+        <GlobalStyle />
+        <App />
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>
