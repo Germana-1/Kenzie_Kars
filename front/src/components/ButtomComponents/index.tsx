@@ -53,7 +53,7 @@ export const ButtonBrand1 = ({ isDisabled, onClick, ...rest }: ButtonProps) => {
       isDisabled={isDisabled}
       fontWeight={600}
       backgroundColor={isDisabled ? Colors.brand3 : Colors.brand1}
-      color={Colors.white}
+      color={isDisabled ? Colors.brand4 : Colors.white}
       _hover={{
         backgroundColor: isDisabled ? Colors.brand3 : Colors.brand2,
       }}
@@ -169,19 +169,6 @@ export const ButtonSuccess3 = ({ ...rest }: ButtonProps) => {
       fontWeight={600}
       backgroundColor={Colors.success3}
       color={Colors.success1}
-      {...rest}
-    >
-      {rest.children}
-    </Button>
-  );
-};
-
-export const ButtonBrand3Disable = ({ ...rest }: ButtonProps) => {
-  return (
-    <Button
-      fontWeight={600}
-      backgroundColor={Colors.brand3}
-      color={Colors.brand4}
       {...rest}
     >
       {rest.children}
