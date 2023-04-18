@@ -10,8 +10,8 @@ annoucementsRoutes.get("/", Controller.getAllAnnouncementController);
 
 annoucementsRoutes.post(
   "/",
+  Middlewares.ensureAuthMiddleware,
   Middlewares.validateSchema(Schema.createAnnouncementSchema),
-  Middlewares.verifyDuplicateAnnoucementMiddleware,
   Controller.createAnnouncementController
 );
 
