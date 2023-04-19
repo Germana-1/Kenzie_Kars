@@ -72,7 +72,7 @@ model Image {
   id             String       @id @default(uuid())
   imgUrl         String       @db.VarChar(255)
   announcementId String
-  announcement   Announcement @relation(fields: [announcementId], references: [id])
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
 
   @@map("images")
 }
@@ -83,7 +83,7 @@ model Comment {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   announcementId String
-  announcement   Announcement @relation(fields: [announcementId], references: [id])
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
   userId         String
   user           User         @relation(fields: [userId], references: [id])
 
