@@ -15,10 +15,10 @@ export const verifyDuplicateUserMiddleware = async (
   });
   if (existUser) {
     if (existUser.cpf === req.body.cpf) {
-      throw new AppError("CPF Already Exists");
+      throw new AppError("CPF Already Exists", 409);
     }
     if (existUser.email === req.body.email) {
-      throw new AppError("Email Already Exists");
+      throw new AppError("Email Already Exists", 409);
     }
   }
 
