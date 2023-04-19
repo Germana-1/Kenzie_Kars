@@ -8,7 +8,7 @@ import { HeaderComponent } from "./../../components/HeaderComponent/";
 import { FooterComponent } from "./../../components/FooterComponent/";
 import { TextH5, TextBMT } from "./../../components/TextComponents/";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
-import { loginUserSchema } from "../../schemas/login.schema";
+import { loginUserSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";
 import { Colors } from "../../styles/colors";
 
