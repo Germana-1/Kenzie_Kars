@@ -13,86 +13,90 @@ import { Link, useNavigate } from "react-router-dom";
 import { Colors } from "../../styles/colors";
 
 const formStyle = {
-    width: "100%",
-    maxWidth: "400px",
-    display: "flex",
-    gap: 24,
+  width: "100%",
+  maxWidth: "400px",
+  display: "flex",
+  gap: 24,
 };
 
 export const LoginPage = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(loginUserSchema),
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginUserSchema),
+  });
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const loginUserForm = (data: {}) => {
-        console.log(data);
-    };
-    return (
-        <>
-            <HeaderComponent />
-            <Flex
-                w={"full"}
-                minH={"100vh"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                py={150}
-            >
-                <Flex
-                    flexDir={"column"}
-                    gap={30}
-                    px={5}
-                    w={"full"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                >
-                    <TextH5 fontWeight={800}>Login</TextH5>
-                    <form
-                        onSubmit={handleSubmit(loginUserForm)}
-                        style={{ ...formStyle, flexDirection: "column" }}
-                    >
-                        <Flex flexDir={"column"} gap={5}>
-                            <InputFormComponent
-                                labelText={"Email"}
-                                placeholder={"Ex: samuel@kenzie.com.br"}
-                                register={register}
-                                errors={errors}
-                                name="email"
-                            />
-                            <InputFormComponent
-                                labelText={"Senha"}
-                                placeholder={"Digitar senha"}
-                                type={"password"}
-                                register={register}
-                                errors={errors}
-                                name="password"
-                            />
-                        </Flex>
-                        <Flex justifyContent={"flex-end"}>
-                            <Link to="">Esqueci minha senha</Link>
-                        </Flex>
-                        <ButtonBrand1 h={"50px"} type="submit">
-                            Entrar
-                        </ButtonBrand1>
-                        <Flex justifyContent={"center"}>
-                            <TextBMT>Ainda não possui conta?</TextBMT>
-                        </Flex>
-                        <ButtonGray10OutlineG4
-                            h={"50px"}
-                            onClick={() => navigate("/register")}
-                            border={`1.5px solid ${Colors.grey4}`}
-                        >
-                            Cadastrar
-                        </ButtonGray10OutlineG4>
-                    </form>
-                </Flex>
+  const loginUserForm = (data: {}) => {
+    console.log(data);
+  };
+  return (
+    <>
+      <HeaderComponent />
+      <Flex
+        w={"full"}
+        minH={"100vh"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        p={"150px 40px 0px 40px"}
+      >
+        <Flex
+          flexDir={"column"}
+          gap={30}
+          p={"32px"}
+          borderRadius={"4px"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          backgroundColor={Colors.white}
+          fontFamily={"Lexend"}
+        >
+          <TextH5 fontWeight={800} alignSelf={"flex-start"}>
+            Login
+          </TextH5>
+          <form
+            onSubmit={handleSubmit(loginUserForm)}
+            style={{ ...formStyle, flexDirection: "column" }}
+          >
+            <Flex flexDir={"column"} gap={5}>
+              <InputFormComponent
+                labelText={"Email"}
+                placeholder={"Ex: samuel@kenzie.com.br"}
+                register={register}
+                errors={errors}
+                name="email"
+              />
+              <InputFormComponent
+                labelText={"Senha"}
+                placeholder={"Digitar senha"}
+                type={"password"}
+                register={register}
+                errors={errors}
+                name="password"
+              />
             </Flex>
-            <FooterComponent />
-        </>
-    );
+            <Flex justifyContent={"flex-end"}>
+              <Link to="">Esqueci minha senha</Link>
+            </Flex>
+            <ButtonBrand1 h={"50px"} type="submit">
+              Entrar
+            </ButtonBrand1>
+            <Flex justifyContent={"center"}>
+              <TextBMT>Ainda não possui conta?</TextBMT>
+            </Flex>
+            <ButtonGray10OutlineG4
+              h={"50px"}
+              onClick={() => navigate("/register")}
+              border={`1.5px solid ${Colors.grey4}`}
+            >
+              Cadastrar
+            </ButtonGray10OutlineG4>
+          </form>
+        </Flex>
+      </Flex>
+      <FooterComponent />
+    </>
+  );
 };
