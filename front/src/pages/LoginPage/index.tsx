@@ -32,6 +32,7 @@ export const LoginPage = () => {
 
   const loginUserForm = (data: {}) => {
     console.log(data);
+    navigate("/profile");
   };
   return (
     <>
@@ -41,12 +42,13 @@ export const LoginPage = () => {
         minH={"100vh"}
         justifyContent={"center"}
         alignItems={"center"}
-        p={"150px 40px 0px 40px"}
+        p={"100px 40px 0px 40px"}
       >
         <Flex
           flexDir={"column"}
           gap={30}
           p={"32px"}
+          w={"464px"}
           borderRadius={"4px"}
           justifyContent={"center"}
           alignItems={"center"}

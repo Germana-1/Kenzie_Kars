@@ -14,6 +14,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 
 import { Colors } from "../../styles/colors";
 import logo from "../../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 export const HeaderComponent = () => {
   return (
@@ -31,27 +32,33 @@ export const HeaderComponent = () => {
         zIndex="10000"
       >
         <Box flex="1" mr={5}>
-          <img src={logo} alt="logo" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" />
+          </Link>
         </Box>
         <>
           <Show above="768px">
             <ButtonGroup>
-              <Button
-                color={Colors.grey2}
-                variant="ghost"
-                _focus={{ color: Colors.brand1, bg: "transparent" }}
-              >
-                Fazer Login
-              </Button>
-              <Button
-                color={Colors.grey0}
-                variant="outline"
-                borderRadius="4px"
-                borderColor={Colors.grey4}
-                _focus={{ bg: "transparent" }}
-              >
-                Cadastrar
-              </Button>
+              <Link to={"/login"}>
+                <Button
+                  color={Colors.grey2}
+                  variant="ghost"
+                  _focus={{ color: Colors.brand1, bg: "transparent" }}
+                >
+                  Fazer Login
+                </Button>
+              </Link>
+              <Link to={"/register"}>
+                <Button
+                  color={Colors.grey0}
+                  variant="outline"
+                  borderRadius="4px"
+                  borderColor={Colors.grey4}
+                  _focus={{ bg: "transparent" }}
+                >
+                  Cadastrar
+                </Button>
+              </Link>
             </ButtonGroup>
           </Show>
           <Show below="768px">

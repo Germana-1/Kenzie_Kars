@@ -75,7 +75,7 @@ export const RegisterPage = () => {
         minH={"100vh"}
         justifyContent={"center"}
         alignItems={"center"}
-        py={150}
+        p={"125px 40px 0px 40px"}
       >
         <Flex
           flexDir={"column"}
