@@ -21,7 +21,11 @@ export const ProfileViewPage = () => {
           Anúncios
         </TextH5>
 
-        <ListCardComponent filterActive={false} hideTag={false} />
+        <ListCardComponent
+          filterActive={false}
+          hideTag={false}
+          justify={"center"}
+        />
       </Container>
 
       <FooterComponent />
