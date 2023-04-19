@@ -9,6 +9,8 @@ import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
 import { registerUserSchema } from "../../schemas";
 import { ErrorComponent } from "./../../components/ErrorComponent/index";
 import { FooterComponent } from "./../../components/FooterComponent/index";
+import { TextH5 } from "./../../components/TextComponents";
+import { TextH7 } from "./../../components/TextComponents/index";
 
 const formStyle = {
     width: "100%",
@@ -57,6 +59,7 @@ export const RegisterPage = () => {
     });
 
     const registerUserForm = (data: any) => {
+        if (!optionIsBuyer && !optionIsAdvertiser) return;
         const dataUpdate = {
             ...data,
             account_type: optionIsBuyer ? "buyer" : "advertiser",
@@ -75,17 +78,15 @@ export const RegisterPage = () => {
                 py={150}
             >
                 <Flex flexDir={"column"} gap={30} px={5}>
-                    <Text fontSize={24} fontWeight={500}>
-                        Cadastro
-                    </Text>
+                    <TextH5 fontWeight={500}>Cadastro</TextH5>
                     <form
                         onSubmit={handleSubmit(registerUserForm)}
                         style={{ ...formStyle, flexDirection: "column" }}
                     >
                         <Flex flexDir={"column"} gap={5}>
-                            <Text fontSize={14} fontWeight={500}>
+                            <TextH7 fontWeight={500}>
                                 Informações Pessoais
-                            </Text>
+                            </TextH7>
                             <InputFormComponent
                                 labelText={"Nome"}
                                 placeholder={"Ex: Samuel Leão"}
@@ -134,9 +135,9 @@ export const RegisterPage = () => {
                             />
                         </Flex>
                         <Flex flexDir={"column"} gap={5}>
-                            <Text fontSize={14} fontWeight={500}>
+                            <TextH7 fontWeight={500}>
                                 Informações de Endereço
-                            </Text>
+                            </TextH7>
                             <InputFormComponent
                                 mask={"99999.999"}
                                 labelText={"CEP"}
@@ -195,9 +196,7 @@ export const RegisterPage = () => {
                             </Flex>
                         </Flex>
                         <Flex flexDir={"column"} gap={5}>
-                            <Text fontSize={14} fontWeight={500}>
-                                Tipos de conta
-                            </Text>
+                            <TextH7 fontWeight={500}>Tipos de conta</TextH7>
                             <FormControl isRequired isInvalid={isError}>
                                 <Flex gap={3}>
                                     <ButtonBrand1
@@ -224,6 +223,7 @@ export const RegisterPage = () => {
                             <InputFormComponent
                                 labelText={"Senha"}
                                 placeholder={"Digitar senha"}
+                                type={"password"}
                                 register={register}
                                 errors={errors}
                                 name="password"
@@ -231,6 +231,7 @@ export const RegisterPage = () => {
                             <InputFormComponent
                                 labelText={"Confirmar senha"}
                                 placeholder={"Digitar senha"}
+                                type={"password"}
                                 register={register}
                                 errors={errors}
                                 name="confirm_password"
