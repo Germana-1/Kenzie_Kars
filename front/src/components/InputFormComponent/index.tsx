@@ -9,7 +9,7 @@ interface IInputFormComponent extends InputProps {
   labelText: string;
   hasTextArea?: boolean;
   placeholderTextArea?: string;
-  register: UseFormRegister<FieldValues>;
+  register: any;
   name: string;
   errors: FieldErrors<FieldValues>;
 }
