@@ -1,3 +1,5 @@
+import * as Interface from "../interfaces";
+
 export interface IUser {
   name: string;
   email: string;
@@ -18,4 +20,9 @@ export interface IUser {
 
 export interface IUserContext {
   user: IUser | undefined;
+  session: (data: Interface.ILoginUserRequest) => void;
+}
+
+export interface IUserContextProps {
+  children: React.ReactNode;
 }

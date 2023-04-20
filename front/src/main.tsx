@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 
 import { App } from "./App";
 import { GlobalStyle } from "./styles/global";
-import { UserProvider } from "./contexts/UserContext";
+import { UserProvider } from "./contexts/userContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

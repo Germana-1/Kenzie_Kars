@@ -1,4 +1,4 @@
-import { RoutesMain } from "./routes";
+import { RoutesMain } from "./pages/routes";
 
 export const App = () => {
   return (

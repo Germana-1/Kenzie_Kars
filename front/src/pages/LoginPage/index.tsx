@@ -1,6 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Flex } from "@chakra-ui/react";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { ButtonGray10OutlineG4 } from "./../../components/ButtomComponents/";
 import { InputFormComponent } from "./../../components/InputFormComponent/";
@@ -9,8 +11,9 @@ import { FooterComponent } from "./../../components/FooterComponent/";
 import { TextH5, TextBMT } from "./../../components/TextComponents/";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
 import { loginUserSchema } from "../../schemas";
-import { Link, useNavigate } from "react-router-dom";
 import { Colors } from "../../styles/colors";
+import { UserContext } from "../../contexts/userContext";
+import * as Interface from "../../../../back/src/interfaces";
 
 const formStyle = {
   width: "100%",
@@ -20,20 +23,19 @@ const formStyle = {
 };
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const { session } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Interface.IUserLogin>({
     resolver: yupResolver(loginUserSchema),
   });
 
-  const navigate = useNavigate();
+  const formSubmit = (data: Interface.IUserLogin) => session(data);
 
-  const loginUserForm = (data: {}) => {
-    console.log(data);
-    navigate("/profile");
-  };
   return (
     <>
       <HeaderComponent />
@@ -59,7 +61,7 @@ export const LoginPage = () => {
             Login
           </TextH5>
           <form
-            onSubmit={handleSubmit(loginUserForm)}
+            onSubmit={handleSubmit(formSubmit)}
             style={{ ...formStyle, flexDirection: "column" }}
           >
             <Flex flexDir={"column"} gap={5}>
@@ -69,6 +71,8 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="email"
+                value={"teste@gmail.com"}
+                autoComplete="off"
               />
               <InputFormComponent
                 labelText={"Senha"}
@@ -77,6 +81,7 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="password"
+                value={"f12345678!"}
               />
             </Flex>
             <Flex justifyContent={"flex-end"}>
