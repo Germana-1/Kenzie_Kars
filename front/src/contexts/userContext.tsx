@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { api } from "../services/api";
@@ -11,6 +11,15 @@ export const UserContext = createContext<Interface.IUserContext>(
 export const UserProvider = ({ children }: Interface.IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<Interface.IUser>();
+
+  useEffect(() => {
+    const userId = async () => {
+      const token = localStorage.getItem("@kenzieToken");
+
+      if (token) {
+      }
+    };
+  }, []);
 
   async function userSession(data: Interface.ILoginUserRequest) {
     try {
@@ -38,9 +47,7 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     }
   }
 
-  async function userListOne() {
-    
-  }
+  async function userListOne() {}
 
   return (
     <UserContext.Provider value={{ user, userSession, userRegister }}>
