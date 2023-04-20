@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { api } from "../services/api";
@@ -11,6 +11,23 @@ export const UserContext = createContext<Interface.IUserContext>(
 export const UserProvider = ({ children }: Interface.IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<Interface.IUser>();
+
+  useEffect(() => {
+    const token = localStorage.getItem("@kenzieToken");
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    userAuth();
+  }, []);
+
+  async function userAuth() {
+    try {
+      const res = await api.get("/users/profile");
+
+      setUser(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function userSession(data: Interface.ILoginUserRequest) {
     try {
@@ -36,10 +53,6 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  async function userListOne() {
-    
   }
 
   return (

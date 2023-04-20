@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
-import { HomePage } from "../HomePage";
-import { RegisterPage } from "../RegisterPage";
-import { ProductPage } from "../ProductPage";
-import { ProfileViewPage } from "../ProfileViewPage";
-import { LoginPage } from "../LoginPage";
+import { HomePage } from "../pages/HomePage";
+import { RegisterPage } from "../pages/RegisterPage";
+import { ProductPage } from "../pages/ProductPage";
+import { ProfileViewPage } from "../pages/ProfileViewPage";
+import { LoginPage } from "../pages/LoginPage";
 
 export const RoutesMain = () => {
   return (
