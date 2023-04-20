@@ -13,4 +13,10 @@ usersRoutes.post(
   Controller.createUserController
 );
 
+usersRoutes.get(
+  "/:id",
+  Middlewares.ensureAuthMiddleware,
+  Controller.getOneUserController
+);
+
 export { usersRoutes };
