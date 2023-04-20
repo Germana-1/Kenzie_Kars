@@ -8,6 +8,6 @@ export const createUserController = async (req: Request, res: Response) => {
 };
 
 export const getOneUserController = async (req: Request, res: Response) => {
-  const data = await Service.getOneUserService(req.params.id);
+  const data = await Service.getOneUserService(req.authUser.id);
   return res.json(data);
 };
