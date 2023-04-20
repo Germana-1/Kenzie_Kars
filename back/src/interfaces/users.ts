@@ -1,3 +1,5 @@
+import { Announcement, Comment } from "@prisma/client";
+
 export interface ICreateUserRequest {
   name: string;
   email: string;
@@ -38,4 +40,19 @@ export interface IAddress {
 export interface IUserLogin {
   email: string;
   password: string;
+}
+
+export interface IGetUserResponse {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  birthdate: Date;
+  description?: string;
+  accountType: string;
+  avatar?: string | null;
+  address: IAddress;
+  announcements: Announcement[];
+  comments: Comment[];
 }
