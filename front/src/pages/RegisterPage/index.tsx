@@ -1,7 +1,7 @@
 import { Flex, FormControl, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
 import { InputFormComponent } from "./../../components/InputFormComponent/index";
@@ -12,6 +12,7 @@ import { FooterComponent } from "./../../components/FooterComponent/index";
 import { TextH5 } from "./../../components/TextComponents";
 import { TextH7 } from "./../../components/TextComponents/index";
 import { Colors } from "../../styles/colors";
+import { UserContext } from "../../contexts/userContext";
 
 const formStyle = {
   width: "100%",
@@ -21,6 +22,7 @@ const formStyle = {
 };
 
 export const RegisterPage = () => {
+  const { userRegister } = useContext(UserContext);
   const [isError, setIsError] = useState<boolean>(true);
 
   const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
@@ -64,7 +66,8 @@ export const RegisterPage = () => {
       ...data,
       account_type: optionIsBuyer ? "buyer" : "advertiser",
     };
-    console.log(dataUpdate);
+
+    userRegister(dataUpdate);
   };
 
   return (
@@ -96,6 +99,7 @@ export const RegisterPage = () => {
                 labelText={"Nome"}
                 placeholder={"Ex: Samuel Leão"}
                 name="name"
+                autoComplete="off"
                 register={register}
                 errors={errors}
               />
@@ -105,6 +109,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="email"
+                autoComplete="off"
               />
               <InputFormComponent
                 mask={"999.999.999-99"}
@@ -113,6 +118,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="cpf"
+                autoComplete="off"
               />
               <InputFormComponent
                 mask={"(99) 99999-9999"}
@@ -121,6 +127,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="phone"
+                autoComplete="off"
               />
               <InputFormComponent
                 mask={"99/99/9999"}
@@ -129,6 +136,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="birthdate"
+                autoComplete="off"
               />
               <InputFormComponent
                 hasTextArea={true}
@@ -137,6 +145,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="description"
+                autoComplete="off"
               />
             </Flex>
             <Flex flexDir={"column"} gap={5}>
@@ -148,6 +157,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="cep"
+                autoComplete="off"
               />
               <Flex gap={3}>
                 <Flex flexDir={"column"} gap={2}>
@@ -157,6 +167,7 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors}
                     name="state"
+                    autoComplete="off"
                   />
                 </Flex>
                 <Flex flexDir={"column"} gap={2}>
@@ -166,6 +177,7 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors}
                     name="city"
+                    autoComplete="off"
                   />
                 </Flex>
               </Flex>
@@ -175,6 +187,7 @@ export const RegisterPage = () => {
                 register={register}
                 errors={errors}
                 name="street"
+                autoComplete="off"
               />
               <Flex gap={3}>
                 <Flex flexDir={"column"} gap={2}>
@@ -185,6 +198,7 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors}
                     name="house_number"
+                    autoComplete="off"
                   />
                 </Flex>
                 <Flex flexDir={"column"} gap={2}>
@@ -194,6 +208,7 @@ export const RegisterPage = () => {
                     register={register}
                     errors={errors}
                     name="complement"
+                    autoComplete="off"
                   />
                 </Flex>
               </Flex>

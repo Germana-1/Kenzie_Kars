@@ -24,7 +24,7 @@ const formStyle = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { session } = useContext(UserContext);
+  const { userSession } = useContext(UserContext);
 
   const {
     register,
@@ -34,7 +34,7 @@ export const LoginPage = () => {
     resolver: yupResolver(loginUserSchema),
   });
 
-  const formSubmit = (data: Interface.IUserLogin) => session(data);
+  const formSubmit = (data: Interface.IUserLogin) => userSession(data);
 
   return (
     <>

@@ -20,7 +20,8 @@ export interface IUser {
 
 export interface IUserContext {
   user: IUser | undefined;
-  session: (data: Interface.ILoginUserRequest) => void;
+  userSession: (data: Interface.ILoginUserRequest) => void;
+  userRegister: (data: Interface.IRegisterUserRequest) => void;
 }
 
 export interface IUserContextProps {
