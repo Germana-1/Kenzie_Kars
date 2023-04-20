@@ -13,13 +13,21 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
   const [user, setUser] = useState<Interface.IUser>();
 
   useEffect(() => {
-    const userId = async () => {
-      const token = localStorage.getItem("@kenzieToken");
+    const token = localStorage.getItem("@kenzieToken");
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      if (token) {
-      }
-    };
+    userAuth();
   }, []);
+
+  async function userAuth() {
+    try {
+      const res = await api.get("/users/profile");
+
+      setUser(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function userSession(data: Interface.ILoginUserRequest) {
     try {
@@ -46,8 +54,6 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
       console.log(error);
     }
   }
-
-  async function userListOne() {}
 
   return (
     <UserContext.Provider value={{ user, userSession, userRegister }}>
