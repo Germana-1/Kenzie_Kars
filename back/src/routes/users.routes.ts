@@ -14,7 +14,7 @@ usersRoutes.post(
 );
 
 usersRoutes.get(
-  "/:id",
+  "/profile",
   Middlewares.ensureAuthMiddleware,
   Controller.getOneUserController
 );
