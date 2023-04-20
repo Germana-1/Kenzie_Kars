@@ -6,15 +6,17 @@ import { mockedData } from "../../_mockedData";
 interface IListCardComponent {
   filterActive: boolean;
   hideTag: boolean;
+  justify: string;
 }
 
 export const ListCardComponent = ({
   filterActive,
   hideTag,
+  justify,
 }: IListCardComponent) => {
   return (
     <Flex
-      justifyContent={{ sm: "space-between", lg: "flex-end" }}
+      justifyContent={{ sm: "space-between", lg: justify || "flex-end" }}
       wrap={{ sm: "nowrap", lg: "wrap" }}
       overflowX={"auto"}
       maxW={"100%"}

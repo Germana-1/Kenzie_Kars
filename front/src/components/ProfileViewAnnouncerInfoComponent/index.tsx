@@ -14,6 +14,8 @@ export const ProfileViewAnnouncerInfoComponent = () => {
         direction={"column"}
         gap={"20px"}
         p={"28px 44px"}
+        w={{ sm: "100%", lg: "80%" }}
+        m={"0 auto"}
         borderRadius={"4px"}
         backgroundColor={Colors.grey10}
       >
