@@ -1,12 +1,13 @@
 import { Flex } from "@chakra-ui/react";
+import { useContext } from "react";
 
-import { CardComponent } from "../../components/CardComponent";
-import { mockedData } from "../../_mockedData";
+import { CardComponent, IAnnounce } from "../../components/CardComponent";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 interface IListCardComponent {
   filterActive: boolean;
   hideTag: boolean;
-  justify: string;
+  justify?: string;
 }
 
 export const ListCardComponent = ({
@@ -14,31 +15,35 @@ export const ListCardComponent = ({
   hideTag,
   justify,
 }: IListCardComponent) => {
+  const { announcements } = useContext(AnnouncementContext);
+
   return (
-    <Flex
-      justifyContent={{ sm: "space-between", lg: justify || "flex-end" }}
-      wrap={{ sm: "nowrap", lg: "wrap" }}
-      overflowX={"auto"}
-      maxW={"100%"}
-    >
-      {filterActive
-        ? mockedData.map(
-            (annouce) =>
-              annouce.isActive && (
-                <CardComponent
-                  annouce={annouce}
-                  hideTag={hideTag}
-                  key={annouce.id}
-                />
-              )
-          )
-        : mockedData.map((annouce) => (
-            <CardComponent
-              annouce={annouce}
-              hideTag={hideTag}
-              key={annouce.id}
-            />
-          ))}
-    </Flex>
+    announcements && (
+      <Flex
+        justifyContent={{ sm: "space-between", md: justify || "flex-end" }}
+        wrap={{ sm: "nowrap", md: "wrap" }}
+        overflowX={"auto"}
+        maxW={"100%"}
+      >
+        {filterActive
+          ? announcements.map(
+              (announce: IAnnounce) =>
+                announce.isActive && (
+                  <CardComponent
+                    announce={announce}
+                    hideTag={hideTag}
+                    key={announce.id}
+                  />
+                )
+            )
+          : announcements.map((announce: IAnnounce) => (
+              <CardComponent
+                announce={announce}
+                hideTag={hideTag}
+                key={announce.id}
+              />
+            ))}
+      </Flex>
+    )
   );
 };

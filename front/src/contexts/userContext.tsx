@@ -45,8 +45,6 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
 
   async function userRegister(data: Interface.IRegisterUserRequest) {
     try {
-      console.log(data);
-
       await api.post("/users", data);
 
       navigate("/login");
