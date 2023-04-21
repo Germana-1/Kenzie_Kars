@@ -4,7 +4,7 @@ import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { TextH6, TextH7 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
 
-export const ProductTitleComponent = () => {
+export const ProductTitleComponent = ({ announcementDetail }: any) => {
   return (
     <Flex
       direction={"column"}
@@ -13,7 +13,7 @@ export const ProductTitleComponent = () => {
       borderRadius={"4px"}
       backgroundColor={Colors.grey10}
     >
-      <TextH6 fontWeight="600">Mercedes Benz A 200 CGI ADVANCE SEDAN</TextH6>
+      <TextH6 fontWeight="600">{announcementDetail.model}</TextH6>
 
       <Spacer />
 
@@ -25,14 +25,14 @@ export const ProductTitleComponent = () => {
       >
         <Flex gap={"10px"}>
           <ButtonBrand4 size="sm" cursor={"default"}>
-            2013
+            {announcementDetail.year}
           </ButtonBrand4>
           <ButtonBrand4 size="sm" cursor={"default"}>
-            0 KM
+            {announcementDetail.mileage} KM
           </ButtonBrand4>
         </Flex>
 
-        <TextH7 fontWeight="500">R$ 00.000,00</TextH7>
+        <TextH7 fontWeight="500">R$ {announcementDetail.price}</TextH7>
       </Flex>
 
       <Box>

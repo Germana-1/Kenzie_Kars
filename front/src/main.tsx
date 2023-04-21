@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import { GlobalStyle } from "./styles/global";
 import { UserProvider } from "./contexts/userContext";
+import { AnnouncementProvider } from "./contexts/announcementContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <ChakraProvider>
         <GlobalStyle />
         <UserProvider>
-          <App />
+          <AnnouncementProvider>
+            <App />
+          </AnnouncementProvider>
         </UserProvider>
       </ChakraProvider>
     </BrowserRouter>

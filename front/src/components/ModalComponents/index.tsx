@@ -9,13 +9,15 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { TextB2, TextH7 } from "../TextComponents";
 import { ButtonBrand1, ButtonBrand4, ButtonGray6 } from "../ButtomComponents";
 import { InputFormComponent } from "../InputFormComponent";
 import * as Schema from "../../schemas";
+import { AnnouncementContext } from "../../contexts/announcementContext";
+import { announcementDataNormalizer } from "../../utils/announcementDataNormalizer";
 
 interface IModal {
   isOpen: boolean;
@@ -23,6 +25,9 @@ interface IModal {
 }
 
 export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
+  const { announcementRegister } = useContext(AnnouncementContext);
+  const [image, setImage] = useState<number[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -31,25 +36,9 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
     resolver: yupResolver(Schema.registerAnnouncementSchema),
   });
 
-  const [image, setImage] = useState<number[]>([]);
-
   const onSubmit = (data: any) => {
-    const announcement = { ...data, images: [] };
-    const max_images = 6;
-
-    for (let i = 1; i <= max_images; i++) {
-      const image = `image${i}`;
-
-      if (!announcement[image]) break;
-
-      announcement.images.push({
-        imgUrl: announcement[`image${i}`],
-      });
-
-      delete announcement[`image${i}`];
-    }
-
-    return announcement;
+    const normalizedData = announcementDataNormalizer(data);
+    announcementRegister(normalizedData);
   };
 
   return (

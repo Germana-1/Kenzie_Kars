@@ -1,4 +1,6 @@
 import { Container, Flex } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -10,9 +12,16 @@ import { ProductBannerComponent } from "../../components/ProductBannerComponent"
 import { ProductGalleryComponent } from "../../components/ProductGalleryComponent";
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 export const ProductPage = () => {
-  return (
+  const { id } = useParams();
+  const { announcementDetail, announcementListOne } =
+    useContext(AnnouncementContext);
+
+  announcementListOne(id!);
+
+  return announcementDetail ? (
     <>
       <HeaderComponent />
       <PurpleBackgroundComponent />
@@ -20,7 +29,7 @@ export const ProductPage = () => {
         <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
           <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
             <ProductBannerComponent />
-            <ProductTitleComponent />
+            <ProductTitleComponent announcementDetail={announcementDetail} />
             <ProductDescriptionComponent />
           </Flex>
 
@@ -48,5 +57,7 @@ export const ProductPage = () => {
       </Container>
       <FooterComponent />
     </>
+  ) : (
+    <h1>Page not Found</h1>
   );
 };
