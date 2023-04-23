@@ -1,18 +1,18 @@
-export const announcementDataNormalizer = (data: any) => {
-  const announcement = { ...data, images: [] };
-  const max_images = 6;
+import { IAnnouncementRegister } from "../interfaces/announcement.interface";
 
-  for (let i = 1; i <= max_images; i++) {
-    const image = `image${i}`;
+export const announcementDataNormalizer = (data: IAnnouncementRegister) => {
+  const announcement: IAnnouncementRegister = { ...data, images: [] };
+  const images = ["image1", "image2", "image3", "image4", "image5", "image6"];
 
-    if (!announcement[image]) break;
+  images.forEach((image) => {
+    if (!announcement[image]) return;
 
     announcement.images.push({
-      imgUrl: announcement[`image${i}`],
+      imgUrl: announcement[image],
     });
 
-    delete announcement[`image${i}`];
-  }
+    delete announcement[image];
+  });
 
   return announcement;
 };

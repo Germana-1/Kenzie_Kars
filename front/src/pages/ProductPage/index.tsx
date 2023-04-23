@@ -1,6 +1,6 @@
-import { Container, Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { Container, Flex } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 
 import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -13,24 +13,32 @@ import { ProductGalleryComponent } from "../../components/ProductGalleryComponen
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 export const ProductPage = () => {
   const { id } = useParams();
-  const { announcementDetail, announcementListOne } =
-    useContext(AnnouncementContext);
+  const [announcement, setAnnouncement] = useState<IAnnouncement>();
+  const { announcementListOne } = useContext(AnnouncementContext);
 
-  announcementListOne(id!);
+  useEffect(() => {
+    async function getProduct() {
+      setAnnouncement(await announcementListOne(id!));
+    }
+    getProduct();
+  }, []);
 
-  return announcementDetail ? (
+  if (!announcement) return <h1>Page not found.</h1>;
+
+  return (
     <>
       <HeaderComponent />
       <PurpleBackgroundComponent />
       <Container maxW="1200px" pt={"130px"}>
         <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
-          <Flex direction={"column"} gap={"25px"} maxW={"750px"}>
+          <Flex direction={"column"} gap={"25px"} w={"750px"}>
             <ProductBannerComponent />
-            <ProductTitleComponent announcementDetail={announcementDetail} />
-            <ProductDescriptionComponent />
+            <ProductTitleComponent announcement={announcement} />
+            <ProductDescriptionComponent announcement={announcement} />
           </Flex>
 
           <Flex
@@ -39,8 +47,8 @@ export const ProductPage = () => {
             w={{ sm: "750px", xl: "380px" }}
             maxW={"100%"}
           >
-            <ProductGalleryComponent />
-            <ProductAnnouncerInfoComponent />
+            <ProductGalleryComponent announcement={announcement} />
+            <ProductAnnouncerInfoComponent announcement={announcement} />
           </Flex>
         </Flex>
 
@@ -51,13 +59,11 @@ export const ProductPage = () => {
           maxW={"750px"}
           mx={{ md: "auto", xl: "initial" }}
         >
-          <ProductCommentsComponent />
-          <ProductUserCommentComponent />
+          <ProductCommentsComponent announcement={announcement} />
+          <ProductUserCommentComponent announcement={announcement} />
         </Flex>
       </Container>
       <FooterComponent />
     </>
-  ) : (
-    <h1>Page not Found</h1>
   );
 };

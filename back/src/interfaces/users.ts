@@ -37,7 +37,7 @@ export interface IAddress {
   userId?: string;
 }
 
-export interface IUserLogin {
+export interface IUserSession {
   email: string;
   password: string;
 }

@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { FilterComponent } from "../../components/FilterComponent";
 import { FilterWithInputComponent } from "../FilterWithInputComponent";

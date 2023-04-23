@@ -15,9 +15,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TextB2, TextH7 } from "../TextComponents";
 import { ButtonBrand1, ButtonBrand4, ButtonGray6 } from "../ButtomComponents";
 import { InputFormComponent } from "../InputFormComponent";
-import * as Schema from "../../schemas";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { announcementDataNormalizer } from "../../utils/announcementDataNormalizer";
+import { registerAnnouncementSchema } from "../../schemas/announcement.schema";
 
 interface IModal {
   isOpen: boolean;
@@ -33,7 +33,7 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(Schema.registerAnnouncementSchema),
+    resolver: yupResolver(registerAnnouncementSchema),
   });
 
   const onSubmit = (data: any) => {

@@ -1,26 +1,23 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 
+import {
+  IAnnouncement,
+  IAnnouncementContext,
+  IAnnouncementContextProps,
+  IAnnouncementRegister,
+} from "../interfaces/announcement.interface";
 import { api } from "../services/api";
-import * as Interface from "../interfaces";
 
-export const AnnouncementContext =
-  createContext<Interface.IAnnouncementContext>(
-    {} as Interface.IAnnouncementContext
-  );
+export const AnnouncementContext = createContext<IAnnouncementContext>(
+  {} as IAnnouncementContext
+);
 
 export const AnnouncementProvider = ({
   children,
-}: Interface.IAnnouncementContextProps) => {
-  const [announcements, setAnnouncements] = useState();
-  const [announcementDetail, setAnnouncementDetail] = useState();
-
-  useEffect(() => {
-    announcementListAll();
-  }, []);
-
+}: IAnnouncementContextProps) => {
   async function announcementRegister(
-    data: Interface.IRegisterAnnouncementRequest
-  ) {
+    data: IAnnouncementRegister
+  ): Promise<void> {
     try {
       await api.post("/announcements", data);
     } catch (error) {
@@ -28,21 +25,19 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function announcementListAll() {
-    try {
-      const res = await api.get("/announcements");
+  async function announcementListAll(): Promise<IAnnouncement[]> {
+    const res = await api.get("/announcements");
 
-      setAnnouncements(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    return res.data;
   }
 
-  async function announcementListOne(data: string) {
+  async function announcementListOne(
+    data: string
+  ): Promise<IAnnouncement | undefined> {
     try {
       const res = await api.get(`/announcements/${data}`);
 
-      setAnnouncementDetail(res.data);
+      return res.data;
     } catch (error) {
       console.log(error);
     }
@@ -51,8 +46,6 @@ export const AnnouncementProvider = ({
   return (
     <AnnouncementContext.Provider
       value={{
-        announcements,
-        announcementDetail,
         announcementRegister,
         announcementListAll,
         announcementListOne,

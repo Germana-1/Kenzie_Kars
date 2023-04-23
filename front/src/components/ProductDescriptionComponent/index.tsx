@@ -3,8 +3,13 @@ import { Flex, Spacer } from "@chakra-ui/react";
 import { TextH6 } from "../TextComponents";
 import { TextB1 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductDescriptionComponent = () => {
+interface IProps {
+  announcement: IAnnouncement;
+}
+
+export const ProductDescriptionComponent = ({ announcement }: IProps) => {
   return (
     <Flex
       direction={"column"}
@@ -18,10 +23,7 @@ export const ProductDescriptionComponent = () => {
       <Spacer />
 
       <TextB1 fontWeight="400" color={Colors.grey2}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book
+        {announcement.description}
       </TextB1>
     </Flex>
   );

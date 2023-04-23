@@ -1,19 +1,31 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
+import {
+  IUser,
+  IUserContext,
+  IUserContextProps,
+  IUserLogin,
+  IUserRegister,
+} from "../interfaces/user.interface";
 import { api } from "../services/api";
-import * as Interface from "../interfaces";
 
-export const UserContext = createContext<Interface.IUserContext>(
-  {} as Interface.IUserContext
-);
+export const UserContext = createContext<IUserContext>({} as IUserContext);
 
-export const UserProvider = ({ children }: Interface.IUserContextProps) => {
+export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<Interface.IUser>();
+  const [user, setUser] = useState<IUser>();
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
+
+    if (token) {
+      const payload = jwt_decode(token) as { sub: string };
+      setUserId(payload.sub);
+    }
+
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     userAuth();
@@ -29,13 +41,13 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     }
   }
 
-  async function userSession(data: Interface.ILoginUserRequest) {
+  async function userSession(data: IUserLogin) {
     try {
       const res = await api.post("/login", data);
 
       localStorage.setItem("@kenzieToken", res.data.token);
 
-      navigate("/profile");
+      navigate(`/profile/${userId}`);
 
       return res.data;
     } catch (error) {
@@ -43,7 +55,7 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     }
   }
 
-  async function userRegister(data: Interface.IRegisterUserRequest) {
+  async function userRegister(data: IUserRegister) {
     try {
       await api.post("/users", data);
 

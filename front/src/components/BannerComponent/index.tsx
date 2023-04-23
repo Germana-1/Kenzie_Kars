@@ -10,6 +10,7 @@ export const BannerComponent = () => {
   return (
     <Box position="relative" marginTop="80px">
       <Image src={isMobile ? bannerMobile : bannerWeb} alt="banner" w="100%" />
+      
       <Box
         position="absolute"
         top="0"
@@ -38,6 +39,7 @@ export const BannerComponent = () => {
           >
             Motors Shop
           </Heading>
+
           <Heading
             as="h2"
             textAlign="center"

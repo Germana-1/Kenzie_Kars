@@ -12,6 +12,7 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
       <Heading fontSize="28px" fontWeight="600" marginStart="30px">
         {titleFilter}
       </Heading>
+
       <Flex
         w="100%"
         paddingStart="34px"
@@ -24,13 +25,14 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
           bg={Colors.grey5}
           placeholder="Mínimo"
           borderRadius="0"
-        ></Input>
+        />
+        
         <Input
           maxW="142px"
           bg={Colors.grey5}
           placeholder="Máximo"
           borderRadius="0"
-        ></Input>
+        />
       </Flex>
     </Box>
   );

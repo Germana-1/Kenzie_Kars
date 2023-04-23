@@ -3,8 +3,13 @@ import { Flex } from "@chakra-ui/react";
 import { Colors } from "../../styles/colors";
 import { TextH6 } from "../TextComponents";
 import { CommentComponent } from "../CommentComponent";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductCommentsComponent = () => {
+interface IProps {
+  announcement: IAnnouncement;
+}
+
+export const ProductCommentsComponent = ({ announcement }: IProps) => {
   const comments = [1, 2, 3];
 
   return (

@@ -1,4 +1,5 @@
 import { Text, TextProps } from "@chakra-ui/react";
+
 import { FontSizes } from "../../styles/fontSizes";
 
 export const TextH1 = ({ children, fontWeight, color }: TextProps) => {

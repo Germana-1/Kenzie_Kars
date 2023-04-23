@@ -10,10 +10,10 @@ import { HeaderComponent } from "./../../components/HeaderComponent/";
 import { FooterComponent } from "./../../components/FooterComponent/";
 import { TextH5, TextBMT } from "./../../components/TextComponents/";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
-import { loginUserSchema } from "../../schemas";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
-import * as Interface from "../../../../back/src/interfaces";
+import { IUserLogin } from "../../interfaces/user.interface";
+import { loginUserSchema } from "../../schemas/login.schema";
 
 const formStyle = {
   width: "100%",
@@ -30,11 +30,11 @@ export const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Interface.IUserLogin>({
+  } = useForm<IUserLogin>({
     resolver: yupResolver(loginUserSchema),
   });
 
-  const formSubmit = (data: Interface.IUserLogin) => userSession(data);
+  const formSubmit = (data: IUserLogin) => userSession(data);
 
   return (
     <>
@@ -71,7 +71,6 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="email"
-                value={"teste@gmail.com"}
                 autoComplete="off"
               />
               <InputFormComponent
@@ -81,7 +80,6 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="password"
-                value={"f12345678!"}
               />
             </Flex>
             <Flex justifyContent={"flex-end"}>

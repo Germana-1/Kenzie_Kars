@@ -1,4 +1,4 @@
-import { useMediaQuery, List, ListItem } from "@chakra-ui/react";
+import { List, ListItem } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
 import { FontSizes } from "../../styles/fontSizes";
@@ -9,13 +9,12 @@ interface FilterProps {
 }
 
 export const FilterComponent = ({ titleFilter, filters }: FilterProps) => {
-  const [isMobile] = useMediaQuery("(max-width: 728px)");
-
   return (
     <List>
       <ListItem fontSize="28px" fontWeight="600" marginStart="30px">
         {titleFilter}
       </ListItem>
+      
       {filters.map((filter) => (
         <ListItem
           key={filter}
