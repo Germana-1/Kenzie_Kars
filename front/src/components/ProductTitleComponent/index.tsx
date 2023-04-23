@@ -6,10 +6,10 @@ import { Colors } from "../../styles/colors";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 interface IProps {
-  announcementDetail: IAnnouncement;
+  announcement: IAnnouncement;
 }
 
-export const ProductTitleComponent = ({ announcementDetail }: IProps) => {
+export const ProductTitleComponent = ({ announcement }: IProps) => {
   return (
     <Flex
       direction={"column"}
@@ -18,7 +18,7 @@ export const ProductTitleComponent = ({ announcementDetail }: IProps) => {
       borderRadius={"4px"}
       backgroundColor={Colors.grey10}
     >
-      <TextH6 fontWeight="600">{announcementDetail.model}</TextH6>
+      <TextH6 fontWeight="600">{announcement.model}</TextH6>
 
       <Spacer />
 
@@ -30,14 +30,14 @@ export const ProductTitleComponent = ({ announcementDetail }: IProps) => {
       >
         <Flex gap={"10px"}>
           <ButtonBrand4 size="sm" cursor={"default"}>
-            {announcementDetail.year}
+            {announcement.year}
           </ButtonBrand4>
           <ButtonBrand4 size="sm" cursor={"default"}>
-            {announcementDetail.mileage} KM
+            {announcement.mileage} KM
           </ButtonBrand4>
         </Flex>
 
-        <TextH7 fontWeight="500">R$ {announcementDetail.price}</TextH7>
+        <TextH7 fontWeight="500">R$ {announcement.price}</TextH7>
       </Flex>
 
       <Box>

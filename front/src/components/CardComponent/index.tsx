@@ -9,11 +9,13 @@ import {
   TagLabel,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4 } from "../ButtomComponents";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 interface IProps {
   announce: IAnnouncement;
@@ -21,6 +23,7 @@ interface IProps {
 }
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
+  const { announcementListOne } = useContext(AnnouncementContext);
   const navigate = useNavigate();
   return (
     <Box
@@ -90,7 +93,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
         <Flex gap="10px" alignItems="center">
           <Avatar src={announce.user?.avatar} w="32px" h="32px" />
-          
+
           <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
             {announce.user?.name}
           </Text>

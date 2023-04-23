@@ -3,8 +3,13 @@ import { Flex } from "@chakra-ui/react";
 import { Colors } from "../../styles/colors";
 import { TextH6 } from "../TextComponents";
 import { GalleryCarousel } from "../GalleryCarouselComponent";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductGalleryComponent = () => {
+interface IProps {
+  announcement: IAnnouncement;
+}
+
+export const ProductGalleryComponent = ({ announcement }: IProps) => {
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",

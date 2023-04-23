@@ -71,7 +71,6 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="email"
-                value={"teste@gmail.com"}
                 autoComplete="off"
               />
               <InputFormComponent
@@ -81,7 +80,6 @@ export const LoginPage = () => {
                 register={register}
                 errors={errors}
                 name="password"
-                value={"f12345678!"}
               />
             </Flex>
             <Flex justifyContent={"flex-end"}>

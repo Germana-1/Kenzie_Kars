@@ -4,8 +4,11 @@ import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { ModalRegisterAnnoucement } from "../ModalComponents";
+import { useParams } from "react-router-dom";
 
 export const ProfileViewAnnouncerInfoComponent = () => {
+  const { id } = useParams();
+  const token = localStorage.getItem("@kenzieToken");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -33,7 +36,11 @@ export const ProfileViewAnnouncerInfoComponent = () => {
           since the 1500s
         </TextB1>
 
-        <ButtonBrand1OutlineBrand1 alignSelf={"flex-start"} onClick={onOpen}>
+        <ButtonBrand1OutlineBrand1
+          alignSelf={"flex-start"}
+          onClick={onOpen}
+          hidden={id === token ? true : false}
+        >
           Criar anúncio
         </ButtonBrand1OutlineBrand1>
       </Flex>

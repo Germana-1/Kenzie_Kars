@@ -1,10 +1,19 @@
 import { Avatar, Flex } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Colors } from "../../styles/colors";
 import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonGray0 } from "../ButtomComponents";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductAnnouncerInfoComponent = () => {
+interface IProps {
+  announcement: IAnnouncement;
+}
+
+export const ProductAnnouncerInfoComponent = ({ announcement }: IProps) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   return (
     <Flex
       direction={"column"}
@@ -18,13 +27,14 @@ export const ProductAnnouncerInfoComponent = () => {
     >
       <Avatar size={"xl"} />
 
-      <TextH6 fontWeight="600">Samuel Leão</TextH6>
+      <TextH6 fontWeight="600">{announcement.user?.name}</TextH6>
       <TextB1 fontWeight="400" color={Colors.grey2}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's
+        {announcement.user?.description}
       </TextB1>
 
-      <ButtonGray0>Ver todos anúncios</ButtonGray0>
+      <ButtonGray0 onClick={() => navigate(`/profile/${id}`)}>
+        Ver todos anúncios
+      </ButtonGray0>
     </Flex>
   );
 };

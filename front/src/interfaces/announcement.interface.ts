@@ -39,11 +39,9 @@ export interface IAnnouncementRegister {
 }
 
 export interface IAnnouncementContext {
-  announcements: IAnnouncement[];
-  announcementDetail: IAnnouncement;
   announcementRegister: (data: IAnnouncementRegister) => void;
-  announcementListAll: () => void;
-  announcementListOne: (data: string) => void;
+  announcementListAll: () => Promise<IAnnouncement[]>;
+  announcementListOne: (data: string) => Promise<IAnnouncement | undefined>;
 }
 
 export interface IAnnouncementContextProps {

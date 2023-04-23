@@ -5,8 +5,13 @@ import { TextB2 } from "../TextComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
 import { useState } from "react";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductUserCommentComponent = () => {
+interface IProps {
+  announcement: IAnnouncement;
+}
+
+export const ProductUserCommentComponent = ({ announcement }: IProps) => {
   const [comment, setComment] = useState("");
 
   return (
@@ -19,7 +24,7 @@ export const ProductUserCommentComponent = () => {
     >
       <Flex gap={"10px"} alignItems="center">
         <Avatar w={"32px"} h={"32px"} />
-        <TextB2 fontWeight={"500"}>Samuel Leão</TextB2>
+        <TextB2 fontWeight={"500"}>{announcement.user?.name}</TextB2>
       </Flex>
 
       <Flex direction={"column"} gap={"10px"} position={"relative"}>

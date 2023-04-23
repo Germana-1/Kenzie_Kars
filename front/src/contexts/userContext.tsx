@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 import {
   IUser,
@@ -15,9 +16,16 @@ export const UserContext = createContext<IUserContext>({} as IUserContext);
 export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser>();
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
+
+    if (token) {
+      const payload = jwt_decode(token) as { sub: string };
+      setUserId(payload.sub);
+    }
+
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     userAuth();
@@ -39,7 +47,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
 
-      navigate("/profile");
+      navigate(`/profile/${userId}`);
 
       return res.data;
     } catch (error) {
