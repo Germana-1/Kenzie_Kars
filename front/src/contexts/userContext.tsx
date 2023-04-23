@@ -1,16 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  IUser,
+  IUserContext,
+  IUserContextProps,
+  IUserLogin,
+  IUserRegister,
+} from "../interfaces/user.interface";
 import { api } from "../services/api";
-import * as Interface from "../interfaces";
 
-export const UserContext = createContext<Interface.IUserContext>(
-  {} as Interface.IUserContext
-);
+export const UserContext = createContext<IUserContext>({} as IUserContext);
 
-export const UserProvider = ({ children }: Interface.IUserContextProps) => {
+export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<Interface.IUser>();
+  const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
@@ -29,7 +33,7 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     }
   }
 
-  async function userSession(data: Interface.ILoginUserRequest) {
+  async function userSession(data: IUserLogin) {
     try {
       const res = await api.post("/login", data);
 
@@ -43,7 +47,7 @@ export const UserProvider = ({ children }: Interface.IUserContextProps) => {
     }
   }
 
-  async function userRegister(data: Interface.IRegisterUserRequest) {
+  async function userRegister(data: IUserRegister) {
     try {
       await api.post("/users", data);
 

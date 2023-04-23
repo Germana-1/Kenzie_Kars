@@ -9,6 +9,7 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+
 import { HeaderComponent } from "../../components/HeaderComponent";
 import { BannerComponent } from "../../components/BannerComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";

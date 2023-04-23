@@ -1,16 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 
+import {
+  IAnnouncementContext,
+  IAnnouncementContextProps,
+  IAnnouncementRegister,
+} from "../interfaces/announcement.interface";
 import { api } from "../services/api";
-import * as Interface from "../interfaces";
 
-export const AnnouncementContext =
-  createContext<Interface.IAnnouncementContext>(
-    {} as Interface.IAnnouncementContext
-  );
+export const AnnouncementContext = createContext<IAnnouncementContext>(
+  {} as IAnnouncementContext
+);
 
 export const AnnouncementProvider = ({
   children,
-}: Interface.IAnnouncementContextProps) => {
+}: IAnnouncementContextProps) => {
   const [announcements, setAnnouncements] = useState();
   const [announcementDetail, setAnnouncementDetail] = useState();
 
@@ -18,9 +21,7 @@ export const AnnouncementProvider = ({
     announcementListAll();
   }, []);
 
-  async function announcementRegister(
-    data: Interface.IRegisterAnnouncementRequest
-  ) {
+  async function announcementRegister(data: IAnnouncementRegister) {
     try {
       await api.post("/announcements", data);
     } catch (error) {

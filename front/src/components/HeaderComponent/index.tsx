@@ -36,6 +36,7 @@ export const HeaderComponent = () => {
             <img src={logo} alt="logo" />
           </Link>
         </Box>
+
         <>
           <Show above="768px">
             <ButtonGroup>
@@ -48,6 +49,7 @@ export const HeaderComponent = () => {
                   Fazer Login
                 </Button>
               </Link>
+
               <Link to={"/register"}>
                 <Button
                   color={Colors.grey0}
@@ -61,6 +63,7 @@ export const HeaderComponent = () => {
               </Link>
             </ButtonGroup>
           </Show>
+
           <Show below="768px">
             <Menu>
               <MenuButton
@@ -68,6 +71,7 @@ export const HeaderComponent = () => {
                 icon={<HamburgerIcon h="60px" w="25px" />}
                 bg={Colors.grey10}
               />
+              
               <MenuList>
                 <MenuItem>Fazer Login</MenuItem>
                 <MenuItem>Cadastrar</MenuItem>

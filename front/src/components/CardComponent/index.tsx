@@ -8,35 +8,16 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4 } from "../ButtomComponents";
-import { useNavigate } from "react-router-dom";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 interface IProps {
-  announce: IAnnounce;
+  announce: IAnnouncement;
   hideTag: boolean;
-}
-
-export interface IAnnounce {
-  id: string;
-  brand: string;
-  model: string;
-  year: number;
-  mileage: number;
-  color: string;
-  price: number;
-  priceFipe: number;
-  fuelType: string;
-  description: string;
-  banner: string;
-  isGoodBuy: boolean;
-  isActive: boolean;
-  user: {
-    name: string;
-    avatar: string;
-  };
 }
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
@@ -48,7 +29,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       margin="20px"
       position="relative"
       cursor="pointer"
-      onClick={() => navigate(`/detail/${announce.id}`)}
+      onClick={() => navigate(`/product/${announce.id}`)}
     >
       <Tag
         position={"absolute"}
@@ -62,6 +43,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       >
         {announce.isActive ? "Ativo" : "Inativo"}
       </Tag>
+
       {announce.isGoodBuy && (
         <Tag
           w="15px"
@@ -93,8 +75,10 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           }`,
         }}
       />
+
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
         <Heading size="16px">{`${announce.brand} - ${announce.model}`}</Heading>
+
         <Text
           fontSize="14px"
           fontWeight="400"
@@ -103,17 +87,21 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         >
           {announce.description}
         </Text>
+
         <Flex gap="10px" alignItems="center">
-          <Avatar src={announce.user.avatar} w="32px" h="32px" />
+          <Avatar src={announce.user?.avatar} w="32px" h="32px" />
+          
           <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
-            {announce.user.name}
+            {announce.user?.name}
           </Text>
         </Flex>
+
         <Flex justifyContent="space-between">
           <Flex gap="10px">
             <ButtonBrand4 size={"sm"}>{`${announce.mileage} KM`}</ButtonBrand4>
             <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
           </Flex>
+
           <ButtonBrand4 size={"sm"}>{`R$ ${announce.price}`}</ButtonBrand4>
         </Flex>
       </Flex>

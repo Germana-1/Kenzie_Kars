@@ -1,8 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { useContext } from "react";
 
-import { CardComponent, IAnnounce } from "../../components/CardComponent";
+import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 interface IListCardComponent {
   filterActive: boolean;
@@ -27,7 +28,7 @@ export const ListCardComponent = ({
       >
         {filterActive
           ? announcements.map(
-              (announce: IAnnounce) =>
+              (announce: IAnnouncement) =>
                 announce.isActive && (
                   <CardComponent
                     announce={announce}
@@ -36,7 +37,7 @@ export const ListCardComponent = ({
                   />
                 )
             )
-          : announcements.map((announce: IAnnounce) => (
+          : announcements.map((announce: IAnnouncement) => (
               <CardComponent
                 announce={announce}
                 hideTag={hideTag}

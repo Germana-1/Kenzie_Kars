@@ -23,6 +23,7 @@ export const FooterComponent = () => {
       gap="60px"
     >
       <Image src={logo} />
+      
       <Text color={Colors.white} fontSize="14px" fontWeight="400">
         © 2023 - Todos os direitos reservados.
       </Text>

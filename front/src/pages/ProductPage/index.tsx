@@ -1,6 +1,6 @@
 import { Container, Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";

@@ -3,8 +3,13 @@ import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { TextH6, TextH7 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
 
-export const ProductTitleComponent = ({ announcementDetail }: any) => {
+interface IProps {
+  announcementDetail: IAnnouncement;
+}
+
+export const ProductTitleComponent = ({ announcementDetail }: IProps) => {
   return (
     <Flex
       direction={"column"}

@@ -11,10 +11,10 @@ export const RoutesMain = () => {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/detail/:id" element={<ProductPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfileViewPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/profile/:id" element={<ProfileViewPage />} />
       </Routes>
     </>
   );

@@ -1,18 +1,18 @@
-import { Flex, FormControl, Text } from "@chakra-ui/react";
+import { Flex, FormControl } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
 import { InputFormComponent } from "./../../components/InputFormComponent/index";
 import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
-import { registerUserSchema } from "../../schemas";
 import { ErrorComponent } from "./../../components/ErrorComponent/index";
 import { FooterComponent } from "./../../components/FooterComponent/index";
 import { TextH5 } from "./../../components/TextComponents";
 import { TextH7 } from "./../../components/TextComponents/index";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
+import { registerUserSchema } from "../../schemas/register.schema";
 
 const formStyle = {
   width: "100%",
