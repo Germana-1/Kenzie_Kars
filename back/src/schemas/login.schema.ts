@@ -1,7 +1,9 @@
 import * as yup from "yup";
-import { IUserLogin } from "../interfaces";
+import { IUserSession } from "../interfaces";
 
-export const loginRequestSchema: yup.SchemaOf<IUserLogin> = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
-});
+export const loginRequestSchema: yup.SchemaOf<IUserSession> = yup
+  .object()
+  .shape({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  });

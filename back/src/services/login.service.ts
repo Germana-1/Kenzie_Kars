@@ -4,12 +4,12 @@ import "dotenv/config";
 
 import { prisma } from "../database";
 import { AppError } from "../errors";
-import { IUserLogin } from "../interfaces";
+import { IUserSession } from "../interfaces";
 
 export const loginService = async ({
   email,
   password,
-}: IUserLogin): Promise<string> => {
+}: IUserSession): Promise<string> => {
   const user = await prisma.user.findFirst({
     where: {
       email,
