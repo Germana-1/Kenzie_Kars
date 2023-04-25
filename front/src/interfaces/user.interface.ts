@@ -43,9 +43,10 @@ export interface IUserRegister {
 }
 
 export interface IUserContext {
-  user: IUser | undefined;
+  user: IUser | void;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
+  logout: () => void;
 }
 
 export interface IUserContextProps {

@@ -15,7 +15,7 @@ export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser | void>();
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -50,7 +50,9 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       const payload = jwt_decode(res.data.token) as { sub: string };
       setUserId(payload.sub);
 
-      navigate(`/profile/${userId}`);
+      navigate(`/profile/${payload.sub}/`);
+
+      userAuth();
 
       return res.data;
     } catch (error) {
@@ -68,8 +70,14 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  const logout = () => {
+    window.localStorage.clear();
+    setUser();
+    navigate("/");
+  };
+
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister }}>
+    <UserContext.Provider value={{ user, userSession, userRegister, logout }}>
       {children}
     </UserContext.Provider>
   );
