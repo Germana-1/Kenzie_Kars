@@ -25,10 +25,19 @@ interface IProps {
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { announcementListOne } = useContext(AnnouncementContext);
   const navigate = useNavigate();
+  const shortDescription = announce.description.substring(0, 80) + "...";
+  const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
+  const userName = announce.user?.name.substring(0, 32);
+  const price = Number(announce.price).toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
+
   return (
     <Box
       minW="312px"
       maxW="312px"
+      h="420px"
       margin="20px"
       position="relative"
       cursor="pointer"
@@ -70,8 +79,11 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
       <Image
         src={announce.banner}
-        alt="Green double couch with wooden legs"
-        border={`2px solid ${Colors.grey4}`}
+        alt={`${announce.brand} - ${announce.model}`}
+        border={`2px solid ${Colors.grey7}`}
+        bg={Colors.grey7}
+        w="100%"
+        h="152px"
         _hover={{
           border: `2px solid ${
             announce.isActive ? Colors.brand1 : Colors.grey4
@@ -80,22 +92,23 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       />
 
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
-        <Heading size="16px">{`${announce.brand} - ${announce.model}`}</Heading>
+        <Heading size="16px">{title}</Heading>
 
         <Text
           fontSize="14px"
           fontWeight="400"
           color={Colors.grey2}
           lineHeight="24px"
+          h="48px"
         >
-          {announce.description}
+          {shortDescription}
         </Text>
 
         <Flex gap="10px" alignItems="center">
           <Avatar src={announce.user?.avatar} w="32px" h="32px" />
 
           <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
-            {announce.user?.name}
+            {userName}
           </Text>
         </Flex>
 
@@ -105,7 +118,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
           </Flex>
 
-          <ButtonBrand4 size={"sm"}>{`R$ ${announce.price}`}</ButtonBrand4>
+          <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
       </Flex>
     </Box>
