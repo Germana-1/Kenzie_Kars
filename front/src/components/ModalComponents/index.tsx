@@ -38,6 +38,9 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
   const onSubmit = (data: any) => {
     const normalizedData = announcementDataNormalizer(data);
+
+    console.log(normalizedData);
+    
     announcementRegister(normalizedData);
   };
 
@@ -62,7 +65,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
             <InputFormComponent
               labelText={"Marca"}
-              value={"Mercedes Benz"}
               name="brand"
               register={register}
               errors={errors}
@@ -70,7 +72,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
             <InputFormComponent
               labelText={"Modelo"}
-              value={"A 200 CGI ADVANCE SEDAN"}
               name="model"
               register={register}
               errors={errors}
@@ -80,7 +81,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
               <InputFormComponent
                 type="number"
                 labelText={"Ano"}
-                value={"2018"}
                 name="year"
                 register={register}
                 errors={errors}
@@ -88,7 +88,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
               <InputFormComponent
                 labelText={"Combustível"}
-                value={"Fex"}
                 name="fuelType"
                 register={register}
                 errors={errors}
@@ -99,7 +98,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
               <InputFormComponent
                 type="number"
                 labelText={"Quilometragem"}
-                value={"30000"}
                 name="mileage"
                 register={register}
                 errors={errors}
@@ -107,7 +105,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
               <InputFormComponent
                 labelText={"Cor"}
-                value={"Branco"}
                 name="color"
                 register={register}
                 errors={errors}
@@ -118,7 +115,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
               <InputFormComponent
                 type="number"
                 labelText={"Preço FIPE"}
-                value={"40000"}
                 name="priceFipe"
                 register={register}
                 errors={errors}
@@ -127,7 +123,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
               <InputFormComponent
                 type="number"
                 labelText={"Preço"}
-                value={"50000"}
                 name="price"
                 register={register}
                 errors={errors}
@@ -147,7 +142,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
             <InputFormComponent
               labelText={"Imagem da capa"}
-              value={"https://image.com"}
               name="banner"
               register={register}
               errors={errors}
@@ -160,7 +154,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
                 <InputFormComponent
                   key={i}
                   labelText={`${i + 1}º Imagem da galeria`}
-                  value={"https://image.com"}
                   name={`image${i + 1}`}
                   register={register}
                   errors={errors}

@@ -15,5 +15,10 @@ export const registerAnnouncementSchema: yup.ObjectSchema<IAnnouncementRegister>
     color: yup.string().required(),
     banner: yup.string().url().required(),
     description: yup.string().required(),
-    images: yup.array(imageSchema).required(),
+    image1: yup.string().notRequired(),
+    image2: yup.string().notRequired(),
+    image3: yup.string().notRequired(),
+    image4: yup.string().notRequired(),
+    image5: yup.string().notRequired(),
+    image6: yup.string().notRequired(),
   });

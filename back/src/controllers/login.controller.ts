@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as Service from "../services";
-import { IUserLogin } from "../interfaces";
+import { IUserLogin } from "../../../front/src/interfaces/user.interface";
 
 export const loginCrontroller = async (req: Request, res: Response) => {
   const userLogin: IUserLogin = req.body;
