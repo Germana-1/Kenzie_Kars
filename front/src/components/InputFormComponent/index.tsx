@@ -29,7 +29,7 @@ export const InputFormComponent = ({
       <FormLabel fontSize={14} fontWeight={500}>
         {labelText}
       </FormLabel>
-      
+
       {mask ? (
         <Input
           as={InputMask}
@@ -40,6 +40,10 @@ export const InputFormComponent = ({
           borderRadius={4}
           _focus={{
             borderColor: Colors.brand1,
+          }}
+          _disabled={{
+            backgroundColor: Colors.grey7,
+            cursor: "not-allowed",
           }}
           {...register(name)}
           {...rest}
@@ -52,6 +56,10 @@ export const InputFormComponent = ({
           borderRadius={4}
           _focus={{
             borderColor: Colors.brand1,
+          }}
+          _disabled={{
+            backgroundColor: Colors.grey7,
+            cursor: "not-allowed",
           }}
           {...register(name)}
           {...rest}

@@ -42,11 +42,10 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
   const onSubmit = (data: any) => {
     const normalizedData = announcementDataNormalizer(data);
-
-    console.log(normalizedData);
-
     announcementRegister(normalizedData);
   };
+
+  const handleModel = () => {};
 
   return (
     <>
@@ -68,17 +67,19 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
             <TextB2 fontWeight={500}>Informações do veículo</TextB2>
 
             <InputFormComponent
-              labelText={"Marca"}
-              name="brand"
-              register={register}
-              errors={errors}
-            />
-
-            <InputFormComponent
               labelText={"Modelo"}
               name="model"
               register={register}
               errors={errors}
+              onBlur={() => console.log("arihaaaaaaa")}
+            />
+
+            <InputFormComponent
+              labelText={"Marca"}
+              name="brand"
+              register={register}
+              errors={errors}
+              isDisabled
             />
 
             <Flex gap={3}>
@@ -88,11 +89,32 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
                 name="year"
                 register={register}
                 errors={errors}
+                isDisabled
               />
 
               <InputFormComponent
                 labelText={"Combustível"}
                 name="fuelType"
+                register={register}
+                errors={errors}
+                isDisabled
+              />
+            </Flex>
+
+            <Flex gap={3}>
+              <InputFormComponent
+                type="number"
+                labelText={"Preço FIPE"}
+                name="priceFipe"
+                register={register}
+                errors={errors}
+                isDisabled
+              />
+
+              <InputFormComponent
+                type="number"
+                labelText={"Preço"}
+                name="price"
                 register={register}
                 errors={errors}
               />
@@ -110,24 +132,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
               <InputFormComponent
                 labelText={"Cor"}
                 name="color"
-                register={register}
-                errors={errors}
-              />
-            </Flex>
-
-            <Flex gap={3}>
-              <InputFormComponent
-                type="number"
-                labelText={"Preço FIPE"}
-                name="priceFipe"
-                register={register}
-                errors={errors}
-              />
-
-              <InputFormComponent
-                type="number"
-                labelText={"Preço"}
-                name="price"
                 register={register}
                 errors={errors}
               />
