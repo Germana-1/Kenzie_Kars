@@ -47,6 +47,9 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
 
+      const payload = jwt_decode(res.data.token) as { sub: string };
+      setUserId(payload.sub);
+
       navigate(`/profile/${userId}`);
 
       return res.data;
