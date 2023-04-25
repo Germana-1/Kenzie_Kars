@@ -7,6 +7,7 @@ import { App } from "./App";
 import { GlobalStyle } from "./styles/global";
 import { UserProvider } from "./contexts/userContext";
 import { AnnouncementProvider } from "./contexts/announcementContext";
+import { FipeProvider } from "./contexts/fipeContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <GlobalStyle />
         <UserProvider>
           <AnnouncementProvider>
-            <App />
+            <FipeProvider>
+              <App />
+            </FipeProvider>
           </AnnouncementProvider>
         </UserProvider>
       </ChakraProvider>

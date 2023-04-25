@@ -146,7 +146,7 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
             />
 
             <InputFormComponent
-              labelText={"Imagem da capa"}
+              labelText={"Imagem da capa (URL)"}
               name="banner"
               register={register}
               errors={errors}

@@ -22,7 +22,6 @@ export const AnnouncementProvider = ({
       const res = await api.post("/announcements", data);
 
       console.log(res.data);
-      
     } catch (error) {
       console.log(error);
     }
