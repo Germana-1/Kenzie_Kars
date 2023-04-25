@@ -12,12 +12,16 @@ import { useForm } from "react-hook-form";
 import { useState, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { TextB2, TextH7 } from "../TextComponents";
-import { ButtonBrand1, ButtonBrand4, ButtonGray6 } from "../ButtomComponents";
-import { InputFormComponent } from "../InputFormComponent";
-import { AnnouncementContext } from "../../contexts/announcementContext";
-import { announcementDataNormalizer } from "../../utils/announcementDataNormalizer";
-import { registerAnnouncementSchema } from "../../schemas/announcement.schema";
+import { TextB2, TextH7 } from "../../TextComponents";
+import {
+  ButtonBrand1,
+  ButtonBrand4,
+  ButtonGray6,
+} from "../../ButtomComponents";
+import { InputFormComponent } from "../../InputFormComponent";
+import { AnnouncementContext } from "../../../contexts/announcementContext";
+import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
+import { registerAnnouncementSchema } from "../../../schemas/announcement.schema";
 
 interface IModal {
   isOpen: boolean;
@@ -40,7 +44,7 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
     const normalizedData = announcementDataNormalizer(data);
 
     console.log(normalizedData);
-    
+
     announcementRegister(normalizedData);
   };
 
