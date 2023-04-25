@@ -53,7 +53,9 @@ export const HeaderComponent = () => {
               </Flex>
             </MenuButton>
             <MenuList>
-              <MenuItem>Meu perfil</MenuItem>
+              <MenuItem as={Link} to={`/profile/${user.id}/`}>
+                Meu perfil
+              </MenuItem>
               <MenuItem>Alterar perfil</MenuItem>
               <MenuItem>Alterar endereço</MenuItem>
               <MenuItem>Excluir conta</MenuItem>
@@ -97,12 +99,13 @@ export const HeaderComponent = () => {
                 />
 
                 <MenuList>
-                  <Link to={"/login"}>
-                    <MenuItem>Fazer Login</MenuItem>
-                  </Link>
-                  <Link to={"/register"}>
-                    <MenuItem>Cadastrar</MenuItem>
-                  </Link>
+                  <MenuItem as={Link} to={"/login"}>
+                    Fazer Login
+                  </MenuItem>
+
+                  <MenuItem as={Link} to={"/register"}>
+                    Cadastrar
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Show>
