@@ -1,5 +1,6 @@
 import {
   Flex,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -7,54 +8,95 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
+  ModalProps,
+  FormControl,
+  Input,
+  Box,
+  Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useState, useContext } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useState, useContext, useEffect } from "react";
 
-import { TextB2, TextH7 } from "../../TextComponents";
 import {
   ButtonBrand1,
   ButtonBrand4,
   ButtonGray6,
 } from "../../ButtomComponents";
-import { InputFormComponent } from "../../InputFormComponent";
+import { TextB2, TextH7 } from "../../TextComponents";
 import { AnnouncementContext } from "../../../contexts/announcementContext";
 import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
-import { registerAnnouncementSchema } from "../../../schemas/announcement.schema";
+import { FipeContext } from "../../../contexts/fipeContext";
+import { IFipeModel } from "../../../interfaces/fipe.interface";
+import { Colors } from "../../../styles/colors";
+import { stringFormater } from "../../../utils/stringFormater";
 
-interface IModal {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
+export const ModalRegisterAnnoucement = ({ isOpen, onClose }: ModalProps) => {
   const { announcementRegister } = useContext(AnnouncementContext);
+  const { getAllBrands, getAllModelsByBrand } = useContext(FipeContext);
+
+  const [brands, setBrands] = useState<string[]>([]);
+  const [models, setModels] = useState<IFipeModel[]>([]);
+  const [carDetail, setCarDetail] = useState<IFipeModel>({} as IFipeModel);
   const [image, setImage] = useState<number[]>([]);
+  const [price, setPrice] = useState("");
+  const [mileage, setMileage] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(registerAnnouncementSchema),
-  });
+  const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data: any) => {
+  async function onSubmit(data: any) {
     const normalizedData = announcementDataNormalizer(data);
-    announcementRegister(normalizedData);
+    console.log(normalizedData);
+
+    // announcementRegister(normalizedData);
+  }
+
+  async function getModels(value: string) {
+    const res = await getAllModelsByBrand(value);
+    setModels(res);
+  }
+
+  async function getCarDetails(value: string) {
+    const car = models.filter((model) => model.name === value);
+    setCarDetail(car[0]);
+  }
+
+  useEffect(() => {
+    (async () => {
+      const res = await getAllBrands();
+      const brands = Object.keys(res);
+      setBrands(brands);
+    })();
+  }, []);
+
+  const formLabelCSS = {
+    fontSize: "14px",
+    fontWeight: "500",
   };
 
-  const handleModel = () => {};
+  const inputCSS = {
+    fontSize: "16px",
+    fontWeight: "400",
+    border: `1.5px solid ${Colors.grey7}`,
+    borderRadius: "4px",
+    "&:focus": {
+      borderColor: Colors.brand1,
+    },
+    "&:disabled": {
+      opacity: "1",
+      backgroundColor: Colors.grey7,
+      cursor: "not-allowed",
+    },
+  };
 
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent
-          mt={"100px"}
-          fontFamily={"Lexend"}
-          as={"form"}
+          mt="100px"
+          as="form"
+          fontFamily="Lexend"
           onSubmit={handleSubmit(onSubmit)}
         >
           <ModalHeader>
@@ -63,122 +105,187 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: IModal) => {
 
           <ModalCloseButton />
 
-          <ModalBody display={"flex"} flexDirection={"column"} gap={"20px"}>
+          <ModalBody display="flex" flexDirection="column" gap="20px">
             <TextB2 fontWeight={500}>Informações do veículo</TextB2>
 
-            <InputFormComponent
-              labelText={"Modelo"}
-              name="model"
-              register={register}
-              errors={errors}
-              onBlur={() => console.log("arihaaaaaaa")}
-            />
+            <FormControl isRequired>
+              <Flex direction="column" gap="15px">
+                <Box>
+                  <FormLabel css={formLabelCSS}>Marca</FormLabel>
+                  <Select
+                    css={inputCSS}
+                    {...register("brand", {
+                      onChange: (e) => {
+                        getModels(e.target.value);
+                      },
+                    })}
+                  >
+                    {brands.map((brand, i) => (
+                      <option key={i} value={brand}>
+                        {brand}
+                      </option>
+                    ))}
+                  </Select>
+                </Box>
 
-            <InputFormComponent
-              labelText={"Marca"}
-              name="brand"
-              register={register}
-              errors={errors}
-              isDisabled
-            />
+                <Box flexDir="column" gap="1px">
+                  <FormLabel css={formLabelCSS}>Modelo</FormLabel>
+                  <Select
+                    css={inputCSS}
+                    isDisabled={models.length ? false : true}
+                    {...register("model", {
+                      onChange: (e) => getCarDetails(e.target.value),
+                    })}
+                  >
+                    {models.map((model, i) => (
+                      <option key={i} value={model.name}>
+                        {model.name}
+                      </option>
+                    ))}
+                  </Select>
+                </Box>
+              </Flex>
+            </FormControl>
 
-            <Flex gap={3}>
-              <InputFormComponent
-                type="number"
-                labelText={"Ano"}
-                name="year"
-                register={register}
-                errors={errors}
-                isDisabled
-              />
+            {carDetail.id && (
+              <>
+                <Flex gap="15px">
+                  <Flex flexDir="column" gap="1px">
+                    <FormLabel css={formLabelCSS}>Ano</FormLabel>
+                    <Input
+                      readOnly
+                      css={inputCSS}
+                      value={carDetail.year}
+                      {...register("year")}
+                    />
+                  </Flex>
 
-              <InputFormComponent
-                labelText={"Combustível"}
-                name="fuelType"
-                register={register}
-                errors={errors}
-                isDisabled
-              />
-            </Flex>
+                  <Flex flexDir="column" gap="1px">
+                    <FormLabel css={formLabelCSS}>Combustível</FormLabel>
+                    <Input
+                      readOnly
+                      css={inputCSS}
+                      value={(() => {
+                        switch (carDetail.fuel) {
+                          case 1:
+                            return "Flex";
+                          case 2:
+                            return "Híbrido";
+                          case 3:
+                            return "Elétrico";
+                        }
+                      })()}
+                      {...register("fuelType")}
+                    />
+                  </Flex>
+                </Flex>
 
-            <Flex gap={3}>
-              <InputFormComponent
-                type="number"
-                labelText={"Preço FIPE"}
-                name="priceFipe"
-                register={register}
-                errors={errors}
-                isDisabled
-              />
+                <Flex gap="15px">
+                  <Flex flexDir="column" gap="1px">
+                    <FormLabel css={formLabelCSS}>Preço FIPE</FormLabel>
+                    <Input
+                      readOnly
+                      css={inputCSS}
+                      value={carDetail.value.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                      {...register("priceFipe")}
+                    />
+                  </Flex>
 
-              <InputFormComponent
-                type="number"
-                labelText={"Preço"}
-                name="price"
-                register={register}
-                errors={errors}
-              />
-            </Flex>
+                  <FormControl isRequired>
+                    <FormLabel css={formLabelCSS}>Preço</FormLabel>
+                    <Input
+                      css={inputCSS}
+                      value={price}
+                      {...register("price", {
+                        onChange: (e) =>
+                          setPrice(e.target.value.replace(/[^\d]/g, "")),
+                        onBlur: (e) =>
+                          stringFormater(e.target.value, true, setPrice),
+                      })}
+                    />
+                  </FormControl>
+                </Flex>
 
-            <Flex gap={3}>
-              <InputFormComponent
-                type="number"
-                labelText={"Quilometragem"}
-                name="mileage"
-                register={register}
-                errors={errors}
-              />
+                {/* ! onBlur resetando o valor */}
 
-              <InputFormComponent
-                labelText={"Cor"}
-                name="color"
-                register={register}
-                errors={errors}
-              />
-            </Flex>
+                <FormControl isRequired>
+                  <Flex gap="15px">
+                    <Flex flexDir="column" gap="1px">
+                      <FormLabel css={formLabelCSS}>Quilometragem</FormLabel>
+                      <Input
+                        css={inputCSS}
+                        value={mileage}
+                        {...register("mileage", {
+                          onChange: (e) =>
+                            setMileage(e.target.value.replace(/[^\d]/g, "")),
+                          onBlur: (e) =>
+                            stringFormater(e.target.value, false, setMileage),
+                        })}
+                      />
+                    </Flex>
 
-            <InputFormComponent
-              labelText={"Descrição"}
-              hasTextArea
-              name="description"
-              register={register}
-              errors={errors}
-            />
+                    <Flex flexDir="column" gap="1px">
+                      <FormLabel css={formLabelCSS}>Cor</FormLabel>
+                      <Input css={inputCSS} {...register("color")} />
+                    </Flex>
+                  </Flex>
+                </FormControl>
 
-            <InputFormComponent
-              labelText={"Imagem da capa (URL)"}
-              name="banner"
-              register={register}
-              errors={errors}
-            />
+                <Box>
+                  <FormLabel css={formLabelCSS}>Descrição</FormLabel>
+                  <Textarea
+                    css={inputCSS}
+                    resize="none"
+                    {...register("description")}
+                  />
+                </Box>
 
-            {image.map((_, i) => {
-              if (i >= 6) return null;
+                <FormControl isRequired>
+                  <FormLabel css={formLabelCSS}>
+                    Imagem de capa (URL){" "}
+                  </FormLabel>
+                  <Input
+                    css={inputCSS}
+                    placeholder="Ex: http://www.imagestock.com"
+                    autoComplete="off"
+                    {...register("banner")}
+                  />
+                </FormControl>
 
-              return (
-                <InputFormComponent
-                  key={i}
-                  labelText={`${i + 1}º Imagem da galeria`}
-                  name={`image${i + 1}`}
-                  register={register}
-                  errors={errors}
-                />
-              );
-            })}
+                {image.map((_, i) => {
+                  if (i >= 6) return null;
 
-            <ButtonBrand4
-              alignSelf={"flex-start"}
-              fontSize={"14px"}
-              onClick={() => setImage((prevImages) => [...prevImages, 1])}
-            >
-              Adicionar imagem
-            </ButtonBrand4>
+                  return (
+                    <Box key={i}>
+                      <FormLabel>{`${i + 1}º Imagem da galeria`}</FormLabel>
+                      <Input
+                        css={inputCSS}
+                        placeholder="Ex: http://www.imagestock.com"
+                        autoComplete="off"
+                        {...register(`image${i + 1}`)}
+                      />
+                    </Box>
+                  );
+                })}
+
+                <ButtonBrand4
+                  alignSelf="flex-start"
+                  fontSize="14px"
+                  onClick={() => setImage((prevImages) => [...prevImages, 1])}
+                >
+                  Adicionar imagem
+                </ButtonBrand4>
+              </>
+            )}
           </ModalBody>
 
-          <ModalFooter gap={"10px"}>
+          <ModalFooter gap="10px">
             <ButtonGray6 onClick={onClose}>Cancelar</ButtonGray6>
 
-            <ButtonBrand1 isDisabled={false} type={"submit"}>
+            <ButtonBrand1 isDisabled={false} type="submit">
               Criar anúncio
             </ButtonBrand1>
           </ModalFooter>

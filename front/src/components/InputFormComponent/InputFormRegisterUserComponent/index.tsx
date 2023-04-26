@@ -1,7 +1,7 @@
 import { Flex, FormLabel, Input, InputProps, Textarea } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
-import { Colors } from "../../styles/colors";
-import { ErrorComponent } from "./../ErrorComponent/index";
+import { Colors } from "../../../styles/colors";
+import { ErrorComponent } from "../../ErrorComponent/index";
 import { FieldValues, FieldErrors } from "react-hook-form";
 
 interface IInputFormComponent extends InputProps {

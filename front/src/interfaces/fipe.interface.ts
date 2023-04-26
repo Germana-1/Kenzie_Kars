@@ -1,13 +1,20 @@
-interface IFipeModel {
+export interface IFipeModel {
+  id: string;
   name: string;
+  brand: string;
+  year: string;
+  fuel: number;
+  value: number;
+  valueString?: string;
 }
 
-interface IFipeBrand {
+export interface IFipeBrand {
   brand: IFipeModel[];
 }
 
 export interface IFipeContext {
-  getModelList: () => Promise<IFipeBrand>;
+  getAllBrands: () => Promise<IFipeBrand>;
+  getAllModelsByBrand: (brand: string) => Promise<IFipeModel[]>;
 }
 
 export interface IFipeContextProps {
