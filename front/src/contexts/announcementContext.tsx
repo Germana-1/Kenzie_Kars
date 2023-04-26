@@ -19,9 +19,7 @@ export const AnnouncementProvider = ({
     data: IAnnouncementRegister
   ): Promise<void> {
     try {
-      const res = await api.post("/announcements", data);
-
-      console.log(res.data);
+      await api.post("/announcements", data);
     } catch (error) {
       console.log(error);
     }

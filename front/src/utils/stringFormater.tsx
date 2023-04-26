@@ -4,6 +4,7 @@ export function stringFormater(
   callback: any
 ) {
   const convertedValue = +value;
+  if (!convertedValue) return callback(value);
 
   if (currency) {
     const formatedValue = convertedValue.toLocaleString("pt-BR", {

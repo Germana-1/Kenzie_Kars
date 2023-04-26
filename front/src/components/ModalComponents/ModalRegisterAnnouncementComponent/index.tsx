@@ -45,10 +45,20 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: ModalProps) => {
   const { register, handleSubmit } = useForm();
 
   async function onSubmit(data: any) {
-    const normalizedData = announcementDataNormalizer(data);
-    console.log(normalizedData);
+    const numberOnly = /[^\d,]/g;
 
-    // announcementRegister(normalizedData);
+    data.mileage = +data.mileage;
+    data.year = +data.year;
+    data.price = parseFloat(
+      data.price.replace(numberOnly, "").replace(",", ".")
+    );
+    data.priceFipe = parseFloat(
+      data.priceFipe.replace(numberOnly, "").replace(",", ".")
+    );
+
+    const normalizedData = announcementDataNormalizer(data);
+
+    announcementRegister(normalizedData);
   }
 
   async function getModels(value: string) {
@@ -209,8 +219,6 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: ModalProps) => {
                   </FormControl>
                 </Flex>
 
-                {/* ! onBlur resetando o valor */}
-
                 <FormControl isRequired>
                   <Flex gap="15px">
                     <Flex flexDir="column" gap="1px">
@@ -234,14 +242,16 @@ export const ModalRegisterAnnoucement = ({ isOpen, onClose }: ModalProps) => {
                   </Flex>
                 </FormControl>
 
-                <Box>
-                  <FormLabel css={formLabelCSS}>Descrição</FormLabel>
-                  <Textarea
-                    css={inputCSS}
-                    resize="none"
-                    {...register("description")}
-                  />
-                </Box>
+                <FormControl isRequired>
+                  <Box>
+                    <FormLabel css={formLabelCSS}>Descrição</FormLabel>
+                    <Textarea
+                      css={inputCSS}
+                      resize="none"
+                      {...register("description")}
+                    />
+                  </Box>
+                </FormControl>
 
                 <FormControl isRequired>
                   <FormLabel css={formLabelCSS}>
