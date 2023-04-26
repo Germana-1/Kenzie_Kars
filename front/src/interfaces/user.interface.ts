@@ -1,3 +1,4 @@
+import { IAddress } from "./address.interface";
 import { IAnnouncement } from "./announcement.interface";
 import { IComment } from "./comment.interface";
 
@@ -35,16 +36,6 @@ export interface IUserRegister {
   confirmPassword: string;
   avatar?: string | null;
   address: IAddress;
-}
-
-export interface IAddress {
-  id?: string;
-  street: string;
-  number: string;
-  complement?: string | null;
-  city: string;
-  state: string;
-  zipCode: string;
 }
 
 export interface IUserContext {
