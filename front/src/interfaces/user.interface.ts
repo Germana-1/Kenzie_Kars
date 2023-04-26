@@ -1,4 +1,3 @@
-import { IAddress } from "../../../back/src/interfaces";
 import { IAnnouncement } from "./announcement.interface";
 import { IComment } from "./comment.interface";
 
@@ -31,15 +30,21 @@ export interface IUserRegister {
   cpf: string;
   phone: string;
   birthdate: string;
-  description: string;
-  cep: string;
-  state: string;
-  city: string;
-  street: string;
-  house_number: string;
-  complement: string;
+  description?: string | null;
   password: string;
-  confirm_password: string;
+  confirmPassword: string;
+  avatar?: string | null;
+  address: IAddress;
+}
+
+export interface IAddress {
+  id?: string;
+  street: string;
+  number: string;
+  complement?: string | null;
+  city: string;
+  state: string;
+  zipCode: string;
 }
 
 export interface IUserContext {
