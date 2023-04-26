@@ -15,7 +15,7 @@ export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser | void>();
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -47,7 +47,12 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
 
-      navigate(`/profile/${userId}`);
+      const payload = jwt_decode(res.data.token) as { sub: string };
+      setUserId(payload.sub);
+
+      navigate(`/profile/${payload.sub}/`);
+
+      userAuth();
 
       return res.data;
     } catch (error) {
@@ -57,6 +62,10 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
   async function userRegister(data: IUserRegister) {
     try {
+      const brDate = data.birthdate.split("/");
+      const usDate = `${brDate[2]}-${brDate[1]}-${brDate[0]}`;
+      data.birthdate = usDate;
+
       await api.post("/users", data);
 
       navigate("/login");
@@ -65,8 +74,14 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  const logout = () => {
+    window.localStorage.clear();
+    setUser();
+    navigate("/");
+  };
+
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister }}>
+    <UserContext.Provider value={{ user, userSession, userRegister, logout }}>
       {children}
     </UserContext.Provider>
   );

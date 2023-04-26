@@ -3,7 +3,7 @@ import * as Service from "../services";
 import { IUserLogin } from "../../../front/src/interfaces/user.interface";
 
 export const loginCrontroller = async (req: Request, res: Response) => {
-  const userLogin: IUserLogin = req.body;
+  const userLogin: IUserSession = req.body;
   const token = await Service.loginService(userLogin);
   return res.json({ token });
 };

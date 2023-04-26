@@ -64,7 +64,7 @@ export const RegisterPage = () => {
     if (!optionIsBuyer && !optionIsAdvertiser) return;
     const dataUpdate = {
       ...data,
-      account_type: optionIsBuyer ? "buyer" : "advertiser",
+      accountType: optionIsBuyer ? "buyer" : "seller",
     };
 
     userRegister(dataUpdate);
@@ -156,7 +156,7 @@ export const RegisterPage = () => {
                 placeholder={"00000.000"}
                 register={register}
                 errors={errors}
-                name="cep"
+                name="address.zipCode"
                 autoComplete="off"
               />
               <Flex gap={3}>
@@ -166,7 +166,7 @@ export const RegisterPage = () => {
                     placeholder={"Digitar Estado"}
                     register={register}
                     errors={errors}
-                    name="state"
+                    name="address.state"
                     autoComplete="off"
                   />
                 </Flex>
@@ -176,7 +176,7 @@ export const RegisterPage = () => {
                     placeholder={"Digitar Cidade"}
                     register={register}
                     errors={errors}
-                    name="city"
+                    name="address.city"
                     autoComplete="off"
                   />
                 </Flex>
@@ -186,7 +186,7 @@ export const RegisterPage = () => {
                 placeholder={"Digitar Rua"}
                 register={register}
                 errors={errors}
-                name="street"
+                name="address.street"
                 autoComplete="off"
               />
               <Flex gap={3}>
@@ -197,7 +197,7 @@ export const RegisterPage = () => {
                     placeholder={"Digitar Numero"}
                     register={register}
                     errors={errors}
-                    name="house_number"
+                    name="address.number"
                     autoComplete="off"
                   />
                 </Flex>
@@ -207,7 +207,7 @@ export const RegisterPage = () => {
                     placeholder={"Ex: apart 307"}
                     register={register}
                     errors={errors}
-                    name="complement"
+                    name="address.complement"
                     autoComplete="off"
                   />
                 </Flex>
@@ -248,7 +248,7 @@ export const RegisterPage = () => {
                 type={"password"}
                 register={register}
                 errors={errors}
-                name="confirm_password"
+                name="confirmPassword"
               />
             </Flex>
             <ButtonBrand1 type="submit">Finalizar Cadastro</ButtonBrand1>
