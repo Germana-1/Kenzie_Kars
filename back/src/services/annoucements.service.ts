@@ -1,4 +1,4 @@
-import { Announcement, Image } from "@prisma/client";
+import { Announcement } from "@prisma/client";
 import { Request } from "express";
 
 import { prisma } from "../database";
@@ -45,10 +45,10 @@ export const createAnnouncementService = async (req: Request) => {
   });
 
   const imageList = await Promise.all(
-    images.map(async (image: Image) => {
+    images.map(async (imageUrl: string) => {
       return await prisma.image.create({
         data: {
-          ...image,
+          imgUrl: imageUrl,
           announcementId: newAnnouncement.id,
         },
       });
