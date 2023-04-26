@@ -89,6 +89,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             announce.isActive ? Colors.brand1 : Colors.grey4
           }`,
         }}
+        objectFit={"cover"}
       />
 
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
