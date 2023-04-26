@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 
 import {
   IUser,
@@ -55,8 +56,14 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       userAuth();
 
       return res.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response.status === 403) {
+        toast.error(
+          "Verifique se o e-mail e a senha estão corretos e tente novamente."
+        );
+      } else {
+        console.log(error.message);
+      }
     }
   }
 
@@ -69,8 +76,14 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       await api.post("/users", data);
 
       navigate("/login");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        toast.error(
+          "Já existe um usuário com o mesmo CPF ou E-mail. Por favor, verifique suas informações e tente novamente."
+        );
+      } else {
+        console.log(error.message);
+      }
     }
   }
 
