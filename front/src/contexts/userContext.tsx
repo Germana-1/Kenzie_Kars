@@ -62,6 +62,10 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
   async function userRegister(data: IUserRegister) {
     try {
+      const brDate = data.birthdate.split("/");
+      const usDate = `${brDate[2]}-${brDate[1]}-${brDate[0]}`;
+      data.birthdate = usDate;
+
       await api.post("/users", data);
 
       navigate("/login");
