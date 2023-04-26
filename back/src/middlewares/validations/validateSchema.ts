@@ -9,6 +9,7 @@ export const validateSchema =
         stripUnknown: true,
         abortEarly: false,
       });
+
       req.body = validated;
       return next();
     } catch (err: any) {
