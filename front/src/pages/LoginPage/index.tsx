@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { ButtonGray10OutlineG4 } from "./../../components/ButtomComponents/";
-import { InputFormComponent } from "./../../components/InputFormComponent/";
+import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent";
 import { HeaderComponent } from "./../../components/HeaderComponent/";
 import { FooterComponent } from "./../../components/FooterComponent/";
 import { TextH5, TextBMT } from "./../../components/TextComponents/";

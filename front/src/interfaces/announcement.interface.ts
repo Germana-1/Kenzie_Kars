@@ -38,6 +38,26 @@ export interface IAnnouncementRegister {
   [key: string]: any;
 }
 
+export interface IAnnouncementFormRegister {
+  brand: string;
+  banner: string;
+  color: string;
+  description: string;
+  fuelType: string;
+  mileage: number;
+  model: string;
+  price: number;
+  priceFipe: number;
+  year: number;
+  images: IImage[] | any;
+  image1?: string;
+  image2?: string;
+  image3?: string;
+  image4?: string;
+  image5?: string;
+  image6?: string;
+}
+
 export interface IAnnouncementContext {
   announcementRegister: (data: IAnnouncementRegister) => void;
   announcementListAll: () => Promise<IAnnouncement[]>;

@@ -3,7 +3,7 @@ import { Avatar, Flex, useDisclosure } from "@chakra-ui/react";
 import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
-import { ModalRegisterAnnoucement } from "../ModalComponents";
+import { ModalRegisterAnnoucement } from "../ModalComponents/ModalRegisterAnnouncementComponent";
 import { useParams } from "react-router-dom";
 
 export const ProfileViewAnnouncerInfoComponent = () => {

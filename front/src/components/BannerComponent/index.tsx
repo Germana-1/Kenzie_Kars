@@ -1,7 +1,6 @@
 import { Box, Flex, Heading, Image, useMediaQuery } from "@chakra-ui/react";
 
-import bannerMobile from "../../assets/bannerMobile.svg";
-import bannerWeb from "../../assets/bannerWeb.svg";
+import bannerWeb from "../../assets/banner.jpg";
 import { Colors } from "../../styles/colors";
 import { FontSizes } from "../../styles/fontSizes";
 
@@ -9,8 +8,14 @@ export const BannerComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <Box position="relative" marginTop="80px">
-      <Image src={isMobile ? bannerMobile : bannerWeb} alt="banner" w="100%" />
-      
+      <Image
+        src={bannerWeb}
+        alt="banner"
+        w="100%"
+        h={"544px"}
+        objectFit={"cover"}
+      />
+
       <Box
         position="absolute"
         top="0"

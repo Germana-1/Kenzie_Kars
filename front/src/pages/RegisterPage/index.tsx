@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
-import { InputFormComponent } from "./../../components/InputFormComponent/index";
+import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent/index";
 import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
 import { ErrorComponent } from "./../../components/ErrorComponent/index";
 import { FooterComponent } from "./../../components/FooterComponent/index";
