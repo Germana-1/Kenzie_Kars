@@ -43,9 +43,11 @@ export interface IUserContext {
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
   logout: () => void;
-  handleOpenModal: React.MouseEventHandler<HTMLButtonElement>;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: boolean;
+  handleClick: (type: string) => void;
+  isProfileModalOpen: boolean;
+  setIsProfileModalOpen: (value: boolean) => void;
+  isAddressModalOpen: boolean;
+  setIsAddressModalOpen: (value: boolean) => void;
 }
 
 export interface IUserContextProps {

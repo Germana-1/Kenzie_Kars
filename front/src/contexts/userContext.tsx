@@ -18,15 +18,16 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser | void>();
   const [userId, setUserId] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
 
-  function handleOpenModal() {
-    setIsModalOpen(true);
-  }
-
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
+  const handleClick = (typeModal: string) => {
+    if (typeModal === 'profile') {
+      setIsProfileModalOpen(true);
+    } else if (typeModal === 'address') {
+      setIsAddressModalOpen(true);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
@@ -103,7 +104,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister, logout, handleOpenModal, setIsModalOpen, isModalOpen }}>
+    <UserContext.Provider value={{ user, userSession, userRegister, logout, handleClick, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen }}>
       {children}
     </UserContext.Provider>
   );

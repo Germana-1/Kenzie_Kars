@@ -18,10 +18,11 @@ import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
-import { ModalEditProfile } from "../ModalComponents/ModalEditProfile";
+import { ModalEditProfile } from "../ModalComponents/ModalEditProfileComponent";
+import { ModalEditAddress } from "../ModalComponents/ModalEditAddressComponent";
 
 export const HeaderComponent = () => {
-  const { user, logout, isModalOpen, handleOpenModal, setIsModalOpen } = useContext(UserContext);
+  const { user, logout, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen, handleClick } = useContext(UserContext);
 
   return (
     <>
@@ -57,8 +58,8 @@ export const HeaderComponent = () => {
               <MenuItem as={Link} to={`/profile/${user.id}/`}>
                 Meu perfil
               </MenuItem>
-              <MenuItem onClick={handleOpenModal}>Alterar perfil</MenuItem>
-              <MenuItem>Alterar endereço</MenuItem>
+              <MenuItem onClick={() => handleClick('profile')}>Alterar perfil</MenuItem>
+              <MenuItem onClick={() => handleClick('address')}>Alterar endereço</MenuItem>
               <MenuItem>Excluir conta</MenuItem>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuList>
@@ -113,7 +114,8 @@ export const HeaderComponent = () => {
           </>
         )}
       </Flex>
-      <ModalEditProfile isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} children={undefined} />
+      <ModalEditProfile isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} children={undefined} />
+      <ModalEditAddress isOpen={isAddressModalOpen} onClose={() => setIsAddressModalOpen(false)} children={undefined} />
     </>
   );
 };
