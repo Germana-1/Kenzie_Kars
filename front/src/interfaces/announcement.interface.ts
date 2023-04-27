@@ -60,8 +60,18 @@ export interface IAnnouncementFormRegister {
 
 export interface IAnnouncementContext {
   announcementRegister: (data: IAnnouncementRegister) => void;
-  announcementListAll: () => Promise<IAnnouncement[]>;
+  announcements: IAnnouncement[];
   announcementListOne: (data: string) => Promise<IAnnouncement | undefined>;
+  setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedFuel: React.Dispatch<React.SetStateAction<string>>;
+  brands: string[];
+  models: string[];
+  colors: string[];
+  years: number[];
+  fuel: string[];
 }
 
 export interface IAnnouncementContextProps {
