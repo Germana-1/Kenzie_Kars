@@ -5,10 +5,31 @@ import { prisma } from "../database";
 import * as Interfaces from "../interfaces";
 import * as Utils from "../utils";
 
-export const getAllAnnouncementsService = async () => {
-  return await prisma.announcement.findMany({
+export interface AnnouncementFilter {
+  brand?: string;
+  model?: string;
+  color?: string;
+  year?: number;
+  fuelType?: string;
+}
+
+export const getAllAnnouncementsService = async (
+  filters?: AnnouncementFilter
+) => {
+  const { brand, model, color, fuelType, year } = filters;
+
+  const announcements = await prisma.announcement.findMany({
     select: Utils.getAllAnnoucementsOptions,
+    where: {
+      brand: brand ? { equals: brand } : undefined,
+      model: model ? { equals: model } : undefined,
+      color: color ? { equals: color } : undefined,
+      fuelType: fuelType ? { equals: fuelType } : undefined,
+      year: year ? { equals: +year } : undefined,
+    },
   });
+
+  return announcements;
 };
 
 interface IDataCreateAnnouncementRequest {

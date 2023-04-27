@@ -14,7 +14,10 @@ export const getAllAnnouncementController = async (
   req: Request,
   res: Response
 ) => {
-  const data = await Service.getAllAnnouncementsService();
+  const filters: Service.AnnouncementFilter = req.query;
+
+  const data = await Service.getAllAnnouncementsService(filters);
+
   return res.json(data);
 };
 
