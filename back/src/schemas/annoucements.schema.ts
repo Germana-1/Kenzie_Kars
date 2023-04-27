@@ -14,14 +14,7 @@ export const createAnnouncementSchema: yup.SchemaOf<Interfaces.ICreateAnnoucemen
     fuelType: yup.string().required(),
     description: yup.string().required(),
     banner: yup.string().required(),
-    images: yup
-      .array()
-      .of(
-        yup.object().shape({
-          imgUrl: yup.string().required(),
-        })
-      )
-      .notRequired(),
+    images: yup.array().of(yup.string().notRequired()).notRequired(),
   });
 
 export const updateAnnouncementSchema: yup.SchemaOf<Interfaces.IUpdateAnnoucementRequest> =

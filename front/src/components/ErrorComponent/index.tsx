@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react";
+
 import { TextB1 } from "../TextComponents";
 
 interface IError {

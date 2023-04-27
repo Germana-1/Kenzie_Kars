@@ -9,11 +9,11 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
-  ModalProps,
   FormControl,
   Input,
   Box,
   Textarea,
+  UseModalProps,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -31,7 +31,10 @@ import { IFipeModel } from "../../../interfaces/fipe.interface";
 import { Colors } from "../../../styles/colors";
 import { stringFormater } from "../../../utils/stringFormater";
 
-export const ModalRegisterAnnoucement = ({ isOpen, onClose }: ModalProps) => {
+export const ModalRegisterAnnoucement = ({
+  isOpen,
+  onClose,
+}: UseModalProps) => {
   const { announcementRegister } = useContext(AnnouncementContext);
   const { getAllBrands, getAllModelsByBrand } = useContext(FipeContext);
 
