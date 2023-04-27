@@ -16,15 +16,7 @@ export const ListCardComponent = ({
   hideTag,
   justify,
 }: IListCardComponent) => {
-  const { announcementListAll } = useContext(AnnouncementContext);
-  const [announcements, setAnnouncements] = useState<IAnnouncement[]>([]);
-
-  useEffect(() => {
-    async function getProductList() {
-      setAnnouncements(await announcementListAll());
-    }
-    getProductList();
-  }, []);
+  const { announcements } = useContext(AnnouncementContext);
 
   return (
     announcements && (
