@@ -1,33 +1,70 @@
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 
 import { FilterComponent } from "../../components/FilterComponent";
 import { FilterWithInputComponent } from "../FilterWithInputComponent";
-
-const brands = ["Fiat", "Ford", "Volkswagen"];
-const models = [
-  "Civic",
-  "Corolla",
-  "Cruze",
-  "Fit",
-  "Gol",
-  "Ka",
-  "Onix",
-  "Pulse",
-];
-const colors = ["Branco", "Preto", "Prata"];
-const years = ["2023", "2022", "2021"];
-const fuel = ["Diesel", "Etanol", "Gasolina", "Flex"];
+import { useContext } from "react";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 export const ListFiltersComponent = () => {
+  const {
+    setSelectedBrand,
+    setSelectedModel,
+    setSelectedColor,
+    setSelectedYear,
+    setSelectedFuel,
+    brands,
+    models,
+    colors,
+    years,
+    fuel,
+  } = useContext(AnnouncementContext);
+
+  const resetFilters = () => {
+    setSelectedBrand("");
+    setSelectedModel("");
+    setSelectedColor("");
+    setSelectedYear(0);
+    setSelectedFuel("");
+  };
+
+  const filterBrands = new Set(brands);
+  const filterModels = new Set(models);
+  const filterColors = new Set(colors);
+  const filterYears = new Set(years);
+  const filterFuel = new Set(fuel);
+
   return (
     <Flex flexDirection="column" gap="42px" marginTop="16px">
-      <FilterComponent titleFilter={"Marca"} filters={brands} />
-      <FilterComponent titleFilter={"Modelo"} filters={models} />
-      <FilterComponent titleFilter={"Cor"} filters={colors} />
-      <FilterComponent titleFilter={"Ano"} filters={years} />
-      <FilterComponent titleFilter={"Combustível"} filters={fuel} />
+      <FilterComponent
+        titleFilter={"Marca"}
+        filters={[...filterBrands]}
+        setSelected={setSelectedBrand}
+      />
+      <FilterComponent
+        titleFilter={"Modelo"}
+        filters={[...filterModels]}
+        setSelected={setSelectedModel}
+      />
+      <FilterComponent
+        titleFilter={"Cor"}
+        filters={[...filterColors]}
+        setSelected={setSelectedColor}
+      />
+      <FilterComponent
+        titleFilter={"Ano"}
+        filters={[...filterYears]}
+        setSelected={setSelectedColor}
+      />
+      <FilterComponent
+        titleFilter={"Combustível"}
+        filters={[...filterFuel]}
+        setSelected={setSelectedFuel}
+      />
       <FilterWithInputComponent titleFilter={"Km"} />
       <FilterWithInputComponent titleFilter={"Preço"} />
+      <Button variant="ghost" onClick={resetFilters}>
+        Limpar filtros
+      </Button>
     </Flex>
   );
 };
