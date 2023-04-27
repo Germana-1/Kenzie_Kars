@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -17,6 +17,15 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser | void>();
   const [userId, setUserId] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function handleOpenModal() {
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
@@ -81,7 +90,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister, logout }}>
+    <UserContext.Provider value={{ user, userSession, userRegister, logout, handleOpenModal, setIsModalOpen, isModalOpen }}>
       {children}
     </UserContext.Provider>
   );

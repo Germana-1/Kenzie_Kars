@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Kenzie-Kars/Kenzie_Kars#readme",
   "dependencies": {
-    "@prisma/client": "^4.12.0",
+    "@prisma/client": "^4.13.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",

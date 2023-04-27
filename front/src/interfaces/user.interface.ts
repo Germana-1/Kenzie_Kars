@@ -1,3 +1,4 @@
+import { SetStateAction } from "react";
 import { IAnnouncement } from "./announcement.interface";
 import { IComment } from "./comment.interface";
 
@@ -52,6 +53,9 @@ export interface IUserContext {
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
   logout: () => void;
+  handleOpenModal: React.MouseEventHandler<HTMLButtonElement>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: boolean;
 }
 
 export interface IUserContextProps {
