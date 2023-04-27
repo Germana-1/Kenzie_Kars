@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
@@ -18,6 +18,16 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser | void>();
   const [userId, setUserId] = useState("");
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+
+  const handleClick = (typeModal: string) => {
+    if (typeModal === 'profile') {
+      setIsProfileModalOpen(true);
+    } else if (typeModal === 'address') {
+      setIsAddressModalOpen(true);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("@kenzieToken");
@@ -94,7 +104,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister, logout }}>
+    <UserContext.Provider value={{ user, userSession, userRegister, logout, handleClick, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen }}>
       {children}
     </UserContext.Provider>
   );

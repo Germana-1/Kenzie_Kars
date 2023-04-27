@@ -43,6 +43,11 @@ export interface IUserContext {
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
   logout: () => void;
+  handleClick: (type: string) => void;
+  isProfileModalOpen: boolean;
+  setIsProfileModalOpen: (value: boolean) => void;
+  isAddressModalOpen: boolean;
+  setIsAddressModalOpen: (value: boolean) => void;
 }
 
 export interface IUserContextProps {
