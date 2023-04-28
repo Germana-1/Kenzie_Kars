@@ -45,9 +45,11 @@ export interface IUserContext {
   logout: () => void;
   handleClick: (type: string) => void;
   isProfileModalOpen: boolean;
-  setIsProfileModalOpen: (value: boolean) => void;
   isAddressModalOpen: boolean;
+  isDeleteAccountModalOpen: boolean
+  setIsProfileModalOpen: (value: boolean) => void;
   setIsAddressModalOpen: (value: boolean) => void;
+  setIsDeleteAccountModalOpen:(value: boolean) => void;
 }
 
 export interface IUserContextProps {
