@@ -96,3 +96,11 @@ export const updateUserAddressService = async (
 
   return address;
 };
+
+export const deleteUserService = async (id: string): Promise<void> => {
+  await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
+};
