@@ -20,9 +20,20 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
 import { ModalEditProfile } from "../ModalComponents/ModalEditProfileComponent";
 import { ModalEditAddress } from "../ModalComponents/ModalEditAddressComponent";
+import { ModalDeleteAccount } from "../ModalComponents/ModalDeleteAccountComponent";
 
 export const HeaderComponent = () => {
-  const { user, logout, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen, handleClick } = useContext(UserContext);
+  const {
+    user,
+    logout,
+    isProfileModalOpen,
+    setIsProfileModalOpen,
+    isAddressModalOpen,
+    setIsAddressModalOpen,
+    handleClick,
+    isDeleteAccountModalOpen,
+    setIsDeleteAccountModalOpen
+  } = useContext(UserContext);
 
   return (
     <>
@@ -36,7 +47,7 @@ export const HeaderComponent = () => {
         borderBottom="2px"
         borderBottomColor={Colors.grey6}
         position="fixed"
-        zIndex="10000"
+        zIndex="10"
       >
         <Box flex="1" mr={5}>
           <Link to={"/"}>
@@ -60,7 +71,7 @@ export const HeaderComponent = () => {
               </MenuItem>
               <MenuItem onClick={() => handleClick('profile')}>Alterar perfil</MenuItem>
               <MenuItem onClick={() => handleClick('address')}>Alterar endereço</MenuItem>
-              <MenuItem>Excluir conta</MenuItem>
+              <MenuItem onClick={() => handleClick('delete')}>Excluir conta</MenuItem>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuList>
           </Menu>
@@ -114,8 +125,21 @@ export const HeaderComponent = () => {
           </>
         )}
       </Flex>
-      <ModalEditProfile isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} children={undefined} />
-      <ModalEditAddress isOpen={isAddressModalOpen} onClose={() => setIsAddressModalOpen(false)} children={undefined} />
+      <ModalEditProfile
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        children={undefined}
+      />
+      <ModalEditAddress
+        isOpen={isAddressModalOpen}
+        onClose={() => setIsAddressModalOpen(false)}
+        children={undefined}
+      />
+      <ModalDeleteAccount
+        isOpen={isDeleteAccountModalOpen}
+        onClose={() => setIsDeleteAccountModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };

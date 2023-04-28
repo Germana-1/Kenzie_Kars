@@ -20,10 +20,15 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [userId, setUserId] = useState("");
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === 'profile') {
       setIsProfileModalOpen(true);
+    }
+    if (typeModal === 'delete') {
+      setIsDeleteAccountModalOpen(true);
+      setIsProfileModalOpen(false);
     } else if (typeModal === 'address') {
       setIsAddressModalOpen(true);
     }
@@ -104,8 +109,22 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, userSession, userRegister, logout, handleClick, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen }}>
+    <UserContext.Provider
+      value={{
+        user,
+        userSession,
+        userRegister,
+        logout,
+        handleClick,
+        isProfileModalOpen,
+        setIsProfileModalOpen,
+        isAddressModalOpen,
+        setIsAddressModalOpen,
+        isDeleteAccountModalOpen,
+        setIsDeleteAccountModalOpen
+      }}
+    >
       {children}
     </UserContext.Provider>
-  );
+  );  
 };
