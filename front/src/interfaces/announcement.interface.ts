@@ -67,6 +67,14 @@ export interface IAnnouncementContext {
   setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
   setSelectedFuel: React.Dispatch<React.SetStateAction<string>>;
+  setMinKm: React.Dispatch<React.SetStateAction<string>>;
+  setMaxKm: React.Dispatch<React.SetStateAction<string>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<string>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
+  minKm: string;
+  maxKm: string;
+  minPrice: string;
+  maxPrice: string;
   brands: string[];
   models: string[];
   colors: string[];
