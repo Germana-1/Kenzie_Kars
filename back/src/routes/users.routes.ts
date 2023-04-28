@@ -33,4 +33,10 @@ usersRoutes.patch(
   Controller.updateUserAddressController
 );
 
+usersRoutes.delete(
+  "/profile",
+  Middlewares.ensureAuthMiddleware,
+  Controller.deleteUserController
+);
+
 export { usersRoutes };
