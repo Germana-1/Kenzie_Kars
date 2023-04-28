@@ -28,8 +28,9 @@ import { AnnouncementContext } from "../../../contexts/announcementContext";
 import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
 import { FipeContext } from "../../../contexts/fipeContext";
 import { IFipeModel } from "../../../interfaces/fipe.interface";
-import { Colors } from "../../../styles/colors";
 import { stringFormater } from "../../../utils/stringFormater";
+import { labelCSS, inputCSS } from "../../../styles/global";
+import { Colors } from "../../../styles/colors";
 
 export const ModalRegisterAnnoucement = ({
   isOpen,
@@ -82,38 +83,19 @@ export const ModalRegisterAnnoucement = ({
     })();
   }, []);
 
-  const formLabelCSS = {
-    fontSize: "14px",
-    fontWeight: "500",
-  };
-
-  const inputCSS = {
-    fontSize: "16px",
-    fontWeight: "400",
-    border: `1.5px solid ${Colors.grey7}`,
-    borderRadius: "4px",
-    "&:focus": {
-      borderColor: Colors.brand1,
-    },
-    "&:disabled": {
-      opacity: "1",
-      backgroundColor: Colors.grey7,
-      cursor: "not-allowed",
-    },
-  };
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent
-          mt="100px"
-          as="form"
-          fontFamily="Lexend"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)}>
           <ModalHeader>
-            <TextH7 fontWeight={500}>Criar anúncio</TextH7>
+            <TextH7
+              fontWeight={800}
+              fontFamily={"Lenxend"}
+              color={Colors.brand1}
+            >
+              Criar anúncio
+            </TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
@@ -124,9 +106,11 @@ export const ModalRegisterAnnoucement = ({
             <FormControl isRequired>
               <Flex direction="column" gap="15px">
                 <Box>
-                  <FormLabel css={formLabelCSS}>Marca</FormLabel>
+                  <FormLabel css={labelCSS}>Marca</FormLabel>
                   <Select
                     css={inputCSS}
+                    color={Colors.brand1}
+                    focusBorderColor={Colors.brand1}
                     {...register("brand", {
                       onChange: (e) => {
                         getModels(e.target.value);
@@ -142,9 +126,11 @@ export const ModalRegisterAnnoucement = ({
                 </Box>
 
                 <Box flexDir="column" gap="1px">
-                  <FormLabel css={formLabelCSS}>Modelo</FormLabel>
+                  <FormLabel css={labelCSS}>Modelo</FormLabel>
                   <Select
                     css={inputCSS}
+                    color={Colors.brand1}
+                    focusBorderColor={Colors.brand1}
                     isDisabled={models.length ? false : true}
                     {...register("model", {
                       onChange: (e) => getCarDetails(e.target.value),
@@ -164,20 +150,24 @@ export const ModalRegisterAnnoucement = ({
               <>
                 <Flex gap="15px">
                   <Flex flexDir="column" gap="1px">
-                    <FormLabel css={formLabelCSS}>Ano</FormLabel>
+                    <FormLabel css={labelCSS}>Ano</FormLabel>
                     <Input
                       readOnly
                       css={inputCSS}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
                       value={carDetail.year}
                       {...register("year")}
                     />
                   </Flex>
 
                   <Flex flexDir="column" gap="1px">
-                    <FormLabel css={formLabelCSS}>Combustível</FormLabel>
+                    <FormLabel css={labelCSS}>Combustível</FormLabel>
                     <Input
                       readOnly
                       css={inputCSS}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
                       value={(() => {
                         switch (carDetail.fuel) {
                           case 1:
@@ -195,10 +185,12 @@ export const ModalRegisterAnnoucement = ({
 
                 <Flex gap="15px">
                   <Flex flexDir="column" gap="1px">
-                    <FormLabel css={formLabelCSS}>Preço FIPE</FormLabel>
+                    <FormLabel css={labelCSS}>Preço FIPE</FormLabel>
                     <Input
                       readOnly
                       css={inputCSS}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
                       value={carDetail.value.toLocaleString("pt-BR", {
                         style: "currency",
                         currency: "BRL",
@@ -208,10 +200,12 @@ export const ModalRegisterAnnoucement = ({
                   </Flex>
 
                   <FormControl isRequired>
-                    <FormLabel css={formLabelCSS}>Preço</FormLabel>
+                    <FormLabel css={labelCSS}>Preço</FormLabel>
                     <Input
                       css={inputCSS}
                       value={price}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
                       {...register("price", {
                         onChange: (e) =>
                           setPrice(e.target.value.replace(/[^\d]/g, "")),
@@ -225,10 +219,12 @@ export const ModalRegisterAnnoucement = ({
                 <FormControl isRequired>
                   <Flex gap="15px">
                     <Flex flexDir="column" gap="1px">
-                      <FormLabel css={formLabelCSS}>Quilometragem</FormLabel>
+                      <FormLabel css={labelCSS}>Quilometragem</FormLabel>
                       <Input
                         css={inputCSS}
                         value={mileage}
+                        color={Colors.brand1}
+                        focusBorderColor={Colors.brand1}
                         {...register("mileage", {
                           onChange: (e) =>
                             setMileage(e.target.value.replace(/[^\d]/g, "")),
@@ -239,31 +235,38 @@ export const ModalRegisterAnnoucement = ({
                     </Flex>
 
                     <Flex flexDir="column" gap="1px">
-                      <FormLabel css={formLabelCSS}>Cor</FormLabel>
-                      <Input css={inputCSS} {...register("color")} />
+                      <FormLabel css={labelCSS}>Cor</FormLabel>
+                      <Input
+                        css={inputCSS}
+                        color={Colors.brand1}
+                        focusBorderColor={Colors.brand1}
+                        {...register("color")}
+                      />
                     </Flex>
                   </Flex>
                 </FormControl>
 
                 <FormControl isRequired>
                   <Box>
-                    <FormLabel css={formLabelCSS}>Descrição</FormLabel>
+                    <FormLabel css={labelCSS}>Descrição</FormLabel>
                     <Textarea
                       css={inputCSS}
                       resize="none"
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
                       {...register("description")}
                     />
                   </Box>
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel css={formLabelCSS}>
-                    Imagem de capa (URL){" "}
-                  </FormLabel>
+                  <FormLabel css={labelCSS}>Imagem de capa (URL) </FormLabel>
                   <Input
                     css={inputCSS}
                     placeholder="Ex: http://www.imagestock.com"
                     autoComplete="off"
+                    color={Colors.brand1}
+                    focusBorderColor={Colors.brand1}
                     {...register("banner")}
                   />
                 </FormControl>
@@ -278,6 +281,8 @@ export const ModalRegisterAnnoucement = ({
                         css={inputCSS}
                         placeholder="Ex: http://www.imagestock.com"
                         autoComplete="off"
+                        color={Colors.brand1}
+                        focusBorderColor={Colors.brand1}
                         {...register(`image${i + 1}`)}
                       />
                     </Box>

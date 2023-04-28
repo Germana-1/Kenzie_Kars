@@ -22,14 +22,22 @@ import { ModalEditProfile } from "../ModalComponents/ModalEditProfileComponent";
 import { ModalEditAddress } from "../ModalComponents/ModalEditAddressComponent";
 
 export const HeaderComponent = () => {
-  const { user, logout, isProfileModalOpen, setIsProfileModalOpen, isAddressModalOpen, setIsAddressModalOpen, handleClick } = useContext(UserContext);
+  const {
+    user,
+    logout,
+    isProfileModalOpen,
+    setIsProfileModalOpen,
+    isAddressModalOpen,
+    setIsAddressModalOpen,
+    handleClick,
+  } = useContext(UserContext);
 
   return (
     <>
       <Flex
         as={"header"}
         bg={Colors.grey10}
-        p={"4px 50px"}
+        p={"4px 60px 4px 40px"}
         h="80px"
         w="100%"
         alignItems="center"
@@ -58,8 +66,12 @@ export const HeaderComponent = () => {
               <MenuItem as={Link} to={`/profile/${user.id}/`}>
                 Meu perfil
               </MenuItem>
-              <MenuItem onClick={() => handleClick('profile')}>Alterar perfil</MenuItem>
-              <MenuItem onClick={() => handleClick('address')}>Alterar endereço</MenuItem>
+              <MenuItem onClick={() => handleClick("profile")}>
+                Alterar perfil
+              </MenuItem>
+              <MenuItem onClick={() => handleClick("address")}>
+                Alterar endereço
+              </MenuItem>
               <MenuItem>Excluir conta</MenuItem>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuList>
@@ -114,8 +126,16 @@ export const HeaderComponent = () => {
           </>
         )}
       </Flex>
-      <ModalEditProfile isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} children={undefined} />
-      <ModalEditAddress isOpen={isAddressModalOpen} onClose={() => setIsAddressModalOpen(false)} children={undefined} />
+      <ModalEditProfile
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        children={undefined}
+      />
+      <ModalEditAddress
+        isOpen={isAddressModalOpen}
+        onClose={() => setIsAddressModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };

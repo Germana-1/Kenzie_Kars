@@ -38,7 +38,6 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       minW="312px"
       maxW="312px"
       h="420px"
-      margin="20px"
       position="relative"
       cursor="pointer"
       onClick={() => navigate(`/product/${announce.id}`)}
@@ -115,7 +114,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
         <Flex justifyContent="space-between">
           <Flex gap="10px">
-            <ButtonBrand4 size={"sm"}>{`${announce.mileage} KM`}</ButtonBrand4>
+            <ButtonBrand4 size={"sm"}>{`${announce.mileage.toLocaleString(
+              "pt-BR"
+            )} KM`}</ButtonBrand4>
             <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
           </Flex>
 

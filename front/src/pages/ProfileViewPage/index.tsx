@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 
 import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -21,11 +21,9 @@ export const ProfileViewPage = () => {
           Anúncios
         </TextH5>
 
-        <ListCardComponent
-          filterActive={false}
-          hideTag={false}
-          justify={"center"}
-        />
+        <Flex justifyContent={"center"}>
+          <ListCardComponent filterActive={false} hideTag={false} centered />
+        </Flex>
       </Container>
 
       <FooterComponent />
