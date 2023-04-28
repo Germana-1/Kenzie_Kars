@@ -12,6 +12,11 @@ npm run dev
 npx prisma migrate dev --name init
 ```
 
+### RUN SEED
+```
+npm run seed
+```
+
 # CONVENTIONAL COMMITS
 
 ---
