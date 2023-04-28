@@ -56,3 +56,24 @@ export interface IGetUserResponse {
   announcements: Announcement[];
   comments: Comment[];
 }
+
+export interface IUpdateUserRequest {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  phone?: string;
+  birthdate?: Date;
+  description?: string;
+  password?: string;
+  accountType?: string;
+  avatar?: string;
+}
+
+export interface IUpdateAddressRequest {
+  street?: string;
+  number?: string;
+  complement?: string | null;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+}
