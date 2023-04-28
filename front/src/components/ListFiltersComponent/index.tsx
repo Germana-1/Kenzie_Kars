@@ -1,9 +1,9 @@
-import { Button, Flex } from "@chakra-ui/react";
-
+import { Flex } from "@chakra-ui/react";
+import { useContext } from "react";
 import { FilterComponent } from "../../components/FilterComponent";
 import { FilterWithInputComponent } from "../FilterWithInputComponent";
-import { useContext } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { ButtonBrand1 } from "../ButtomComponents";
 
 export const ListFiltersComponent = () => {
   const {
@@ -12,6 +12,14 @@ export const ListFiltersComponent = () => {
     setSelectedColor,
     setSelectedYear,
     setSelectedFuel,
+    setMinKm,
+    setMaxKm,
+    setMinPrice,
+    setMaxPrice,
+    minKm,
+    maxKm,
+    minPrice,
+    maxPrice,
     brands,
     models,
     colors,
@@ -25,6 +33,10 @@ export const ListFiltersComponent = () => {
     setSelectedColor("");
     setSelectedYear(0);
     setSelectedFuel("");
+    setMinKm("");
+    setMaxKm("");
+    setMinPrice("");
+    setMaxPrice("");
   };
 
   const filterBrands = new Set(brands);
@@ -53,18 +65,31 @@ export const ListFiltersComponent = () => {
       <FilterComponent
         titleFilter={"Ano"}
         filters={[...filterYears]}
-        setSelected={setSelectedColor}
+        setSelected={setSelectedYear}
       />
       <FilterComponent
         titleFilter={"Combustível"}
         filters={[...filterFuel]}
         setSelected={setSelectedFuel}
       />
-      <FilterWithInputComponent titleFilter={"Km"} />
-      <FilterWithInputComponent titleFilter={"Preço"} />
-      <Button variant="ghost" onClick={resetFilters}>
+      <FilterWithInputComponent
+        titleFilter={"Km"}
+        min={minKm}
+        max={maxKm}
+        setMin={setMinKm}
+        setMax={setMaxKm}
+      />
+      <FilterWithInputComponent
+        titleFilter={"Preço"}
+        min={minPrice}
+        max={maxPrice}
+        setMin={setMinPrice}
+        setMax={setMaxPrice}
+      />
+
+      <ButtonBrand1 maxW="279px" onClick={resetFilters}>
         Limpar filtros
-      </Button>
+      </ButtonBrand1>
     </Flex>
   );
 };

@@ -54,7 +54,7 @@ model Announcement {
   priceFipe   Decimal   @db.Decimal()
   fuelType    String    @db.VarChar(50)
   color       String    @db.VarChar(50)
-  banner      String    @db.VarChar(100)
+  banner      String    @db.VarChar(255)
   description String    @db.Text
   isActive    Boolean   @default(true)
   isGoodBuy   Boolean   @default(false)

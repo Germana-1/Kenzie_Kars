@@ -25,6 +25,10 @@ export const AnnouncementProvider = ({
   const [colors, setColors] = useState<string[]>([]);
   const [years, setYears] = useState<number[]>([]);
   const [fuel, setFuel] = useState<string[]>([]);
+  const [minKm, setMinKm] = useState("");
+  const [maxKm, setMaxKm] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   useEffect(() => {
     async function getProductList() {
@@ -87,7 +91,39 @@ export const AnnouncementProvider = ({
 
       try {
         const response = await api.get(url);
-        const data = response.data;
+        let data = response.data;
+        let filteredData = response.data;
+        console.log(minPrice);
+
+        if (minPrice != "" && maxPrice != "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.price >= Number(minPrice) && el.price <= Number(maxPrice);
+          });
+        } else if (minPrice != "" && maxPrice == "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.price >= Number(minPrice);
+          });
+        } else if (maxPrice != "" && minPrice == "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.price <= Number(maxPrice);
+          });
+        }
+
+        if (minKm != "" && maxKm != "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.mileage >= Number(minKm) && el.mileage <= Number(maxKm);
+          });
+        } else if (minKm != "" && maxKm == "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.mileage >= Number(minKm);
+          });
+        } else if (maxKm != "" && minKm == "") {
+          filteredData = filteredData.filter((el: IAnnouncement) => {
+            return el.mileage <= Number(maxKm);
+          });
+        }
+
+        data = filteredData;
 
         setAnnouncements(data);
         setBrands([]);
@@ -108,7 +144,17 @@ export const AnnouncementProvider = ({
     };
 
     fetchData();
-  }, [selectedBrand, selectedModel, selectedColor, selectedYear, selectedFuel]);
+  }, [
+    selectedBrand,
+    selectedModel,
+    selectedColor,
+    selectedYear,
+    selectedFuel,
+    minKm,
+    maxKm,
+    minPrice,
+    maxPrice,
+  ]);
 
   return (
     <AnnouncementContext.Provider
@@ -121,6 +167,14 @@ export const AnnouncementProvider = ({
         setSelectedColor,
         setSelectedYear,
         setSelectedFuel,
+        setMinKm,
+        setMaxKm,
+        setMinPrice,
+        setMaxPrice,
+        minKm,
+        maxKm,
+        minPrice,
+        maxPrice,
         brands,
         models,
         colors,
