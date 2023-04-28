@@ -19,4 +19,18 @@ usersRoutes.get(
   Controller.getOneUserController
 );
 
+usersRoutes.patch(
+  "/profile",
+  Middlewares.ensureAuthMiddleware,
+  Middlewares.validateSchema(Schema.updateUserRequestSchema),
+  Controller.updateUserController
+);
+
+usersRoutes.patch(
+  "/profile/address",
+  Middlewares.ensureAuthMiddleware,
+  Middlewares.validateSchema(Schema.updateUserAddressRequestSchema),
+  Controller.updateUserAddressController
+);
+
 export { usersRoutes };
