@@ -24,3 +24,8 @@ export const updateUserAddressController = async (
   const data = await Service.updateUserAddressService(req);
   return res.json(data);
 };
+
+export const deleteUserController = async (req: Request, res: Response) => {
+  await Service.deleteUserService(req.authUser.id);
+  return res.status(204).json({});
+};
