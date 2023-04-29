@@ -11,7 +11,6 @@ interface FilterProps {
   setMax: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
 export const FilterWithInputComponent = ({
   titleFilter,
   min,
@@ -60,17 +59,17 @@ export const FilterWithInputComponent = ({
           fontWeight={800}
           bg={Colors.grey4}
           borderRadius="0"
-
           placeholder="Mínimo"
           _placeholder={{
             color: Colors.grey2,
           }}
-          value={priceMin}
-          onDoubleClick={() => setPriceMin("")}
-          onChange={(e) => setPriceMin(e.target.value.replace(/[^\d]/g, ""))}
-          onBlur={(e) =>
-            stringFormater(e.target.value, formatType, setPriceMin)
-          }
+          
+          // value={priceMin}
+          // onDoubleClick={() => setPriceMin("")}
+          // onChange={(e) => setPriceMin(e.target.value.replace(/[^\d]/g, ""))}
+          // onBlur={(e) =>
+          //   stringFormater(e.target.value, formatType, setPriceMin)
+          // }
 
           type="number"
           onBlur={handleMin}
@@ -86,17 +85,17 @@ export const FilterWithInputComponent = ({
           fontWeight={800}
           bg={Colors.grey4}
           borderRadius="0"
-
           placeholder="Máximo"
           _placeholder={{
             color: Colors.grey2,
           }}
-          value={priceMax}
-          onDoubleClick={() => setPriceMax("")}
-          onChange={(e) => setPriceMax(e.target.value.replace(/[^\d]/g, ""))}
-          onBlur={(e) =>
-            stringFormater(e.target.value, formatType, setPriceMax)
-          }
+          
+          // value={priceMax}
+          // onDoubleClick={() => setPriceMax("")}
+          // onChange={(e) => setPriceMax(e.target.value.replace(/[^\d]/g, ""))}
+          // onBlur={(e) =>
+          //   stringFormater(e.target.value, formatType, setPriceMax)
+          // }
 
           type="number"
           onBlur={handleMax}

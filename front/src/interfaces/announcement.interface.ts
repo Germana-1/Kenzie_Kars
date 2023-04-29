@@ -64,8 +64,6 @@ export interface IAnnouncementContext {
   announcementRegister: (data: IAnnouncementRegister) => void;
   announcementListAll: () => void;
   announcementListOne: (data: string) => void;
-  announcements: IAnnouncement[];
-  announcementListOne: (data: string) => Promise<IAnnouncement | undefined>;
   setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
   setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
   setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
