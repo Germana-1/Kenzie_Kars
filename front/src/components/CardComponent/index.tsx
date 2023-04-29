@@ -25,8 +25,6 @@ interface IProps {
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { announcementListOne } = useContext(AnnouncementContext);
   const navigate = useNavigate();
-  const shortDescription = announce.description.substring(0, 80) + "...";
-  const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
   const userName = announce.user?.name.substring(0, 32);
   const price = Number(announce.price).toLocaleString("pt-br", {
     style: "currency",
@@ -83,6 +81,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         bg={Colors.grey7}
         w="100%"
         h="152px"
+        whiteSpace={"nowrap"}
+        overflow={"hidden"}
+        textOverflow={"ellipsis"}
         _hover={{
           border: `2px solid ${
             announce.isActive ? Colors.brand1 : Colors.grey4
@@ -92,16 +93,29 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       />
 
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
-        <Heading size="16px">{title}</Heading>
+        <Heading
+          size="16px"
+          whiteSpace={"nowrap"}
+          overflow={"hidden"}
+          textOverflow={"ellipsis"}
+        >
+          {`${announce.brand} - ${announce.model}`}
+        </Heading>
 
         <Text
           fontSize="14px"
           fontWeight="400"
           color={Colors.grey2}
           lineHeight="24px"
-          h="48px"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          display="-webkit-box"
+          style={{
+            WebkitLineClamp: "3",
+            WebkitBoxOrient: "vertical",
+          }}
         >
-          {shortDescription}
+          {announce.description}
         </Text>
 
         <Flex gap="10px" alignItems="center">

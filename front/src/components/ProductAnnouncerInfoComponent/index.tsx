@@ -11,7 +11,6 @@ interface IProps {
 }
 
 export const ProductAnnouncerInfoComponent = ({ announcement }: IProps) => {
-  const { id } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -32,7 +31,9 @@ export const ProductAnnouncerInfoComponent = ({ announcement }: IProps) => {
         {announcement.user?.description}
       </TextB1>
 
-      <ButtonGray0 onClick={() => navigate(`/profile/${id}`)}>
+      <ButtonGray0
+        onClick={() => navigate(`/profile/${announcement.user?.id}`)}
+      >
         Ver todos anúncios
       </ButtonGray0>
     </Flex>

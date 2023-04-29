@@ -14,7 +14,7 @@ export const ProfileViewPage = () => {
 
       <PurpleBackgroundComponent />
 
-      <Container maxW="1200px" pt={"130px"}>
+      <Container maxW="1200px" pt={"130px"} minH={"85vh"}>
         <ProfileViewAnnouncerInfoComponent />
 
         <TextH5 fontWeight={"600"} my={"30px"}>

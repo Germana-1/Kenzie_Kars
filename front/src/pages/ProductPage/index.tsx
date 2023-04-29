@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Container, Flex } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { ProductTitleComponent } from "../../components/ProductTitleComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -13,18 +13,13 @@ import { ProductGalleryComponent } from "../../components/ProductGalleryComponen
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
-import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 export const ProductPage = () => {
   const { id } = useParams();
-  const [announcement, setAnnouncement] = useState<IAnnouncement>();
-  const { announcementListOne } = useContext(AnnouncementContext);
+  const { announcementListOne, announcement } = useContext(AnnouncementContext);
 
   useEffect(() => {
-    async function getProduct() {
-      setAnnouncement(await announcementListOne(id!));
-    }
-    getProduct();
+    announcementListOne(id!);
   }, []);
 
   if (!announcement) return <h1>Page not found.</h1>;
@@ -36,7 +31,7 @@ export const ProductPage = () => {
       <Container maxW="1200px" pt={"130px"}>
         <Flex gap={"25px"} wrap={"wrap"} justifyContent={"center"}>
           <Flex direction={"column"} gap={"25px"} w={"750px"}>
-            <ProductBannerComponent />
+            <ProductBannerComponent announcement={announcement} />
             <ProductTitleComponent announcement={announcement} />
             <ProductDescriptionComponent announcement={announcement} />
           </Flex>

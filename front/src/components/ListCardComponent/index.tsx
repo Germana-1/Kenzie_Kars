@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
@@ -16,15 +16,7 @@ export const ListCardComponent = ({
   hideTag,
   centered,
 }: IListCardComponent) => {
-  const { announcementListAll } = useContext(AnnouncementContext);
-  const [announcements, setAnnouncements] = useState<IAnnouncement[]>([]);
-
-  useEffect(() => {
-    async function getProductList() {
-      setAnnouncements(await announcementListAll());
-    }
-    getProductList();
-  }, []);
+  const { announcements } = useContext(AnnouncementContext);
 
   return (
     announcements && (

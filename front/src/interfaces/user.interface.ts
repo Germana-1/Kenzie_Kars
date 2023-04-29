@@ -39,14 +39,15 @@ export interface IUserRegister {
 }
 
 export interface IUserContext {
-  user: IUser | void;
+  user: IUser | undefined;
+  isProfileModalOpen: boolean;
+  isAddressModalOpen: boolean;
+  sessionError: boolean;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
   logout: () => void;
   handleClick: (type: string) => void;
-  isProfileModalOpen: boolean;
   setIsProfileModalOpen: (value: boolean) => void;
-  isAddressModalOpen: boolean;
   setIsAddressModalOpen: (value: boolean) => void;
 }
 

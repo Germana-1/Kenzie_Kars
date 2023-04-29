@@ -1,4 +1,10 @@
-import { Divider, Flex, FormControl, FormLabel } from "@chakra-ui/react";
+import {
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Tooltip,
+} from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
@@ -6,13 +12,13 @@ import { useContext, useState } from "react";
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
 import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent/index";
 import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
-import { ErrorComponent } from "./../../components/ErrorComponent/index";
 import { FooterComponent } from "./../../components/FooterComponent/index";
 import { TextH5 } from "./../../components/TextComponents";
 import { TextH7 } from "./../../components/TextComponents/index";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
 import { registerUserSchema } from "../../schemas/register.schema";
+import { InfoIcon } from "@chakra-ui/icons";
 
 const formStyle = {
   width: "100%",
@@ -27,6 +33,16 @@ export const RegisterPage = () => {
 
   const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
   const [optionIsAdvertiser, setOptionIsAdvertiser] = useState<boolean>(false);
+  const [animation, setAnimation] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(false);
+  const [openTooltip2, setOpenTooltip2] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerUserSchema),
+  });
 
   const setBuyerOption = () => {
     setIsError(false);
@@ -52,13 +68,18 @@ export const RegisterPage = () => {
     return true;
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(registerUserSchema),
-  });
+  const handleClick = () => {
+    setTimeout(() => {
+      if (!optionIsBuyer && !optionIsAdvertiser) setAnimation(true);
+      if (errors.password) {
+        setOpenTooltip(true);
+      }
+      if (errors.confirmPassword) {
+        setOpenTooltip2(true);
+      }
+    }, 50);
+    setAnimation(false);
+  };
 
   const registerUserForm = (data: any) => {
     if (!optionIsBuyer && !optionIsAdvertiser) return;
@@ -143,7 +164,7 @@ export const RegisterPage = () => {
               </Flex>
 
               <Divider
-                border={`3px solid ${Colors.brand1}`}
+                border={`1px solid ${Colors.brand1}`}
                 borderRadius={"2px"}
                 opacity={"1"}
                 my={"55px"}
@@ -205,13 +226,24 @@ export const RegisterPage = () => {
                     </Flex>
                   </FormControl>
                 </Flex>
+                <Divider
+                  border={`1px solid ${Colors.brand1}`}
+                  borderRadius={"2px"}
+                  opacity={"1"}
+                />
               </Flex>
+
               <Flex flexDir={"column"} gap={5}>
                 <FormControl isRequired isInvalid={isError}>
                   <FormLabel mt={"15px"}>Tipo de conta</FormLabel>
                   <Flex gap={3}>
                     <ButtonBrand1
                       w={"full"}
+                      className={
+                        animation
+                          ? "animate__animated animate__flash animate__faster"
+                          : ""
+                      }
                       isDisabled={optionIsBuyer}
                       onClick={() => setBuyerOption()}
                     >
@@ -220,6 +252,11 @@ export const RegisterPage = () => {
 
                     <ButtonGray10
                       w={"full"}
+                      className={
+                        animation
+                          ? "animate__animated animate__flash animate__faster"
+                          : ""
+                      }
                       isDisabled={optionIsAdvertiser}
                       onClick={() => setAdvertiserOption()}
                     >
@@ -227,28 +264,75 @@ export const RegisterPage = () => {
                     </ButtonGray10>
                   </Flex>
                 </FormControl>
+                <Divider
+                  border={`1px solid ${Colors.brand1}`}
+                  borderRadius={"2px"}
+                  opacity={"1"}
+                />
+
+                <Tooltip
+                  hasArrow
+                  bg={Colors.brand1}
+                  color={Colors.white}
+                  borderRadius={"4px"}
+                  placement={"right"}
+                  isOpen={openTooltip}
+                  label={
+                    "Minimo de 8 caracteres contendo ao menos uma letra, um número e um símbolo."
+                  }
+                >
+                  <InfoIcon
+                    position={"absolute"}
+                    bottom={"148px"}
+                    left={"60px"}
+                    fontSize={"15px"}
+                    color={Colors.brand1}
+                    cursor={"pointer"}
+                    onClick={() => setOpenTooltip(!openTooltip)}
+                  />
+                </Tooltip>
 
                 <InputFormComponent
                   labelText={"Senha"}
                   type={"password"}
                   register={register}
                   name="password"
+                  onFocus={() => setOpenTooltip(false)}
                 />
-                {/* <ErrorComponent
-                  text={
-                    "Necessário min. 8 caracteres, letras, números e ao menos um símbolo."
-                  }
-                /> */}
+
+                <Tooltip
+                  hasArrow
+                  bg={Colors.brand1}
+                  color={Colors.white}
+                  borderRadius={"4px"}
+                  placement={"right"}
+                  isOpen={openTooltip2}
+                  label={"As senhas devem ser idênticas."}
+                >
+                  <InfoIcon
+                    position={"absolute"}
+                    bottom={"55px"}
+                    left={"127px"}
+                    fontSize={"15px"}
+                    color={Colors.brand1}
+                    cursor={"pointer"}
+                    onClick={() => setOpenTooltip2(!openTooltip2)}
+                  />
+                </Tooltip>
+
                 <InputFormComponent
                   labelText={"Confirmar senha"}
                   type={"password"}
                   register={register}
                   name="confirmPassword"
+                  onFocus={() => setOpenTooltip2(false)}
                 />
               </Flex>
             </FormControl>
 
-            <ButtonBrand1 type="submit">Finalizar Cadastro</ButtonBrand1>
+            <ButtonBrand1 type="submit" onClick={() => handleClick()}>
+              Finalizar Cadastro
+            </ButtonBrand1>
           </form>
         </Flex>
       </Flex>

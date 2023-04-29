@@ -63,6 +63,7 @@ export const ModalRegisterAnnoucement = ({
     const normalizedData = announcementDataNormalizer(data);
 
     announcementRegister(normalizedData);
+    onClose();
   }
 
   async function getModels(value: string) {
@@ -117,6 +118,7 @@ export const ModalRegisterAnnoucement = ({
                       },
                     })}
                   >
+                    <option>selecione</option>
                     {brands.map((brand, i) => (
                       <option key={i} value={brand}>
                         {brand}
