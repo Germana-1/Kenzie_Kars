@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+
 import {
   IAnnouncement,
   IAnnouncementContext,
@@ -15,6 +16,12 @@ export const AnnouncementProvider = ({
   children,
 }: IAnnouncementContextProps) => {
   const [announcements, setAnnouncements] = useState<IAnnouncement[]>([]);
+  const [announcement, setAnnouncement] = useState<IAnnouncement>();
+
+  useEffect(() => {
+    announcementListAll();
+  }, []);
+
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -30,16 +37,7 @@ export const AnnouncementProvider = ({
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
-  useEffect(() => {
-    async function getProductList() {
-      setAnnouncements(await announcementListAll());
-    }
-    getProductList();
-  }, []);
-
-  async function announcementRegister(
-    data: IAnnouncementRegister
-  ): Promise<void> {
+  async function announcementRegister(data: IAnnouncementRegister) {
     try {
       await api.post("/announcements", data);
     } catch (error) {
@@ -47,19 +45,17 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function announcementListAll(): Promise<IAnnouncement[]> {
+  async function announcementListAll() {
     const res = await api.get("/announcements");
 
-    return res.data;
+    setAnnouncements(res.data);
   }
 
-  async function announcementListOne(
-    data: string
-  ): Promise<IAnnouncement | undefined> {
+  async function announcementListOne(data: string) {
     try {
       const res = await api.get(`/announcements/${data}`);
 
-      return res.data;
+      setAnnouncement(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -159,6 +155,8 @@ export const AnnouncementProvider = ({
   return (
     <AnnouncementContext.Provider
       value={{
+        announcements,
+        announcement,
         announcementRegister,
         announcements,
         announcementListOne,

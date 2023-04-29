@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 
 import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -14,18 +14,16 @@ export const ProfileViewPage = () => {
 
       <PurpleBackgroundComponent />
 
-      <Container maxW="1200px" pt={"130px"}>
+      <Container maxW="1200px" pt={"130px"} minH={"85vh"}>
         <ProfileViewAnnouncerInfoComponent />
 
         <TextH5 fontWeight={"600"} my={"30px"}>
           Anúncios
         </TextH5>
 
-        <ListCardComponent
-          filterActive={false}
-          hideTag={false}
-          justify={"center"}
-        />
+        <Flex justifyContent={"center"}>
+          <ListCardComponent filterActive={false} hideTag={false} centered />
+        </Flex>
       </Container>
 
       <FooterComponent />

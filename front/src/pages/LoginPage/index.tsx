@@ -1,106 +1,140 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Box,
+  Container,
+  Flex,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Input,
+} from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Flex } from "@chakra-ui/react";
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { ButtonGray10OutlineG4 } from "./../../components/ButtomComponents/";
-import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent";
 import { HeaderComponent } from "./../../components/HeaderComponent/";
 import { FooterComponent } from "./../../components/FooterComponent/";
-import { TextH5, TextBMT } from "./../../components/TextComponents/";
+import { TextH5, TextH7 } from "./../../components/TextComponents/";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
 import { IUserLogin } from "../../interfaces/user.interface";
-import { loginUserSchema } from "../../schemas/login.schema";
-
-const formStyle = {
-  width: "100%",
-  maxWidth: "400px",
-  display: "flex",
-  gap: 24,
-};
+import { TextB2 } from "./../../components/TextComponents/";
+import { labelCSS } from "../../styles/global";
+import { ViewIcon, ViewOffIcon, WarningIcon } from "@chakra-ui/icons";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { userSession } = useContext(UserContext);
+  const { userSession, sessionError } = useContext(UserContext);
+  const { register, handleSubmit } = useForm<IUserLogin>();
+  const [showPassword, setShowPassword] = useState(true);
+  const [animation, setAnimation] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IUserLogin>({
-    resolver: yupResolver(loginUserSchema),
-  });
+  const formSubmit = async (data: IUserLogin) => userSession(data);
 
-  const formSubmit = (data: IUserLogin) => userSession(data);
+  function handleClick() {
+    setTimeout(() => {
+      setAnimation(true);
+    }, 50);
+    setAnimation(false);
+  }
 
   return (
     <>
       <HeaderComponent />
-      <Flex
-        w={"full"}
-        minH={"100vh"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        p={"100px 40px 0px 40px"}
-      >
+
+      <Container maxW="1200px" pt={"130px"} minH={"85vh"}>
         <Flex
-          flexDir={"column"}
-          gap={30}
+          as={"form"}
+          direction={"column"}
+          gap={"20px"}
           p={"32px"}
-          w={"464px"}
+          maxW={"412px"}
+          m={"0 auto"}
           borderRadius={"4px"}
-          justifyContent={"center"}
-          alignItems={"center"}
           backgroundColor={Colors.white}
-          fontFamily={"Lexend"}
+          onSubmit={handleSubmit(formSubmit)}
         >
-          <TextH5 fontWeight={800} alignSelf={"flex-start"}>
+          <TextH5 fontWeight={800} fontFamily={"Lexend"} color={Colors.brand1}>
             Login
           </TextH5>
-          <form
-            onSubmit={handleSubmit(formSubmit)}
-            style={{ ...formStyle, flexDirection: "column" }}
-          >
-            <Flex flexDir={"column"} gap={5}>
-              <InputFormComponent
-                labelText={"Email"}
-                placeholder={"Ex: samuel@kenzie.com.br"}
-                register={register}
-                errors={errors}
-                name="email"
-                autoComplete="off"
+
+          <FormControl isRequired>
+            <FormLabel css={labelCSS}>Email</FormLabel>
+            <Input
+              focusBorderColor={Colors.brand1}
+              color={Colors.brand1}
+              autoComplete="off"
+              {...register("email")}
+            />
+
+            <FormLabel css={labelCSS} mt={"15px"}>
+              Senha
+            </FormLabel>
+            <Flex>
+              <Input
+                focusBorderColor={Colors.brand1}
+                color={Colors.brand1}
+                type={showPassword ? "password" : "text"}
+                borderRadius={"4px 0 0 4px"}
+                {...register("password")}
               />
-              <InputFormComponent
-                labelText={"Senha"}
-                placeholder={"Digitar senha"}
-                type={"password"}
-                register={register}
-                errors={errors}
-                name="password"
+
+              <IconButton
+                aria-label="Toggle password visibility"
+                borderRadius={"0 4px 4px 0"}
+                icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                onClick={() => setShowPassword(!showPassword)}
               />
             </Flex>
-            <Flex justifyContent={"flex-end"}>
-              <Link to="">Esqueci minha senha</Link>
-            </Flex>
-            <ButtonBrand1 h={"50px"} type="submit">
-              Entrar
-            </ButtonBrand1>
-            <Flex justifyContent={"center"}>
-              <TextBMT>Ainda não possui conta?</TextBMT>
-            </Flex>
-            <ButtonGray10OutlineG4
-              h={"50px"}
-              onClick={() => navigate("/register")}
-              border={`1.5px solid ${Colors.grey4}`}
+          </FormControl>
+
+          {sessionError && (
+            <Flex
+              justifyContent={"center"}
+              gap={"10px"}
+              alignItems={"center"}
+              borderRadius={"4px"}
+              border={`1px solid ${Colors.brand1}`}
+              p={"20px 0"}
+              className={
+                animation ? "animate__animated animate__headShake" : ""
+              }
             >
-              Cadastrar
-            </ButtonGray10OutlineG4>
-          </form>
+              <TextH7 color={Colors.brand1}>Email ou senha inválidos.</TextH7>
+              <WarningIcon w={"30px"} h={"30px"} color="red" />
+            </Flex>
+          )}
+
+          <Box textAlign={"end"}>
+            <TextB2 color={Colors.grey2}>
+              <Link to=""> Esqueci minha senha</Link>
+            </TextB2>
+          </Box>
+
+          <ButtonBrand1
+            h={"50px"}
+            type={"submit"}
+            onClick={() => handleClick()}
+          >
+            Entrar
+          </ButtonBrand1>
+
+          <Box textAlign={"center"}>
+            <TextB2 color={Colors.grey2} alignSelf={"center"}>
+              Ainda não possui conta?
+            </TextB2>
+          </Box>
+
+          <ButtonGray10OutlineG4
+            h={"50px"}
+            onClick={() => navigate("/register")}
+          >
+            Cadastrar
+          </ButtonGray10OutlineG4>
         </Flex>
-      </Flex>
+      </Container>
+
       <FooterComponent />
     </>
   );

@@ -59,7 +59,11 @@ export interface IAnnouncementFormRegister {
 }
 
 export interface IAnnouncementContext {
+  announcements: IAnnouncement[];
+  announcement: IAnnouncement | undefined;
   announcementRegister: (data: IAnnouncementRegister) => void;
+  announcementListAll: () => void;
+  announcementListOne: (data: string) => void;
   announcements: IAnnouncement[];
   announcementListOne: (data: string) => Promise<IAnnouncement | undefined>;
   setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;

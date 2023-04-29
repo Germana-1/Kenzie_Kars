@@ -110,7 +110,7 @@ export const ButtonGray10OutlineG4 = ({ ...rest }: ButtonProps) => {
       borderRadius={"4px"}
       backgroundColor={Colors.white}
       color={Colors.grey0}
-      border={Colors.grey4}
+      border={`1.5px solid ${Colors.grey4}`}
       _hover={{
         backgroundColor: Colors.grey0,
         color: Colors.white,

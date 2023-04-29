@@ -4,12 +4,25 @@ import { ButtonBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { TextH6, TextH7 } from "../TextComponents";
 import { Colors } from "../../styles/colors";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/userContext";
+import { useParams } from "react-router-dom";
 
 interface IProps {
   announcement: IAnnouncement;
 }
 
 export const ProductTitleComponent = ({ announcement }: IProps) => {
+  const { id } = useParams();
+  const { user } = useContext(UserContext);
+  const [isOwner, setIsOnwer] = useState();
+
+  useEffect(() => {
+    const data = user?.announcements?.filter((el) => el.id === id);
+    
+    
+  }, []);
+
   return (
     <Flex
       direction={"column"}
@@ -33,16 +46,23 @@ export const ProductTitleComponent = ({ announcement }: IProps) => {
             {announcement.year}
           </ButtonBrand4>
           <ButtonBrand4 size="sm" cursor={"default"}>
-            {announcement.mileage} KM
+            {announcement.mileage.toLocaleString("pt-BR")} KM
           </ButtonBrand4>
         </Flex>
 
-        <TextH7 fontWeight="500">R$ {announcement.price}</TextH7>
+        <TextH7 fontWeight="500">
+          {announcement.price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </TextH7>
       </Flex>
 
-      <Box>
-        <ButtonBrand1>Comprar</ButtonBrand1>
-      </Box>
+      {!isOwner && (
+        <Box>
+          <ButtonBrand1>Comprar</ButtonBrand1>
+        </Box>
+      )}
     </Flex>
   );
 };

@@ -15,8 +15,8 @@ export const FilterComponent = ({
   setSelected,
 }: FilterProps) => {
   return (
-    <List>
-      <ListItem fontSize="28px" fontWeight="600" marginStart="30px">
+    <List fontFamily={"Lexend"}>
+      <ListItem fontSize={FontSizes.heading6} fontWeight="600">
         {titleFilter}
       </ListItem>
 
@@ -24,10 +24,10 @@ export const FilterComponent = ({
         <ListItem
           key={filter}
           cursor="pointer"
-          fontSize={FontSizes.heading6}
-          fontWeight="500"
+          fontSize={FontSizes.heading7}
+          fontWeight="800"
           color={Colors.grey3}
-          marginStart="40px"
+          marginStart="15px"
           onClick={(e) => {
             const element = e.target as HTMLElement;
             setSelected(element.textContent);

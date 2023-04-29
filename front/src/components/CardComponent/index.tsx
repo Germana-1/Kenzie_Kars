@@ -39,7 +39,6 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       minW="312px"
       maxW="312px"
       h="420px"
-      margin="20px"
       position="relative"
       cursor="pointer"
       onClick={() => navigate(`/product/${announce.id}`)}
@@ -85,6 +84,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         bg={Colors.grey7}
         w="100%"
         h="152px"
+        whiteSpace={"nowrap"}
+        overflow={"hidden"}
+        textOverflow={"ellipsis"}
         _hover={{
           border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
             }`,
@@ -93,16 +95,29 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       />
 
       <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
-        <Heading size="16px">{title}</Heading>
+        <Heading
+          size="16px"
+          whiteSpace={"nowrap"}
+          overflow={"hidden"}
+          textOverflow={"ellipsis"}
+        >
+          {`${announce.brand} - ${announce.model}`}
+        </Heading>
 
         <Text
           fontSize="14px"
           fontWeight="400"
           color={Colors.grey2}
           lineHeight="24px"
-          h="48px"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          display="-webkit-box"
+          style={{
+            WebkitLineClamp: "3",
+            WebkitBoxOrient: "vertical",
+          }}
         >
-          {shortDescription}
+          {announce.description}
         </Text>
 
         <Flex gap="10px" alignItems="center">
@@ -115,7 +130,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
         <Flex justifyContent="space-between">
           <Flex gap="10px">
-            <ButtonBrand4 size={"sm"}>{`${announce.mileage} KM`}</ButtonBrand4>
+            <ButtonBrand4 size={"sm"}>{`${announce.mileage.toLocaleString(
+              "pt-BR"
+            )} KM`}</ButtonBrand4>
             <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
           </Flex>
 

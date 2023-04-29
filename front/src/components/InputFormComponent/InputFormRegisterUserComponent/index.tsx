@@ -11,7 +11,7 @@ interface IInputFormComponent extends InputProps {
   placeholderTextArea?: string;
   register: any;
   name: string;
-  errors: FieldErrors<FieldValues>;
+  errors?: FieldErrors<FieldValues>;
 }
 
 export const InputFormComponent = ({
@@ -34,9 +34,11 @@ export const InputFormComponent = ({
         <Input
           as={InputMask}
           mask={mask}
+          color={Colors.brand1}
           fontSize={"16px"}
           fontWeight={400}
           border={`1.5px solid ${Colors.grey7}`}
+          focusBorderColor={Colors.brand1}
           borderRadius={4}
           _focus={{
             borderColor: Colors.brand1,
@@ -52,7 +54,9 @@ export const InputFormComponent = ({
         <Input
           fontSize={"16px"}
           fontWeight={400}
+          color={Colors.brand1}
           border={`1.5px solid ${Colors.grey7}`}
+          focusBorderColor={Colors.brand1}
           borderRadius={4}
           _focus={{
             borderColor: Colors.brand1,
@@ -68,8 +72,10 @@ export const InputFormComponent = ({
         <Textarea
           fontSize={"16px"}
           fontWeight={400}
+          color={Colors.brand1}
           border={`1.5px solid ${Colors.grey7}`}
           borderRadius={4}
+          focusBorderColor={Colors.brand1}
           resize={"none"}
           placeholder={placeholderTextArea}
           _focus={{
@@ -78,7 +84,8 @@ export const InputFormComponent = ({
           {...register(name)}
         />
       )}
-      {errors[name] && <ErrorComponent text={errors[name]?.message} />}
+
+      {errors && <ErrorComponent text={errors[name]?.message} />}
     </Flex>
   );
 };

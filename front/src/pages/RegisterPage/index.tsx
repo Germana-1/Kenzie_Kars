@@ -1,12 +1,18 @@
-import { Flex, FormControl } from "@chakra-ui/react";
+import {
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Tooltip,
+} from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
+import { InfoIcon } from "@chakra-ui/icons";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
 import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent/index";
 import { ButtonBrand1, ButtonGray10 } from "../../components/ButtomComponents";
-import { ErrorComponent } from "./../../components/ErrorComponent/index";
 import { FooterComponent } from "./../../components/FooterComponent/index";
 import { TextH5 } from "./../../components/TextComponents";
 import { TextH7 } from "./../../components/TextComponents/index";
@@ -14,6 +20,7 @@ import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
 import { registerUserSchema } from "../../schemas/register.schema";
 import { ModalSucess } from "../../components/ModalComponents/ModalSucessComponent";
+
 
 const formStyle = {
   width: "100%",
@@ -32,6 +39,16 @@ export const RegisterPage = () => {
 
   const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
   const [optionIsAdvertiser, setOptionIsAdvertiser] = useState<boolean>(false);
+  const [animation, setAnimation] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(false);
+  const [openTooltip2, setOpenTooltip2] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerUserSchema),
+  });
 
   const setBuyerOption = () => {
     setIsError(false);
@@ -57,13 +74,18 @@ export const RegisterPage = () => {
     return true;
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(registerUserSchema),
-  });
+  const handleClick = () => {
+    setTimeout(() => {
+      if (!optionIsBuyer && !optionIsAdvertiser) setAnimation(true);
+      if (errors.password) {
+        setOpenTooltip(true);
+      }
+      if (errors.confirmPassword) {
+        setOpenTooltip2(true);
+      }
+    }, 50);
+    setAnimation(false);
+  };
 
   const registerUserForm = (data: any) => {
     if (!optionIsBuyer && !optionIsAdvertiser) return;
@@ -91,172 +113,233 @@ export const RegisterPage = () => {
           p={"32px"}
           backgroundColor={Colors.white}
           borderRadius={"4px"}
-          fontFamily={"Lexend"}
         >
-          <TextH5 fontWeight={500}>Cadastro</TextH5>
+          <TextH5 fontWeight={800} fontFamily={"Lexend"} color={Colors.brand1}>
+            Cadastro
+          </TextH5>
           <form
             onSubmit={handleSubmit(registerUserForm)}
             style={{ ...formStyle, flexDirection: "column" }}
           >
-            <Flex flexDir={"column"} gap={5}>
-              <TextH7 fontWeight={500}>Informações Pessoais</TextH7>
-              <InputFormComponent
-                labelText={"Nome"}
-                placeholder={"Ex: Samuel Leão"}
-                name="name"
-                autoComplete="off"
-                register={register}
-                errors={errors}
-              />
-              <InputFormComponent
-                labelText={"Email"}
-                placeholder={"Ex: samuel@kenzie.com.br"}
-                register={register}
-                errors={errors}
-                name="email"
-                autoComplete="off"
-              />
-              <InputFormComponent
-                mask={"999.999.999-99"}
-                labelText={"CPF"}
-                placeholder={"000.000.000-00"}
-                register={register}
-                errors={errors}
-                name="cpf"
-                autoComplete="off"
-              />
-              <InputFormComponent
-                mask={"(99) 99999-9999"}
-                labelText={"Celular"}
-                placeholder={"(DDD) 90000-0000"}
-                register={register}
-                errors={errors}
-                name="phone"
-                autoComplete="off"
-              />
-              <InputFormComponent
-                mask={"99/99/9999"}
-                labelText={"Data de Nascimento"}
-                placeholder={"00/00/0000"}
-                register={register}
-                errors={errors}
-                name="birthdate"
-                autoComplete="off"
-              />
-              <InputFormComponent
-                hasTextArea={true}
-                labelText={"Descrição"}
-                placeholderTextArea={"Digitar descrição"}
-                register={register}
-                errors={errors}
-                name="description"
-                autoComplete="off"
-              />
-            </Flex>
-            <Flex flexDir={"column"} gap={5}>
-              <TextH7 fontWeight={500}>Informações de Endereço</TextH7>
-              <InputFormComponent
-                mask={"99999.999"}
-                labelText={"CEP"}
-                placeholder={"00000.000"}
-                register={register}
-                errors={errors}
-                name="address.zipCode"
-                autoComplete="off"
-              />
-              <Flex gap={3}>
-                <Flex flexDir={"column"} gap={2}>
+            <FormControl isRequired>
+              <Flex flexDir={"column"} gap={5}>
+                <TextH7 fontWeight={800}>Informações Pessoais</TextH7>
+                <InputFormComponent
+                  labelText={"Nome"}
+                  name="name"
+                  autoComplete="off"
+                  register={register}
+                />
+                <InputFormComponent
+                  labelText={"Email"}
+                  register={register}
+                  name="email"
+                  autoComplete="off"
+                />
+                <InputFormComponent
+                  mask={"999.999.999-99"}
+                  labelText={"CPF"}
+                  register={register}
+                  name="cpf"
+                  autoComplete="off"
+                />
+                <InputFormComponent
+                  mask={"(99) 99999-9999"}
+                  labelText={"Celular"}
+                  register={register}
+                  name="phone"
+                  autoComplete="off"
+                />
+                <InputFormComponent
+                  mask={"99/99/9999"}
+                  labelText={"Data de Nascimento"}
+                  register={register}
+                  name="birthdate"
+                  autoComplete="off"
+                />
+
+                <FormControl isRequired={false}>
                   <InputFormComponent
-                    labelText={"Estado"}
-                    placeholder={"Digitar Estado"}
+                    hasTextArea={true}
+                    labelText={"Descrição"}
                     register={register}
-                    errors={errors}
-                    name="address.state"
+                    name="description"
                     autoComplete="off"
                   />
-                </Flex>
-                <Flex flexDir={"column"} gap={2}>
-                  <InputFormComponent
-                    labelText={"Cidade"}
-                    placeholder={"Digitar Cidade"}
-                    register={register}
-                    errors={errors}
-                    name="address.city"
-                    autoComplete="off"
-                  />
-                </Flex>
+                </FormControl>
               </Flex>
-              <InputFormComponent
-                labelText={"Rua"}
-                placeholder={"Digitar Rua"}
-                register={register}
-                errors={errors}
-                name="address.street"
-                autoComplete="off"
+
+              <Divider
+                border={`1px solid ${Colors.brand1}`}
+                borderRadius={"2px"}
+                opacity={"1"}
+                my={"55px"}
               />
-              <Flex gap={3}>
-                <Flex flexDir={"column"} gap={2}>
-                  <InputFormComponent
-                    labelText={"Número"}
-                    type="number"
-                    placeholder={"Digitar Numero"}
-                    register={register}
-                    errors={errors}
-                    name="address.number"
-                    autoComplete="off"
-                  />
-                </Flex>
-                <Flex flexDir={"column"} gap={2}>
-                  <InputFormComponent
-                    labelText={"Complemento"}
-                    placeholder={"Ex: apart 307"}
-                    register={register}
-                    errors={errors}
-                    name="address.complement"
-                    autoComplete="off"
-                  />
-                </Flex>
-              </Flex>
-            </Flex>
-            <Flex flexDir={"column"} gap={5}>
-              <TextH7 fontWeight={500}>Tipos de conta</TextH7>
-              <FormControl isRequired isInvalid={isError}>
+
+              <Flex flexDir={"column"} mt={"15px"} gap={5}>
+                <TextH7 fontWeight={800}>Informações de Endereço</TextH7>
+                <InputFormComponent
+                  mask={"99999.999"}
+                  labelText={"CEP"}
+                  register={register}
+                  name="address.zipCode"
+                  autoComplete="off"
+                />
                 <Flex gap={3}>
-                  <ButtonBrand1
-                    w={"full"}
-                    isDisabled={optionIsBuyer}
-                    onClick={() => setBuyerOption()}
-                  >
-                    Comprador
-                  </ButtonBrand1>
-                  <ButtonGray10
-                    w={"full"}
-                    isDisabled={optionIsAdvertiser}
-                    onClick={() => setAdvertiserOption()}
-                  >
-                    Anunciante
-                  </ButtonGray10>
+                  <Flex flexDir={"column"} gap={2}>
+                    <InputFormComponent
+                      labelText={"Estado"}
+                      register={register}
+                      name="address.state"
+                      autoComplete="off"
+                    />
+                  </Flex>
+                  <Flex flexDir={"column"} gap={2}>
+                    <InputFormComponent
+                      labelText={"Cidade"}
+                      register={register}
+                      name="address.city"
+                      autoComplete="off"
+                    />
+                  </Flex>
                 </Flex>
-                {!!isError && <ErrorComponent text={"Escolha uma opção."} />}
-              </FormControl>
-              <InputFormComponent
-                labelText={"Senha"}
-                placeholder={"Digitar senha"}
-                type={"password"}
-                register={register}
-                errors={errors}
-                name="password"
-              />
-              <InputFormComponent
-                labelText={"Confirmar senha"}
-                placeholder={"Digitar senha"}
-                type={"password"}
-                register={register}
-                errors={errors}
-                name="confirmPassword"
-              />
-            </Flex>
-            <ButtonBrand1>Finalizar Cadastro</ButtonBrand1>
+                <InputFormComponent
+                  labelText={"Rua"}
+                  register={register}
+                  name="address.street"
+                  autoComplete="off"
+                />
+
+                <Flex gap={3}>
+                  <Flex flexDir={"column"} gap={2}>
+                    <InputFormComponent
+                      labelText={"Número"}
+                      type="number"
+                      register={register}
+                      name="address.number"
+                      autoComplete="off"
+                    />
+                  </Flex>
+
+                  <FormControl isRequired={false}>
+                    <Flex flexDir={"column"} gap={2}>
+                      <InputFormComponent
+                        labelText={"Complemento"}
+                        register={register}
+                        name="address.complement"
+                        autoComplete="off"
+                      />
+                    </Flex>
+                  </FormControl>
+                </Flex>
+                <Divider
+                  border={`1px solid ${Colors.brand1}`}
+                  borderRadius={"2px"}
+                  opacity={"1"}
+                />
+              </Flex>
+
+              <Flex flexDir={"column"} gap={5}>
+                <FormControl isRequired isInvalid={isError}>
+                  <FormLabel mt={"15px"}>Tipo de conta</FormLabel>
+                  <Flex gap={3}>
+                    <ButtonBrand1
+                      w={"full"}
+                      className={
+                        animation
+                          ? "animate__animated animate__flash animate__faster"
+                          : ""
+                      }
+                      isDisabled={optionIsBuyer}
+                      onClick={() => setBuyerOption()}
+                    >
+                      Comprador
+                    </ButtonBrand1>
+
+                    <ButtonGray10
+                      w={"full"}
+                      className={
+                        animation
+                          ? "animate__animated animate__flash animate__faster"
+                          : ""
+                      }
+                      isDisabled={optionIsAdvertiser}
+                      onClick={() => setAdvertiserOption()}
+                    >
+                      Anunciante
+                    </ButtonGray10>
+                  </Flex>
+                </FormControl>
+                <Divider
+                  border={`1px solid ${Colors.brand1}`}
+                  borderRadius={"2px"}
+                  opacity={"1"}
+                />
+
+                <Tooltip
+                  hasArrow
+                  bg={Colors.brand1}
+                  color={Colors.white}
+                  borderRadius={"4px"}
+                  placement={"right"}
+                  isOpen={openTooltip}
+                  label={
+                    "Minimo de 8 caracteres contendo ao menos uma letra, um número e um símbolo."
+                  }
+                >
+                  <InfoIcon
+                    position={"absolute"}
+                    bottom={"148px"}
+                    left={"60px"}
+                    fontSize={"15px"}
+                    color={Colors.brand1}
+                    cursor={"pointer"}
+                    onClick={() => setOpenTooltip(!openTooltip)}
+                  />
+                </Tooltip>
+
+                <InputFormComponent
+                  labelText={"Senha"}
+                  type={"password"}
+                  register={register}
+                  name="password"
+                  onFocus={() => setOpenTooltip(false)}
+                />
+
+                <Tooltip
+                  hasArrow
+                  bg={Colors.brand1}
+                  color={Colors.white}
+                  borderRadius={"4px"}
+                  placement={"right"}
+                  isOpen={openTooltip2}
+                  label={"As senhas devem ser idênticas."}
+                >
+                  <InfoIcon
+                    position={"absolute"}
+                    bottom={"55px"}
+                    left={"127px"}
+                    fontSize={"15px"}
+                    color={Colors.brand1}
+                    cursor={"pointer"}
+                    onClick={() => setOpenTooltip2(!openTooltip2)}
+                  />
+                </Tooltip>
+
+                <InputFormComponent
+                  labelText={"Confirmar senha"}
+                  type={"password"}
+                  register={register}
+                  name="confirmPassword"
+                  onFocus={() => setOpenTooltip2(false)}
+                />
+              </Flex>
+            </FormControl>
+
+            <ButtonBrand1 type="submit" onClick={() => handleClick()}>
+              Finalizar Cadastro
+            </ButtonBrand1>
+
           </form>
         </Flex>
       </Flex>

@@ -1,7 +1,6 @@
-import { createContext, useState, useEffect, SetStateAction } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { toast } from "react-toastify";
 
 import {
   IUser,
@@ -16,15 +15,15 @@ export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<IUser | void>();
-  const [userId, setUserId] = useState("");
+  const [user, setUser] = useState<IUser>();
+  const [sessionError, setSessioError] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
-    if (typeModal === 'profile') {
+    if (typeModal === "profile") {
       setIsProfileModalOpen(true);
     }
     if (typeModal === 'delete') {
@@ -36,21 +35,24 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("@kenzieToken");
+    const token = localStorage.getItem("@kenzieToken") || "invalid";
 
-    if (token) {
-      const payload = jwt_decode(token) as { sub: string };
-      setUserId(payload.sub);
+    try {
+      jwt_decode(token);
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      userAuth();
+    } catch (error) {
+      console.error(error);
     }
-
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    userAuth();
   }, []);
 
   async function userAuth() {
     try {
       const res = await api.get("/users/profile");
+
+      localStorage.setItem("@kenzieId", res.data.id);
 
       setUser(res.data);
     } catch (error) {
@@ -63,26 +65,15 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       const res = await api.post("/login", data);
 
       localStorage.setItem("@kenzieToken", res.data.token);
+      api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+      
+      await userAuth();
 
-      const payload = jwt_decode(res.data.token) as { sub: string };
-      setUserId(payload.sub);
-
-      localStorage.setItem("@userId", payload.sub);
-
-
-      navigate(`/profile/${payload.sub}/`);
-
-      userAuth();
-
-      return res.data;
-    } catch (error: any) {
-      if (error.response.status === 403) {
-        toast.error(
-          "Verifique se o e-mail e a senha estão corretos e tente novamente."
-        );
-      } else {
-        console.log(error.message);
-      }
+      navigate("/");
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
     }
   }
 
@@ -98,9 +89,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
     } catch (error: any) {
       if (error.response.status === 409) {
-        toast.error(
-          "Já existe um usuário com o mesmo CPF ou E-mail. Por favor, verifique suas informações e tente novamente."
-        );
+        // Abrir modal de error
       } else {
         console.log(error.message);
       }
@@ -109,7 +98,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
   const logout = () => {
     window.localStorage.clear();
-    setUser();
+    setUser(undefined);
     navigate("/");
   };
 
@@ -117,6 +106,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     <UserContext.Provider
       value={{
         user,
+        sessionError,
         userSession,
         userRegister,
         logout,

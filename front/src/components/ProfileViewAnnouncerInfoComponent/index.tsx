@@ -1,15 +1,18 @@
 import { Avatar, Flex, useDisclosure } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
 import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { ModalRegisterAnnoucement } from "../ModalComponents/ModalRegisterAnnouncementComponent";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 export const ProfileViewAnnouncerInfoComponent = () => {
   const { id } = useParams();
-  const token = localStorage.getItem("@kenzieToken");
+  const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const userId = localStorage.getItem("@kenzieId");
 
   return (
     <>
@@ -24,22 +27,20 @@ export const ProfileViewAnnouncerInfoComponent = () => {
       >
         <Avatar size={"xl"} />
         <Flex gap={"10px"} alignItems={"center"}>
-          <TextH6 fontWeight={"600"}>Samuel Leão</TextH6>
+          <TextH6 fontWeight={"600"}>{user?.name}</TextH6>
           <ButtonBrand4 size={"sm"} cursor={"default"}>
             Anunciante
           </ButtonBrand4>
         </Flex>
 
         <TextB1 fontWeight={"400"} color={Colors.grey2}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s
+          {user?.description}
         </TextB1>
 
         <ButtonBrand1OutlineBrand1
           alignSelf={"flex-start"}
           onClick={onOpen}
-          hidden={id === token ? true : false}
+          hidden={id !== userId}
         >
           Criar anúncio
         </ButtonBrand1OutlineBrand1>

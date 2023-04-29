@@ -1,30 +1,30 @@
 import { Flex } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 
 interface IListCardComponent {
+  centered?: boolean;
   filterActive: boolean;
   hideTag: boolean;
-  justify?: string;
 }
 
 export const ListCardComponent = ({
   filterActive,
   hideTag,
-  justify,
+  centered,
 }: IListCardComponent) => {
   const { announcements } = useContext(AnnouncementContext);
 
   return (
     announcements && (
       <Flex
-        justifyContent={{ sm: "space-between", md: justify || "flex-end" }}
         wrap={{ sm: "nowrap", md: "wrap" }}
         overflowX={"auto"}
-        maxW={"100%"}
+        gap={"25px"}
+        maxW={centered ? "986.95px" : "100%"}
       >
         {filterActive
           ? announcements.map(

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { IUserLogin} from "../interfaces/user.interface";
+import { IUserLogin } from "../interfaces/user.interface";
 
 export const loginUserSchema: yup.ObjectSchema<IUserLogin> = yup
   .object()

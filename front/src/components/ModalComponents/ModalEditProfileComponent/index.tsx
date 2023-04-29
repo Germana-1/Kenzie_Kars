@@ -24,6 +24,7 @@ import { AnnouncementContext } from "../../../contexts/announcementContext";
 import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
 import { FipeContext } from "../../../contexts/fipeContext";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
+import { Colors } from "../../../styles/colors";
 import { UserContext } from "../../../contexts/userContext";
 
 export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
@@ -92,13 +93,12 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent
-          mt="100px"
-          as="form"
-          fontFamily="Lexend"
-          onSubmit={handleSubmit(onSubmit)}
-          zIndex="10000"
-        >
+        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)} zIndex="10000">
+          <ModalHeader>
+            <TextH7 fontWeight={800} fontFamily="Lexend" color={Colors.brand1}>
+              Editar perfil
+            </TextH7>
+
           <ModalHeader>
             <TextH7 fontWeight={500}>Editar perfil</TextH7>
           </ModalHeader>
@@ -185,5 +185,5 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
       </Modal>
     </>
   );
-
 };
+
