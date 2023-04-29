@@ -122,7 +122,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Nome"}
                       placeholder={"Samuel Leão Silva"}
                       register={register}
-                      errors={errors}
                       name="name"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -131,7 +130,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Email"}
                       placeholder={"samuel@kenzie.com.br"}
                       register={register}
-                      errors={errors}
                       name="email"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -141,7 +139,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"CPF"}
                       placeholder={"000.000.000-00"}
                       register={register}
-                      errors={errors}
                       name="cpf"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -151,7 +148,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Celular"}
                       placeholder={"(DDD) 90000-0000"}
                       register={register}
-                      errors={errors}
                       name="phone"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -161,7 +157,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Data de Nascimento"}
                       placeholder={"00/00/0000"}
                       register={register}
-                      errors={errors}
                       name="birthdate"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -171,7 +166,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Descrição"}
                       placeholderTextArea={"Digitar descrição"}
                       register={register}
-                      errors={errors}
                       name="description"
                       onChange={handleInputChange}
                       autoComplete="off"

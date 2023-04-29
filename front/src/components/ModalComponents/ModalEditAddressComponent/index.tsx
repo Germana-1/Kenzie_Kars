@@ -108,7 +108,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"CEP"}
                       placeholder={"00000.000"}
                       register={register}
-                      errors={errors}
                       name="address.zipCode"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -119,7 +118,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Estado"}
                           placeholder={"Digitar Estado"}
                           register={register}
-                          errors={errors}
                           name="address.state"
                           onChange={handleInputChange}
                           autoComplete="off"
@@ -130,7 +128,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Cidade"}
                           placeholder={"Digitar Cidade"}
                           register={register}
-                          errors={errors}
                           name="address.city"
                           onChange={handleInputChange}
                           autoComplete="off"
@@ -141,7 +138,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Rua"}
                       placeholder={"Digitar Rua"}
                       register={register}
-                      errors={errors}
                       name="address.street"
                       onChange={handleInputChange}
                       autoComplete="off"
@@ -153,7 +149,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           type="number"
                           placeholder={"Digitar Numero"}
                           register={register}
-                          errors={errors}
                           name="address.number"
                           onChange={handleInputChange}
                           autoComplete="off"
@@ -164,7 +159,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Complemento"}
                           placeholder={"Ex: apart 307"}
                           register={register}
-                          errors={errors}
                           onChange={handleInputChange}
                           name="address.complement"
                           autoComplete="off"
