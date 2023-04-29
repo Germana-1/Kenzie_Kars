@@ -13,6 +13,7 @@ import { TextH7 } from "./../../components/TextComponents/index";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
 import { registerUserSchema } from "../../schemas/register.schema";
+import { ModalSucess } from "../../components/ModalComponents/ModalSucessComponent";
 
 const formStyle = {
   width: "100%",
@@ -22,7 +23,11 @@ const formStyle = {
 };
 
 export const RegisterPage = () => {
-  const { userRegister } = useContext(UserContext);
+  const {
+    userRegister,
+    isSucessModalOpen,
+    setIsSucessModalOpen
+  } = useContext(UserContext);
   const [isError, setIsError] = useState<boolean>(true);
 
   const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
@@ -251,11 +256,16 @@ export const RegisterPage = () => {
                 name="confirmPassword"
               />
             </Flex>
-            <ButtonBrand1 type="submit">Finalizar Cadastro</ButtonBrand1>
+            <ButtonBrand1>Finalizar Cadastro</ButtonBrand1>
           </form>
         </Flex>
       </Flex>
       <FooterComponent />
+      <ModalSucess
+        isOpen={isSucessModalOpen}
+        onClose={() => setIsSucessModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };

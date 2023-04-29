@@ -21,6 +21,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+  const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === 'profile') {
@@ -66,6 +67,9 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       const payload = jwt_decode(res.data.token) as { sub: string };
       setUserId(payload.sub);
 
+      localStorage.setItem("@userId", payload.sub);
+
+
       navigate(`/profile/${payload.sub}/`);
 
       userAuth();
@@ -90,7 +94,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       await api.post("/users", data);
 
-      navigate("/login");
+      setIsSucessModalOpen(true)
+
     } catch (error: any) {
       if (error.response.status === 409) {
         toast.error(
@@ -121,7 +126,9 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         isAddressModalOpen,
         setIsAddressModalOpen,
         isDeleteAccountModalOpen,
-        setIsDeleteAccountModalOpen
+        setIsDeleteAccountModalOpen,
+        isSucessModalOpen, 
+        setIsSucessModalOpen,
       }}
     >
       {children}
