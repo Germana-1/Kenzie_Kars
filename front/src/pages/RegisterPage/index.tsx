@@ -8,6 +8,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
+import { InfoIcon } from "@chakra-ui/icons";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
 import { InputFormComponent } from "../../components/InputFormComponent/InputFormRegisterUserComponent/index";
@@ -18,7 +19,8 @@ import { TextH7 } from "./../../components/TextComponents/index";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
 import { registerUserSchema } from "../../schemas/register.schema";
-import { InfoIcon } from "@chakra-ui/icons";
+import { ModalSucess } from "../../components/ModalComponents/ModalSucessComponent";
+
 
 const formStyle = {
   width: "100%",
@@ -28,7 +30,11 @@ const formStyle = {
 };
 
 export const RegisterPage = () => {
-  const { userRegister } = useContext(UserContext);
+  const {
+    userRegister,
+    isSucessModalOpen,
+    setIsSucessModalOpen
+  } = useContext(UserContext);
   const [isError, setIsError] = useState<boolean>(true);
 
   const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
@@ -333,10 +339,16 @@ export const RegisterPage = () => {
             <ButtonBrand1 type="submit" onClick={() => handleClick()}>
               Finalizar Cadastro
             </ButtonBrand1>
+
           </form>
         </Flex>
       </Flex>
       <FooterComponent />
+      <ModalSucess
+        isOpen={isSucessModalOpen}
+        onClose={() => setIsSucessModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };

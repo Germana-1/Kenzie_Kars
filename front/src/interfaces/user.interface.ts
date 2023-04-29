@@ -47,8 +47,14 @@ export interface IUserContext {
   userRegister: (data: IUserRegister) => void;
   logout: () => void;
   handleClick: (type: string) => void;
+  isProfileModalOpen: boolean;
+  isAddressModalOpen: boolean;
+  isSucessModalOpen: boolean;
+  isDeleteAccountModalOpen: boolean;
   setIsProfileModalOpen: (value: boolean) => void;
   setIsAddressModalOpen: (value: boolean) => void;
+  setIsDeleteAccountModalOpen:(value: boolean) => void;
+  setIsSucessModalOpen: (value: boolean) => void;
 }
 
 export interface IUserContextProps {

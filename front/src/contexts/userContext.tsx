@@ -19,11 +19,17 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [sessionError, setSessioError] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+  const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === "profile") {
       setIsProfileModalOpen(true);
-    } else if (typeModal === "address") {
+    }
+    if (typeModal === 'delete') {
+      setIsDeleteAccountModalOpen(true);
+      setIsProfileModalOpen(false);
+    } else if (typeModal === 'address') {
       setIsAddressModalOpen(true);
     }
   };
@@ -60,7 +66,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
       api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-
+      
       await userAuth();
 
       navigate("/");
@@ -79,7 +85,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       await api.post("/users", data);
 
-      navigate("/login");
+      setIsSucessModalOpen(true)
+
     } catch (error: any) {
       if (error.response.status === 409) {
         // Abrir modal de error
@@ -100,17 +107,21 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       value={{
         user,
         sessionError,
-        isProfileModalOpen,
-        isAddressModalOpen,
         userSession,
         userRegister,
         logout,
         handleClick,
+        isProfileModalOpen,
         setIsProfileModalOpen,
+        isAddressModalOpen,
         setIsAddressModalOpen,
+        isDeleteAccountModalOpen,
+        setIsDeleteAccountModalOpen,
+        isSucessModalOpen, 
+        setIsSucessModalOpen,
       }}
     >
       {children}
     </UserContext.Provider>
-  );
+  );  
 };

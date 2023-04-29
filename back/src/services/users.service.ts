@@ -1,8 +1,10 @@
 import { prisma } from "../database";
 import bcrypt from "bcryptjs";
+import { Request } from "express";
 import { ICreateUserRequest, ICreateUserResponse } from "../interfaces";
 import { getUserResponseSchema, createUserResponseSchema } from "../schemas";
 import { AppError } from "../errors";
+import { Address } from "@prisma/client";
 
 export const createUserService = async (
   body: ICreateUserRequest
@@ -57,4 +59,48 @@ export const getOneUserService = async (id: string): Promise<any> => {
   });
 
   return userValidated;
+};
+
+export const updateUserService = async (
+  req: Request
+): Promise<ICreateUserResponse> => {
+  const user = await prisma.user.update({
+    where: {
+      id: req.authUser.id,
+    },
+    data: req.body,
+    include: {
+      address: true,
+      comments: true,
+      announcements: true,
+    },
+  });
+
+  const userValidated = await getUserResponseSchema.validate(user, {
+    stripUnknown: true,
+    abortEarly: false,
+  });
+
+  return userValidated;
+};
+
+export const updateUserAddressService = async (
+  req: Request
+): Promise<Address> => {
+  const address = await prisma.address.update({
+    where: {
+      userId: req.authUser.id,
+    },
+    data: req.body,
+  });
+
+  return address;
+};
+
+export const deleteUserService = async (id: string): Promise<void> => {
+  await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
 };

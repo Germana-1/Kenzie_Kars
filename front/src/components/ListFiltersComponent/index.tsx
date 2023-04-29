@@ -1,33 +1,95 @@
 import { Flex } from "@chakra-ui/react";
-
+import { useContext } from "react";
 import { FilterComponent } from "../../components/FilterComponent";
 import { FilterWithInputComponent } from "../FilterWithInputComponent";
-
-const brands = ["Fiat", "Ford", "Volkswagen"];
-const models = [
-  "Civic",
-  "Corolla",
-  "Cruze",
-  "Fit",
-  "Gol",
-  "Ka",
-  "Onix",
-  "Pulse",
-];
-const colors = ["Branco", "Preto", "Prata"];
-const years = ["2023", "2022", "2021"];
-const fuel = ["Diesel", "Etanol", "Gasolina", "Flex"];
+import { AnnouncementContext } from "../../contexts/announcementContext";
+import { ButtonBrand1 } from "../ButtomComponents";
 
 export const ListFiltersComponent = () => {
+  const {
+    setSelectedBrand,
+    setSelectedModel,
+    setSelectedColor,
+    setSelectedYear,
+    setSelectedFuel,
+    setMinKm,
+    setMaxKm,
+    setMinPrice,
+    setMaxPrice,
+    minKm,
+    maxKm,
+    minPrice,
+    maxPrice,
+    brands,
+    models,
+    colors,
+    years,
+    fuel,
+  } = useContext(AnnouncementContext);
+
+  const resetFilters = () => {
+    setSelectedBrand("");
+    setSelectedModel("");
+    setSelectedColor("");
+    setSelectedYear(0);
+    setSelectedFuel("");
+    setMinKm("");
+    setMaxKm("");
+    setMinPrice("");
+    setMaxPrice("");
+  };
+
+  const filterBrands = new Set(brands);
+  const filterModels = new Set(models);
+  const filterColors = new Set(colors);
+  const filterYears = new Set(years);
+  const filterFuel = new Set(fuel);
+
   return (
     <Flex flexDirection="column" gap="42px" marginTop="16px">
-      <FilterComponent titleFilter={"Marca"} filters={brands} />
-      <FilterComponent titleFilter={"Modelo"} filters={models} />
-      <FilterComponent titleFilter={"Cor"} filters={colors} />
-      <FilterComponent titleFilter={"Ano"} filters={years} />
-      <FilterComponent titleFilter={"Combustível"} filters={fuel} />
-      <FilterWithInputComponent titleFilter={"Km"} />
-      <FilterWithInputComponent titleFilter={"Preço"} />
+      <FilterComponent
+        titleFilter={"Marca"}
+        filters={[...filterBrands]}
+        setSelected={setSelectedBrand}
+      />
+      <FilterComponent
+        titleFilter={"Modelo"}
+        filters={[...filterModels]}
+        setSelected={setSelectedModel}
+      />
+      <FilterComponent
+        titleFilter={"Cor"}
+        filters={[...filterColors]}
+        setSelected={setSelectedColor}
+      />
+      <FilterComponent
+        titleFilter={"Ano"}
+        filters={[...filterYears]}
+        setSelected={setSelectedYear}
+      />
+      <FilterComponent
+        titleFilter={"Combustível"}
+        filters={[...filterFuel]}
+        setSelected={setSelectedFuel}
+      />
+      <FilterWithInputComponent
+        titleFilter={"Km"}
+        min={minKm}
+        max={maxKm}
+        setMin={setMinKm}
+        setMax={setMaxKm}
+      />
+      <FilterWithInputComponent
+        titleFilter={"Preço"}
+        min={minPrice}
+        max={maxPrice}
+        setMin={setMinPrice}
+        setMax={setMaxPrice}
+      />
+
+      <ButtonBrand1 maxW="279px" onClick={resetFilters}>
+        Limpar filtros
+      </ButtonBrand1>
     </Flex>
   );
 };

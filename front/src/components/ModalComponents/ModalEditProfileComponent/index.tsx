@@ -17,7 +17,7 @@ import { useState, useContext, useEffect } from "react";
 import {
   ButtonBrand1,
   ButtonGray6,
-  ButtonAlert3,
+  ButtonAlert3
 } from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
 import { AnnouncementContext } from "../../../contexts/announcementContext";
@@ -25,17 +25,24 @@ import { announcementDataNormalizer } from "../../../utils/announcementDataNorma
 import { FipeContext } from "../../../contexts/fipeContext";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
 import { Colors } from "../../../styles/colors";
+import { UserContext } from "../../../contexts/userContext";
 
 export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
   const { announcementRegister } = useContext(AnnouncementContext);
   const { getAllBrands } = useContext(FipeContext);
+  const { handleClick } = useContext(UserContext);
   const [brands, setBrands] = useState<string[]>([]);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    cpf: "",
+    phone: "",
+    birthdate: "",
+    description: "",
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
   async function onSubmit(data: any) {
     const numberOnly = /[^\d,]/g;
@@ -62,15 +69,38 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     })();
   }, []);
 
+  const descriptionValue = watch("description");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    const allValuesAreEmpty = Object.values(formValues).every(
+      (value) => value === ""
+    );
+    setIsFormValid(!allValuesAreEmpty);
+  }, [formValues]);
+
+  useEffect(() => {
+    setIsFormValid(!!descriptionValue);
+  }, [descriptionValue]);
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)} zIndex="10000">
           <ModalHeader>
             <TextH7 fontWeight={800} fontFamily="Lexend" color={Colors.brand1}>
               Editar perfil
             </TextH7>
+
+          <ModalHeader>
+            <TextH7 fontWeight={500}>Editar perfil</TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
@@ -87,6 +117,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="name"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <InputFormComponent
@@ -95,6 +126,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="email"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <InputFormComponent
@@ -104,6 +136,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="cpf"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <InputFormComponent
@@ -113,6 +146,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="phone"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <InputFormComponent
@@ -122,6 +156,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="birthdate"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <InputFormComponent
@@ -131,6 +166,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="description"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                   </Flex>
@@ -140,8 +176,8 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
           </ModalBody>
           <ModalFooter gap="10px">
             <ButtonGray6 onClick={onClose}>Cancelar</ButtonGray6>
-            <ButtonAlert3>Excluir Perfil</ButtonAlert3>
-            <ButtonBrand1 isDisabled={false} type="submit">
+            <ButtonAlert3 onClick={() => handleClick('delete')}>Excluir Perfil</ButtonAlert3>
+            <ButtonBrand1 isDisabled={!isFormValid} type="submit">
               Salvar Alterações
             </ButtonBrand1>
           </ModalFooter>
@@ -150,3 +186,4 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     </>
   );
 };
+

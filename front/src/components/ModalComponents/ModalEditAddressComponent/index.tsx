@@ -13,8 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
-
-import { ButtonGray6, ButtonGray5 } from "../../ButtomComponents";
+import {
+  ButtonGray6,
+  ButtonGray5,
+} from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
 import { AnnouncementContext } from "../../../contexts/announcementContext";
 import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
@@ -26,12 +28,32 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
   const { announcementRegister } = useContext(AnnouncementContext);
   const { getAllBrands } = useContext(FipeContext);
   const [brands, setBrands] = useState<string[]>([]);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [formValues, setFormValues] = useState({
+    zipCode: "",
+    state: "",
+    city: "",
+    street: "",
+    number: "",
+    complement: "",
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    const allValuesAreEmpty = Object.values(formValues).every(
+      (value) => value === ""
+    );
+    setIsFormValid(!allValuesAreEmpty);
+  }, [formValues]);
+
+
+  const { register, handleSubmit, formState: { errors }, } = useForm();
 
   async function onSubmit(data: any) {
     const numberOnly = /[^\d,]/g;
@@ -62,11 +84,15 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent
+          mt="100px"
+          as="form"
+          fontFamily="Lexend"
+          onSubmit={handleSubmit(onSubmit)}
+          zIndex="10000"
+        >
           <ModalHeader>
-            <TextH7 fontWeight={800} fontFamily="Lexend" color={Colors.brand1}>
-              Editar endereço
-            </TextH7>
+            <TextH7 fontWeight={500}>Editar endereço</TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
@@ -84,6 +110,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="address.zipCode"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <Flex gap={3}>
@@ -94,6 +121,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           register={register}
                           errors={errors}
                           name="address.state"
+                          onChange={handleInputChange}
                           autoComplete="off"
                         />
                       </Flex>
@@ -104,6 +132,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           register={register}
                           errors={errors}
                           name="address.city"
+                          onChange={handleInputChange}
                           autoComplete="off"
                         />
                       </Flex>
@@ -114,6 +143,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       register={register}
                       errors={errors}
                       name="address.street"
+                      onChange={handleInputChange}
                       autoComplete="off"
                     />
                     <Flex gap={3}>
@@ -125,6 +155,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           register={register}
                           errors={errors}
                           name="address.number"
+                          onChange={handleInputChange}
                           autoComplete="off"
                         />
                       </Flex>
@@ -134,6 +165,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           placeholder={"Ex: apart 307"}
                           register={register}
                           errors={errors}
+                          onChange={handleInputChange}
                           name="address.complement"
                           autoComplete="off"
                         />
@@ -145,8 +177,10 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
             </FormControl>
           </ModalBody>
           <ModalFooter gap="10px">
-            <ButtonGray6 onClick={onClose}>Cancelar</ButtonGray6>
-            <ButtonGray5 isDisabled={false} type="submit">
+            <ButtonGray6 fontWeight={500} color={Colors.grey2} onClick={onClose}>
+              Cancelar
+            </ButtonGray6>
+            <ButtonGray5 isDisabled={!isFormValid} type="submit">
               Salvar Alterações
             </ButtonGray5>
           </ModalFooter>

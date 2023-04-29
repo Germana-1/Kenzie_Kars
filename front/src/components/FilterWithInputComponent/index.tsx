@@ -1,17 +1,50 @@
 import { Box, Heading, Flex, Input } from "@chakra-ui/react";
-
 import { Colors } from "../../styles/colors";
-import { useState } from "react";
 import { stringFormater } from "../../utils/stringFormater";
+import { useEffect, useState } from "react";
 
 interface FilterProps {
   titleFilter: string;
+  min: string;
+  max: string;
+  setMin: React.Dispatch<React.SetStateAction<string>>;
+  setMax: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
+export const FilterWithInputComponent = ({
+  titleFilter,
+  min,
+  max,
+  setMin,
+  setMax,
+}: FilterProps) => {
+  const [minValue, setMinValue] = useState(min);
+  const [maxValue, setMaxValue] = useState(max);
   const [priceMax, setPriceMax] = useState("");
   const [priceMin, setPriceMin] = useState("");
   const [formatType, setFormatType] = useState(titleFilter === "Preço");
+
+  useEffect(() => {
+    setMinValue(min);
+    setMaxValue(max);
+  }, [min, max]);
+
+  const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMinValue(event.target.value);
+  };
+
+  const handleMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxValue(event.target.value);
+  };
+
+  const handleMin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMin(e.target.value);
+  };
+
+  const handleMax = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMax(e.target.value);
+  };
 
   return (
     <Box>
@@ -27,6 +60,7 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
           fontWeight={800}
           bg={Colors.grey4}
           borderRadius="0"
+
           placeholder="Mínimo"
           _placeholder={{
             color: Colors.grey2,
@@ -37,6 +71,12 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
           onBlur={(e) =>
             stringFormater(e.target.value, formatType, setPriceMin)
           }
+
+          type="number"
+          onBlur={handleMin}
+          onChange={handleMinChange}
+          value={minValue}
+
         />
 
         <Input
@@ -46,6 +86,7 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
           fontWeight={800}
           bg={Colors.grey4}
           borderRadius="0"
+
           placeholder="Máximo"
           _placeholder={{
             color: Colors.grey2,
@@ -56,6 +97,12 @@ export const FilterWithInputComponent = ({ titleFilter }: FilterProps) => {
           onBlur={(e) =>
             stringFormater(e.target.value, formatType, setPriceMax)
           }
+
+          type="number"
+          onBlur={handleMax}
+          onChange={handleMaxChange}
+          value={maxValue}
+
         />
       </Flex>
     </Box>

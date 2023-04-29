@@ -39,7 +39,7 @@ model Address {
   state      String  @db.VarChar(50)
   zipCode    String  @db.VarChar(10)
   userId     String  @unique
-  user       User    @relation(fields: [userId], references: [id])
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("addresses")
 }
@@ -54,7 +54,7 @@ model Announcement {
   priceFipe   Decimal   @db.Decimal()
   fuelType    String    @db.VarChar(50)
   color       String    @db.VarChar(50)
-  banner      String    @db.VarChar(100)
+  banner      String    @db.VarChar(255)
   description String    @db.Text
   isActive    Boolean   @default(true)
   isGoodBuy   Boolean   @default(false)
@@ -63,7 +63,7 @@ model Announcement {
   images      Image[]
   comments    Comment[]
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("announcements")
 }
@@ -85,7 +85,7 @@ model Comment {
   announcementId String
   announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
   userId         String
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("comments")
 }
