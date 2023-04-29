@@ -17,7 +17,7 @@ import { useState, useContext, useEffect } from "react";
 import {
   ButtonBrand1,
   ButtonGray6,
-  ButtonAlert3
+  ButtonAlert3,
 } from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
 import { AnnouncementContext } from "../../../contexts/announcementContext";
@@ -42,7 +42,12 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     description: "",
   });
 
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
   async function onSubmit(data: any) {
     const numberOnly = /[^\d,]/g;
@@ -93,14 +98,16 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent mt="100px" as="form" onSubmit={handleSubmit(onSubmit)} zIndex="10000">
+        <ModalContent
+          mt="100px"
+          as="form"
+          onSubmit={handleSubmit(onSubmit)}
+          zIndex="10000"
+        >
           <ModalHeader>
             <TextH7 fontWeight={800} fontFamily="Lexend" color={Colors.brand1}>
               Editar perfil
             </TextH7>
-
-          <ModalHeader>
-            <TextH7 fontWeight={500}>Editar perfil</TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
@@ -176,7 +183,9 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
           </ModalBody>
           <ModalFooter gap="10px">
             <ButtonGray6 onClick={onClose}>Cancelar</ButtonGray6>
-            <ButtonAlert3 onClick={() => handleClick('delete')}>Excluir Perfil</ButtonAlert3>
+            <ButtonAlert3 onClick={() => handleClick("delete")}>
+              Excluir Perfil
+            </ButtonAlert3>
             <ButtonBrand1 isDisabled={!isFormValid} type="submit">
               Salvar Alterações
             </ButtonBrand1>
@@ -186,4 +195,3 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     </>
   );
 };
-

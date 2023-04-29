@@ -25,7 +25,7 @@ interface IProps {
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { announcementListOne } = useContext(AnnouncementContext);
   const navigate = useNavigate();
-  const IdUser = localStorage.getItem("@userId")
+  const IdUser = localStorage.getItem("@userId");
   const shortDescription = announce.description.substring(0, 80) + "...";
   const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
   const userName = announce.user?.name.substring(0, 32);
@@ -45,8 +45,8 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
     >
       <Tag
         position={"absolute"}
-        top={"0"}
-        left={"0"}
+        top={"2px"}
+        left={"2px"}
         borderRadius={"initial"}
         backgroundColor={announce.isActive ? Colors.brand1 : Colors.grey4}
         hidden={hideTag ? true : false}
@@ -88,8 +88,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         overflow={"hidden"}
         textOverflow={"ellipsis"}
         _hover={{
-          border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
-            }`,
+          border: `2px solid ${
+            announce.isActive ? Colors.brand1 : Colors.grey4
+          }`,
         }}
         objectFit={"cover"}
       />
@@ -138,10 +139,14 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
-        {announce.user?.id == IdUser ? (<Flex gap="10px">
-          <ButtonGray10 bg={"transparent"}>Editar</ButtonGray10>
-          <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
-        </Flex>) : (<></>)}
+        {announce.user?.id == IdUser ? (
+          <Flex gap="10px">
+            <ButtonGray10 bg={"transparent"}>Editar</ButtonGray10>
+            <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
+          </Flex>
+        ) : (
+          <></>
+        )}
       </Flex>
     </Box>
   );
