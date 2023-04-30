@@ -3,6 +3,8 @@ import {
   ICreateUserRequest,
   ICreateUserResponse,
   IGetUserResponse,
+  IResetPasswordRequest,
+  ISendResetEmailPasswordRequest,
   IUpdateAddressRequest,
   IUpdateUserRequest,
 } from "../interfaces";
@@ -140,4 +142,15 @@ export const updateUserAddressRequestSchema: yup.SchemaOf<IUpdateAddressRequest>
     complement: yup.string().max(50).notRequired().nullable(),
     number: yup.string().max(10).notRequired(),
     street: yup.string().max(50).notRequired(),
+  });
+
+export const sendResetEmailPasswordSchema: yup.SchemaOf<ISendResetEmailPasswordRequest> =
+  yup.object().shape({
+    email: yup.string().email().max(50).required(),
+  });
+
+export const resetPasswordSchema: yup.SchemaOf<IResetPasswordRequest> = yup
+  .object()
+  .shape({
+    password: yup.string().max(20).required(),
   });
