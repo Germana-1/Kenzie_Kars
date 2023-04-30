@@ -1,10 +1,13 @@
+import { randomUUID } from "node:crypto";
 import { prisma } from "../database";
 import bcrypt from "bcryptjs";
+import { hashSync } from "bcryptjs";
 import { Request } from "express";
 import { ICreateUserRequest, ICreateUserResponse } from "../interfaces";
 import { getUserResponseSchema, createUserResponseSchema } from "../schemas";
 import { AppError } from "../errors";
 import { Address } from "@prisma/client";
+import { resetPasswordTemplate, sendEmail } from "../utils";
 
 export const createUserService = async (
   body: ICreateUserRequest
@@ -101,6 +104,60 @@ export const deleteUserService = async (id: string): Promise<void> => {
   await prisma.user.delete({
     where: {
       id,
+    },
+  });
+};
+
+export const sendResetEmailPasswordService = async (
+  email: string,
+  protocol: string,
+  host: string
+) => {
+  const user = await prisma.user.findFirst({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  const resetToken = randomUUID();
+
+  await prisma.user.update({
+    where: { email },
+    data: { resetToken: resetToken },
+  });
+
+  const resetPassword = resetPasswordTemplate(
+    email,
+    user.name,
+    protocol,
+    host,
+    resetToken
+  );
+
+  await sendEmail(resetPassword);
+};
+
+export const resetPasswordService = async (
+  password: string,
+  resetToken: string
+) => {
+  const user = await prisma.user.findFirst({
+    where: { resetToken: resetToken },
+  });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      password: hashSync(password, 10),
+      resetToken: null,
     },
   });
 };
