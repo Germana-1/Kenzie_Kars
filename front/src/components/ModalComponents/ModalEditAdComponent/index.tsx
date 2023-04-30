@@ -154,7 +154,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
               <Flex direction="column" gap="15px">
                 <Box>
                   <Flex flexDir={"column"} gap={5}>
-                    <FormLabel css={labelCSS}>Marca</FormLabel>
+                    <FormLabel margin={0} css={labelCSS}>Marca</FormLabel>
                     <Select
                       css={inputCSS}
                       color={Colors.brand1}
@@ -173,7 +173,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         </option>
                       ))}
                     </Select>
-                    <FormLabel css={labelCSS}>Modelo</FormLabel>
+                    <FormLabel margin={0} css={labelCSS}>Modelo</FormLabel>
                     <Select
                       css={inputCSS}
                       color={Colors.brand1}
