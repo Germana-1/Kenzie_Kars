@@ -39,4 +39,16 @@ usersRoutes.delete(
   Controller.deleteUserController
 );
 
+usersRoutes.post(
+  "/resetPassword",
+  Middlewares.validateSchema(Schema.sendResetEmailPasswordSchema),
+  Controller.sendResetEmailPasswordController
+);
+
+usersRoutes.patch(
+  "/resetPassword/:token",
+  Middlewares.validateSchema(Schema.resetPasswordSchema),
+  Controller.resetPasswordController
+);
+
 export { usersRoutes };
