@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Divider,
   Flex,
   IconButton,
   Menu,
@@ -32,7 +33,7 @@ export const HeaderComponent = () => {
     setIsAddressModalOpen,
     handleClick,
     isDeleteAccountModalOpen,
-    setIsDeleteAccountModalOpen
+    setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
 
   return (
@@ -57,7 +58,12 @@ export const HeaderComponent = () => {
 
         {user ? (
           <Menu>
-            <MenuButton>
+            <Divider
+              border={`1px solid ${Colors.grey6}`}
+              opacity={"1"}
+              orientation="vertical"
+            />
+            <MenuButton pl={"20px"}>
               <Flex gap="10px" alignItems="center">
                 <Avatar src={user.avatar} w="32px" h="32px" />
                 <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
@@ -69,9 +75,15 @@ export const HeaderComponent = () => {
               <MenuItem as={Link} to={`/profile/${user.id}/`}>
                 Meu perfil
               </MenuItem>
-              <MenuItem onClick={() => handleClick('profile')}>Alterar perfil</MenuItem>
-              <MenuItem onClick={() => handleClick('address')}>Alterar endereço</MenuItem>
-              <MenuItem onClick={() => handleClick('delete')}>Excluir conta</MenuItem>
+              <MenuItem onClick={() => handleClick("profile")}>
+                Alterar perfil
+              </MenuItem>
+              <MenuItem onClick={() => handleClick("address")}>
+                Alterar endereço
+              </MenuItem>
+              <MenuItem onClick={() => handleClick("delete")}>
+                Excluir conta
+              </MenuItem>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuList>
           </Menu>

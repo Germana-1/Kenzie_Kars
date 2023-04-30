@@ -9,14 +9,14 @@ import {
   TagLabel,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4, ButtonGray10 } from "../ButtomComponents";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import fallbackImg from "../../assets/selected_car.jpg";
+import { useContext } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
-import { UserContext } from "../../contexts/userContext";
 
 interface IProps {
   announce: IAnnouncement;
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
-  const { announcementListOne, handleClick } = useContext(AnnouncementContext);
+  const { handleClick } = useContext(AnnouncementContext);
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
   const shortDescription = announce.description.substring(0, 80) + "...";
@@ -80,6 +80,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
       <Image
         src={announce.banner}
+        fallbackSrc={fallbackImg}
         alt={`${announce.brand} - ${announce.model}`}
         border={`2px solid ${Colors.grey7}`}
         bg={Colors.grey7}
