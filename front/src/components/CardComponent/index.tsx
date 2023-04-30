@@ -16,6 +16,7 @@ import { Colors } from "../../styles/colors";
 import { ButtonBrand4, ButtonGray10 } from "../ButtomComponents";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { UserContext } from "../../contexts/userContext";
 
 interface IProps {
   announce: IAnnouncement;
@@ -23,7 +24,7 @@ interface IProps {
 }
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
-  const { announcementListOne } = useContext(AnnouncementContext);
+  const { announcementListOne, handleClick } = useContext(AnnouncementContext);
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
   const shortDescription = announce.description.substring(0, 80) + "...";
@@ -88,9 +89,8 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         overflow={"hidden"}
         textOverflow={"ellipsis"}
         _hover={{
-          border: `2px solid ${
-            announce.isActive ? Colors.brand1 : Colors.grey4
-          }`,
+          border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
+            }`,
         }}
         objectFit={"cover"}
       />
@@ -139,9 +139,16 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
-        {announce.user?.id == IdUser? (
+        {announce.user?.id == IdUser ? (
           <Flex gap="10px">
-            <ButtonGray10 bg={"transparent"}>Editar</ButtonGray10>
+            <ButtonGray10
+              bg={"transparent"}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleClick('editAd')
+              }}>
+              Editar
+            </ButtonGray10>
             <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
           </Flex>
         ) : (

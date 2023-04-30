@@ -18,10 +18,21 @@ import { ListFiltersComponent } from "../../components/ListFiltersComponent";
 import { FooterComponent } from "../../components/FooterComponent";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
 import { FontSizes } from "../../styles/fontSizes";
+import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
+import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
+import { useContext } from "react";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 export const HomePage = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const {
+    editAdModalOpen,
+    setEditAdModalOpen,
+    deleteAdModalOpen,
+    setDeleteAdModalOpen
+  } = useContext(AnnouncementContext);
 
   return (
     <Flex flexDirection={"column"}>
@@ -84,6 +95,18 @@ export const HomePage = () => {
         </Show>
       </Flex>
       <FooterComponent />
+
+      <ModalEditAd
+        isOpen={editAdModalOpen}
+        onClose={() => setEditAdModalOpen(false)}
+        children={undefined}
+      />
+      <ModalDeleteAd
+        isOpen={deleteAdModalOpen}
+        onClose={() => setDeleteAdModalOpen(false)}
+        children={undefined}
+      />
+
     </Flex>
   );
 };

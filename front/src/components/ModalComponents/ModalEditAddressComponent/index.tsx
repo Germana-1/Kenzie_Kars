@@ -99,7 +99,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
 
           <ModalBody display="flex" flexDirection="column" gap="20px">
             <TextB2 fontWeight={500}>Informações de endereço</TextB2>
-            <FormControl isRequired>
+            <FormControl>
               <Flex direction="column" gap="15px">
                 <Box>
                   <Flex flexDir={"column"} gap={5}>

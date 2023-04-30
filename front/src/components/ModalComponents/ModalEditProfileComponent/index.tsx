@@ -101,6 +101,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
         <ModalContent
           mt="100px"
           as="form"
+          fontFamily="Lexend"
           onSubmit={handleSubmit(onSubmit)}
           zIndex="10000"
         >
@@ -114,7 +115,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
 
           <ModalBody display="flex" flexDirection="column" gap="20px">
             <TextB2 fontWeight={500}>Informações do pessoais</TextB2>
-            <FormControl isRequired>
+            <FormControl>
               <Flex direction="column" gap="15px">
                 <Box>
                   <Flex flexDir={"column"} gap={5}>

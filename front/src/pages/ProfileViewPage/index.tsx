@@ -6,8 +6,20 @@ import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
+import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
+import { useContext } from "react";
+import { AnnouncementContext } from "../../contexts/announcementContext";
+import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
 
 export const ProfileViewPage = () => {
+
+  const {
+    editAdModalOpen,
+    setEditAdModalOpen,
+    deleteAdModalOpen,
+    setDeleteAdModalOpen,
+  } = useContext(AnnouncementContext);
+
   return (
     <>
       <HeaderComponent />
@@ -25,8 +37,17 @@ export const ProfileViewPage = () => {
           <ListCardComponent filterActive={false} hideTag={false} centered />
         </Flex>
       </Container>
-
       <FooterComponent />
+      <ModalEditAd
+        isOpen={editAdModalOpen}
+        onClose={() => setEditAdModalOpen(false)}
+        children={undefined}
+      />
+      <ModalDeleteAd
+        isOpen={deleteAdModalOpen}
+        onClose={() => setDeleteAdModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };
