@@ -1,7 +1,8 @@
 import { Box, Heading, Flex, Input } from "@chakra-ui/react";
+
 import { Colors } from "../../styles/colors";
-import { stringFormater } from "../../utils/stringFormater";
 import { useEffect, useState } from "react";
+import { stringFormater } from "../../utils/stringFormater";
 
 interface FilterProps {
   titleFilter: string;
@@ -20,8 +21,8 @@ export const FilterWithInputComponent = ({
 }: FilterProps) => {
   const [minValue, setMinValue] = useState(min);
   const [maxValue, setMaxValue] = useState(max);
-  const [priceMax, setPriceMax] = useState("");
-  const [priceMin, setPriceMin] = useState("");
+  const [fakeMaxValue, setFakeMaxValue] = useState("");
+  const [fakeMinValue, setFakeMinValue] = useState("");
   const [formatType, setFormatType] = useState(titleFilter === "Preço");
 
   useEffect(() => {
@@ -30,18 +31,20 @@ export const FilterWithInputComponent = ({
   }, [min, max]);
 
   const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMinValue(event.target.value);
+    setFakeMinValue(event.target.value.replace(/[^\d]/g, ""));
   };
 
   const handleMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMaxValue(event.target.value);
+    setFakeMaxValue(event.target.value.replace(/[^\d]/g, ""));
   };
 
   const handleMin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    stringFormater(e.target.value, formatType, setFakeMinValue);
     setMin(e.target.value);
   };
 
   const handleMax = (e: React.ChangeEvent<HTMLInputElement>) => {
+    stringFormater(e.target.value, formatType, setFakeMaxValue);
     setMax(e.target.value);
   };
 
@@ -63,19 +66,11 @@ export const FilterWithInputComponent = ({
           _placeholder={{
             color: Colors.grey2,
           }}
-          
-          // value={priceMin}
-          // onDoubleClick={() => setPriceMin("")}
-          // onChange={(e) => setPriceMin(e.target.value.replace(/[^\d]/g, ""))}
-          // onBlur={(e) =>
-          //   stringFormater(e.target.value, formatType, setPriceMin)
-          // }
-
-          type="number"
+          type="text"
           onBlur={handleMin}
           onChange={handleMinChange}
-          value={minValue}
-
+          onDoubleClick={() => setFakeMinValue("")}
+          value={fakeMinValue}
         />
 
         <Input
@@ -89,19 +84,11 @@ export const FilterWithInputComponent = ({
           _placeholder={{
             color: Colors.grey2,
           }}
-          
-          // value={priceMax}
-          // onDoubleClick={() => setPriceMax("")}
-          // onChange={(e) => setPriceMax(e.target.value.replace(/[^\d]/g, ""))}
-          // onBlur={(e) =>
-          //   stringFormater(e.target.value, formatType, setPriceMax)
-          // }
-
-          type="number"
+          type="text"
           onBlur={handleMax}
           onChange={handleMaxChange}
-          value={maxValue}
-
+          onDoubleClick={() => setFakeMaxValue("")}
+          value={fakeMaxValue}
         />
       </Flex>
     </Box>

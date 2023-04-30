@@ -89,7 +89,6 @@ export const AnnouncementProvider = ({
         const response = await api.get(url);
         let data = response.data;
         let filteredData = response.data;
-        console.log(minPrice);
 
         if (minPrice != "" && maxPrice != "") {
           filteredData = filteredData.filter((el: IAnnouncement) => {
