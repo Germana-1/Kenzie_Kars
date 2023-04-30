@@ -8,13 +8,7 @@ export const BannerComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <Box position="relative" marginTop="80px">
-      <Image
-        src={bannerWeb}
-        alt="banner"
-        w="100%"
-        h={"544px"}
-        objectFit={"cover"}
-      />
+      <Image src={bannerWeb} w="100%" h={"544px"} objectFit={"cover"} />
 
       <Box
         position="absolute"
