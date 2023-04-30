@@ -19,32 +19,31 @@ export const ListCardComponent = ({
   const { announcements } = useContext(AnnouncementContext);
 
   return (
-    announcements && (
-      <Flex
-        wrap={{ sm: "nowrap", md: "wrap" }}
-        overflowX={"auto"}
-        gap={"25px"}
-        maxW={centered ? "986.95px" : "100%"}
-      >
-        {filterActive
-          ? announcements.map(
-              (announce: IAnnouncement) =>
-                announce.isActive && (
-                  <CardComponent
-                    announce={announce}
-                    hideTag={hideTag}
-                    key={announce.id}
-                  />
-                )
-            )
-          : announcements.map((announce: IAnnouncement) => (
-              <CardComponent
-                announce={announce}
-                hideTag={hideTag}
-                key={announce.id}
-              />
-            ))}
-      </Flex>
-    )
+    <Flex
+      wrap={{ sm: "nowrap", md: "wrap" }}
+      overflowX={"auto"}
+      gap={"25px"}
+      maxW={centered ? "986.95px" : "100%"}
+    >
+      {filterActive
+        ? announcements.map(
+            (announce: IAnnouncement) =>
+              announce.isActive && (
+                <CardComponent
+                  announce={announce}
+                  hideTag={hideTag}
+                  key={announce.id}
+                />
+              )
+          )
+        : announcements.map((announce: IAnnouncement) => (
+            <CardComponent
+              announce={announce}
+              hideTag={hideTag}
+              key={announce.id}
+            />
+          ))}
+    </Flex>
   );
 };
+
