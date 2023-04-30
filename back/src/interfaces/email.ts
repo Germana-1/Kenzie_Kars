@@ -7,3 +7,7 @@ export interface ISendEmailRequest {
 export interface IResetPasswordRequest {
   password: string;
 }
+
+export interface ISendResetEmailPasswordRequest {
+  email: string;
+}
