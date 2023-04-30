@@ -21,6 +21,7 @@ model User {
   password      String         @db.VarChar(100)
   accountType   String         @db.VarChar(50)
   avatar        String?        @db.VarChar(100)
+  resetToken    String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt 
   address       Address?      
