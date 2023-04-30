@@ -29,3 +29,23 @@ export const deleteUserController = async (req: Request, res: Response) => {
   await Service.deleteUserService(req.authUser.id);
   return res.status(204).json({});
 };
+
+export const sendResetEmailPasswordController = async (
+  req: Request,
+  res: Response
+) => {
+  const { email } = req.body;
+  const { protocol } = req;
+  const host = req.get("host");
+  await Service.sendResetEmailPasswordService(email, protocol, host);
+  return res.json({ message: "Email successfully sent!" });
+};
+
+export const resetPasswordController = async (req: Request, res: Response) => {
+  const { password } = req.body;
+  const { token } = req.params;
+
+  await Service.resetPasswordService(password, token);
+
+  return res.json({ message: "Password changed successfully!" });
+};
