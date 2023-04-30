@@ -11,6 +11,7 @@ import {
   FormControl,
   Box,
   FormLabel,
+  Select,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -27,11 +28,16 @@ import { announcementDataNormalizer } from "../../../utils/announcementDataNorma
 import { FipeContext } from "../../../contexts/fipeContext";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
 import { Colors } from "../../../styles/colors";
+import { inputCSS, labelCSS } from "../../../styles/global";
+import { IFipeModel } from "../../../interfaces/fipe.interface";
 
 export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
   const { announcementRegister, handleClick } = useContext(AnnouncementContext);
-  const { getAllBrands } = useContext(FipeContext);
+  const { getAllBrands, getAllModelsByBrand } = useContext(FipeContext);
+  const [carDetail, setCarDetail] = useState<IFipeModel>({} as IFipeModel);
+  const [models, setModels] = useState<IFipeModel[]>([]);
   const [brands, setBrands] = useState<string[]>([]);
+  const [showInput, setShowInput] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formValues, setFormValues] = useState({
     brand: "",
@@ -42,7 +48,9 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     color: "",
     priceFipe: "",
     price: "",
-    images: "",
+    images1: "",
+    images2: "",
+    images3: "",
     banner: "",
     description: "",
   });
@@ -63,7 +71,17 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     });
   };
 
-  const [showInput, setShowInput] = useState(false);
+  async function getModels(value: string) {
+    const res = await getAllModelsByBrand(value);
+    setModels(res);
+  }
+
+  async function getCarDetails(value: string) {
+    const car = models.filter((model) => model.name === value);
+    setCarDetail(car[0]);
+  }
+
+
   const handleButtonClick = () => {
     setShowInput(true);
   };
@@ -119,7 +137,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
           zIndex="10000"
         >
           <ModalHeader>
-            <TextH7 fontWeight={500}>Editar anúncio</TextH7>
+            <TextH7
+              fontWeight={800}
+              fontFamily={"Lenxend"}
+              color={Colors.brand1}
+            >
+              Editar anúncio
+            </TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
@@ -130,92 +154,109 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
               <Flex direction="column" gap="15px">
                 <Box>
                   <Flex flexDir={"column"} gap={5}>
-                    <InputFormComponent
-                      labelText={"Marca"}
-                      placeholder={"Mercedes Benz"}
-                      register={register}
-                      name="brand"
-                      onChange={handleInputChange}
-                      autoComplete="off"
-                    />
-                    <Flex flexDir={"column"} gap={2}>
+                    <FormLabel css={labelCSS}>Marca</FormLabel>
+                    <Select
+                      css={inputCSS}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
+                      {...register("brand", {
+                        onChange: (e) => {
+                          handleInputChange
+                          getModels(e.target.value);
+                        },
+                      })}
+                    >
+                      <option>selecione</option>
+                      {brands.map((brand, i) => (
+                        <option key={i} value={brand}>
+                          {brand}
+                        </option>
+                      ))}
+                    </Select>
+                    <FormLabel css={labelCSS}>Modelo</FormLabel>
+                    <Select
+                      css={inputCSS}
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
+                      isDisabled={models.length ? false : true}
+                      {...register("model", {
+                        onChange: (e) => getCarDetails(e.target.value),
+                      })}
+                    >
+                      {models.map((model, i) => (
+                        <option key={i} value={model.name}>
+                          {model.name}
+                        </option>
+                      ))}
+                    </Select>
+                    <Flex mt="15px" gap={2}>
                       <InputFormComponent
-                        labelText={"Modelo"}
-                        placeholder={"A 200 CGI ADVANCE SEDAN"}
+                        labelText={"Combustivel"}
+                        placeholder={"Gasolina / Etanol"}
                         register={register}
-                        name="model"
+                        name="fuelType"
                         onChange={handleInputChange}
                         autoComplete="off"
                       />
-                      <Flex mt="15px" gap={2}>
-                        <InputFormComponent
-                          labelText={"Combustivel"}
-                          placeholder={"Gasolina / Etanol"}
-                          register={register}
-                          name="fuelType"
-                          onChange={handleInputChange}
-                          autoComplete="off"
-                        />
-                        <InputFormComponent
-                          type="number"
-                          labelText={"Ano"}
-                          placeholder={"2018"}
-                          register={register}
-                          name="year"
-                          onChange={handleInputChange}
-                          autoComplete="off"
-                        />
-                      </Flex>
-                      <Flex mt="15px" gap={2}>
-                        <InputFormComponent
-                          type="number"
-                          labelText={"Quilometragem"}
-                          placeholder={"30.000"}
-                          register={register}
-                          name="mileage"
-                          onChange={handleInputChange}
-                          autoComplete="off"
-                        />
-                        <InputFormComponent
-                          labelText={"Cor"}
-                          placeholder={"Branco"}
-                          register={register}
-                          onChange={handleInputChange}
-                          name="color"
-                          autoComplete="off"
-                        />
-                      </Flex>
-                      <Flex mt="15px" gap={2}>
-                        <InputFormComponent
-                          type="number"
-                          labelText={"Preço tabela FIPE"}
-                          placeholder={"R$ 48.000,00"}
-                          register={register}
-                          onChange={handleInputChange}
-                          name="priceFipe"
-                          autoComplete="off"
-                        />
-                        <InputFormComponent
-                          type="number"
-                          labelText={"Preço"}
-                          placeholder={"R$ 50.000,00"}
-                          register={register}
-                          onChange={handleInputChange}
-                          name="price"
-                          autoComplete="off"
-                        />
-                      </Flex>
-                      <FormControl mt="15px">
-                        <InputFormComponent
-                          hasTextArea={true}
-                          labelText={"Descrição"}
-                          onChange={handleInputChange}
-                          register={register}
-                          name="description"
-                          autoComplete="off"
-                        />
-                      </FormControl>
+                      <InputFormComponent
+                        type="number"
+                        labelText={"Ano"}
+                        placeholder={"2018"}
+                        register={register}
+                        name="year"
+                        onChange={handleInputChange}
+                        autoComplete="off"
+                      />
                     </Flex>
+                    <Flex mt="15px" gap={2}>
+                      <InputFormComponent
+                        type="number"
+                        labelText={"Quilometragem"}
+                        placeholder={"30.000"}
+                        register={register}
+                        name="mileage"
+                        onChange={handleInputChange}
+                        autoComplete="off"
+                      />
+                      <InputFormComponent
+                        labelText={"Cor"}
+                        placeholder={"Branco"}
+                        register={register}
+                        onChange={handleInputChange}
+                        name="color"
+                        autoComplete="off"
+                      />
+                    </Flex>
+                    <Flex mt="15px" gap={2}>
+                      <InputFormComponent
+                        type="number"
+                        labelText={"Preço tabela FIPE"}
+                        placeholder={"R$ 48.000,00"}
+                        register={register}
+                        onChange={handleInputChange}
+                        name="priceFipe"
+                        autoComplete="off"
+                      />
+                      <InputFormComponent
+                        type="number"
+                        labelText={"Preço"}
+                        placeholder={"R$ 50.000,00"}
+                        register={register}
+                        onChange={handleInputChange}
+                        name="price"
+                        autoComplete="off"
+                      />
+                    </Flex>
+                    <FormControl mt="15px">
+                      <InputFormComponent
+                        hasTextArea={true}
+                        labelText={"Descrição"}
+                        onChange={handleInputChange}
+                        register={register}
+                        name="description"
+                        autoComplete="off"
+                      />
+                    </FormControl>
                     <FormControl>
                       <FormLabel>Publicado</FormLabel>
                       <Flex gap={3}>
@@ -242,7 +283,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"1° Imagem da galeria"}
                         placeholder={"https://image.com"}
                         register={register}
-                        name="images"
+                        name="images1"
                         onChange={handleInputChange}
                         autoComplete="off"
                       />
@@ -252,7 +293,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"2° Imagem da galeria"}
                         placeholder={"https://image.com"}
                         register={register}
-                        name="images"
+                        name="images2"
                         onChange={handleInputChange}
                         autoComplete="off"
                       />
@@ -260,11 +301,10 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"3° Imagem da galeria"}
                         placeholder={"https://image.com"}
                         register={register}
-                        name="images"
+                        name="images3"
                         onChange={handleInputChange}
                         autoComplete="off"
                       />)}
-
                       <Flex justifyContent="space-between">
                         <ButtonBrand4 onClick={handleButtonClick} size={"sm"}>
                           Adicionar campo para imagem da galeria

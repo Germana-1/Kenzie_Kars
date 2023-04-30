@@ -92,7 +92,13 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
           zIndex="10000"
         >
           <ModalHeader>
-            <TextH7 fontWeight={500}>Editar endereço</TextH7>
+            <TextH7
+              fontWeight={800}
+              fontFamily={"Lenxend"}
+              color={Colors.brand1}
+            >
+              Editar endereço
+            </TextH7>
           </ModalHeader>
 
           <ModalCloseButton />
