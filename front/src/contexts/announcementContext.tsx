@@ -90,6 +90,11 @@ export const AnnouncementProvider = ({
         let data = response.data;
         let filteredData = response.data;
 
+        const formatMinKm = parseInt(minKm.replace(/[^\d,-]/g, "")) + "";
+        const formatMaxKm = parseInt(maxKm.replace(/[^\d,-]/g, "")) + "";
+        const formatMinPrice = parseInt(minPrice.replace(/[^\d,-]/g, "")) + "";
+        const formatMaxPrice = parseInt(maxPrice.replace(/[^\d,-]/g, "")) + "";
+
         if (minPrice != "" && maxPrice != "") {
           filteredData = filteredData.filter((el: IAnnouncement) => {
             return el.price >= Number(minPrice) && el.price <= Number(maxPrice);

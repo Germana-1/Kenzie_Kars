@@ -2,7 +2,6 @@ import { Box, Heading, Flex, Input } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
 import { useEffect, useState } from "react";
-import { stringFormater } from "../../utils/stringFormater";
 
 interface FilterProps {
   titleFilter: string;
@@ -21,8 +20,6 @@ export const FilterWithInputComponent = ({
 }: FilterProps) => {
   const [minValue, setMinValue] = useState(min);
   const [maxValue, setMaxValue] = useState(max);
-  const [fakeMaxValue, setFakeMaxValue] = useState("");
-  const [fakeMinValue, setFakeMinValue] = useState("");
   const [formatType, setFormatType] = useState(titleFilter === "Preço");
 
   useEffect(() => {
@@ -30,21 +27,38 @@ export const FilterWithInputComponent = ({
     setMaxValue(max);
   }, [min, max]);
 
+  const formatFilter = (value: string, isCurrency: boolean) => {
+    let result = "";
+    const convertedValue = +value;
+    if (!convertedValue) return value;
+
+    if (isCurrency) {
+      result = convertedValue.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      return result;
+    }
+
+    result = convertedValue.toLocaleString();
+    return result;
+  };
+
   const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFakeMinValue(event.target.value.replace(/[^\d]/g, ""));
+    setMinValue(event.target.value.replace(/[^\d]/g, ""));
   };
 
   const handleMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFakeMaxValue(event.target.value.replace(/[^\d]/g, ""));
+    setMaxValue(event.target.value.replace(/[^\d]/g, ""));
   };
 
   const handleMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-    stringFormater(e.target.value, formatType, setFakeMinValue);
+    const value = formatFilter(e.target.value, formatType);
     setMin(e.target.value);
   };
 
   const handleMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-    stringFormater(e.target.value, formatType, setFakeMaxValue);
+    const value = formatFilter(e.target.value, formatType);
     setMax(e.target.value);
   };
 
@@ -69,8 +83,8 @@ export const FilterWithInputComponent = ({
           type="text"
           onBlur={handleMin}
           onChange={handleMinChange}
-          onDoubleClick={() => setFakeMinValue("")}
-          value={fakeMinValue}
+          onDoubleClick={() => setMinValue("")}
+          value={minValue}
         />
 
         <Input
@@ -87,8 +101,8 @@ export const FilterWithInputComponent = ({
           type="text"
           onBlur={handleMax}
           onChange={handleMaxChange}
-          onDoubleClick={() => setFakeMaxValue("")}
-          value={fakeMaxValue}
+          onDoubleClick={() => setMaxValue("")}
+          value={maxValue}
         />
       </Flex>
     </Box>
