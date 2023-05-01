@@ -40,8 +40,6 @@ export interface IUserRegister {
 
 export interface IUserContext {
   user: IUser | undefined;
-  isProfileModalOpen: boolean;
-  isAddressModalOpen: boolean;
   sessionError: boolean;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;

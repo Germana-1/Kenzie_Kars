@@ -21,7 +21,8 @@ export const AnnouncementProvider = ({
   useEffect(() => {
     announcementListAll();
   }, []);
-
+  const [editAdModalOpen, setEditAdModalOpen] = useState(false);
+  const [deleteAdModalOpen, setDeleteAdModalOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -60,6 +61,16 @@ export const AnnouncementProvider = ({
       console.log(error);
     }
   }
+
+  const handleClick = (typeModal: string) => {
+    if (typeModal === "editAd") {
+      setEditAdModalOpen(true);
+    }
+    if (typeModal === 'delete') {
+      setDeleteAdModalOpen(true);
+      setEditAdModalOpen(false);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -155,6 +166,11 @@ export const AnnouncementProvider = ({
   return (
     <AnnouncementContext.Provider
       value={{
+        editAdModalOpen,
+        setEditAdModalOpen,
+        deleteAdModalOpen,
+        setDeleteAdModalOpen,
+        handleClick,
         announcements,
         announcement,
         announcementRegister,

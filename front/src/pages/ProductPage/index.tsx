@@ -13,10 +13,20 @@ import { ProductGalleryComponent } from "../../components/ProductGalleryComponen
 import { ProductAnnouncerInfoComponent } from "../../components/ProductAnnouncerInfoComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
+import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
 
 export const ProductPage = () => {
   const { id } = useParams();
-  const { announcementListOne, announcement } = useContext(AnnouncementContext);
+
+  const {
+    editAdModalOpen,
+    setEditAdModalOpen,
+    deleteAdModalOpen,
+    setDeleteAdModalOpen,
+    announcementListOne,
+    announcement
+  } = useContext(AnnouncementContext);
 
   useEffect(() => {
     announcementListOne(id!);
@@ -59,6 +69,16 @@ export const ProductPage = () => {
         </Flex>
       </Container>
       <FooterComponent />
+      <ModalEditAd
+        isOpen={editAdModalOpen}
+        onClose={() => setEditAdModalOpen(false)}
+        children={undefined}
+      />
+      <ModalDeleteAd
+        isOpen={deleteAdModalOpen}
+        onClose={() => setDeleteAdModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };
