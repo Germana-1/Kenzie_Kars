@@ -57,14 +57,15 @@ export const HeaderComponent = () => {
             <img src={logo} alt="logo" />
           </Link>
         </Box>
+        
+        <Divider
+          border={`1px solid ${Colors.grey6}`}
+          opacity={"1"}
+          orientation="vertical"
+        />
 
         {user ? (
           <Menu>
-            <Divider
-              border={`1px solid ${Colors.grey6}`}
-              opacity={"1"}
-              orientation="vertical"
-            />
             <MenuButton pl={"20px"}>
               <Flex gap="10px" alignItems="center">
                 <Avatar src={user.avatar} w="32px" h="32px" />
