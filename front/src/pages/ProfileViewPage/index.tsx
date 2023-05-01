@@ -6,8 +6,21 @@ import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 export const ProfileViewPage = () => {
+  const { id } = useParams();
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.accountType !== "seller" && user?.id === id) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <HeaderComponent />
