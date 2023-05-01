@@ -87,7 +87,11 @@ export const ListFiltersComponent = () => {
         setMax={setMaxPrice}
       />
 
-      <ButtonBrand1 maxW="305px" onClick={resetFilters}>
+      <ButtonBrand1
+        maxW="305px"
+        onClick={resetFilters}
+        hidden={!minKm && !maxKm && !minPrice && !maxPrice}
+      >
         Limpar filtros
       </ButtonBrand1>
     </Flex>
