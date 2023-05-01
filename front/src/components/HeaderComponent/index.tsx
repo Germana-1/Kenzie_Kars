@@ -36,6 +36,8 @@ export const HeaderComponent = () => {
     setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
 
+  console.log(user);
+
   return (
     <>
       <Flex
@@ -72,9 +74,12 @@ export const HeaderComponent = () => {
               </Flex>
             </MenuButton>
             <MenuList>
-              <MenuItem as={Link} to={`/profile/${user.id}/`}>
-                Meu perfil
-              </MenuItem>
+              {user.accountType === "seller" && (
+                <MenuItem as={Link} to={`/profile/${user.id}/`}>
+                  Meu perfil
+                </MenuItem>
+              )}
+
               <MenuItem onClick={() => handleClick("profile")}>
                 Alterar perfil
               </MenuItem>

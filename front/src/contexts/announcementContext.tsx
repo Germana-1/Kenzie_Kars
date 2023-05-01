@@ -100,7 +100,11 @@ export const AnnouncementProvider = ({
         const response = await api.get(url);
         let data = response.data;
         let filteredData = response.data;
-        console.log(minPrice);
+
+        const formatMinKm = parseInt(minKm.replace(/[^\d,-]/g, "")) + "";
+        const formatMaxKm = parseInt(maxKm.replace(/[^\d,-]/g, "")) + "";
+        const formatMinPrice = parseInt(minPrice.replace(/[^\d,-]/g, "")) + "";
+        const formatMaxPrice = parseInt(maxPrice.replace(/[^\d,-]/g, "")) + "";
 
         if (minPrice != "" && maxPrice != "") {
           filteredData = filteredData.filter((el: IAnnouncement) => {

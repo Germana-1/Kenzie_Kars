@@ -6,13 +6,17 @@ import { TextH5 } from "../../components/TextComponents";
 import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewAnnouncerInfoComponent";
 import { ListCardComponent } from "../../components/ListCardComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/userContext";
 import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
-import { useContext } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
 
 export const ProfileViewPage = () => {
-
+  const { id } = useParams();
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     editAdModalOpen,
     setEditAdModalOpen,
@@ -20,6 +24,13 @@ export const ProfileViewPage = () => {
     setDeleteAdModalOpen,
   } = useContext(AnnouncementContext);
 
+  useEffect(() => {
+    if (user?.accountType !== "seller" && user?.id === id) {
+      navigate("/");
+    }
+  }, []);
+
+export const ProfileViewPage = () => {
   return (
     <>
       <HeaderComponent />
