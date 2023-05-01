@@ -30,7 +30,6 @@ export const ProfileViewPage = () => {
     }
   }, []);
 
-export const ProfileViewPage = () => {
   return (
     <>
       <HeaderComponent />
