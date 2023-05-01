@@ -64,6 +64,11 @@ export interface IAnnouncementContext {
   announcementRegister: (data: IAnnouncementRegister) => void;
   announcementListAll: () => void;
   announcementListOne: (data: string) => void;
+  handleClick: (type: string) => void;
+  editAdModalOpen: boolean;
+  deleteAdModalOpen: boolean;
+  setEditAdModalOpen: (value: boolean) => void;
+  setDeleteAdModalOpen: (value: boolean) => void;
   setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
   setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
   setSelectedColor: React.Dispatch<React.SetStateAction<string>>;

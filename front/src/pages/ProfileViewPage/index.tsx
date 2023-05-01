@@ -9,11 +9,20 @@ import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComp
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/userContext";
+import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
+import { AnnouncementContext } from "../../contexts/announcementContext";
+import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
 
 export const ProfileViewPage = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const {
+    editAdModalOpen,
+    setEditAdModalOpen,
+    deleteAdModalOpen,
+    setDeleteAdModalOpen,
+  } = useContext(AnnouncementContext);
 
   useEffect(() => {
     if (user?.accountType !== "seller" && user?.id === id) {
@@ -21,6 +30,7 @@ export const ProfileViewPage = () => {
     }
   }, []);
 
+export const ProfileViewPage = () => {
   return (
     <>
       <HeaderComponent />
@@ -38,8 +48,17 @@ export const ProfileViewPage = () => {
           <ListCardComponent filterActive={false} hideTag={false} centered />
         </Flex>
       </Container>
-
       <FooterComponent />
+      <ModalEditAd
+        isOpen={editAdModalOpen}
+        onClose={() => setEditAdModalOpen(false)}
+        children={undefined}
+      />
+      <ModalDeleteAd
+        isOpen={deleteAdModalOpen}
+        onClose={() => setDeleteAdModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };
