@@ -16,7 +16,7 @@ usersRoutes.post(
 usersRoutes.get(
   "/profile",
   Middlewares.ensureAuthMiddleware,
-  Controller.getOneUserController
+  Controller.userProfileController
 );
 
 usersRoutes.patch(
@@ -38,6 +38,8 @@ usersRoutes.delete(
   Middlewares.ensureAuthMiddleware,
   Controller.deleteUserController
 );
+
+usersRoutes.get("/:id", Controller.getOneUserController);
 
 usersRoutes.post(
   "/resetPassword",
