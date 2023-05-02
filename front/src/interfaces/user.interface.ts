@@ -48,11 +48,13 @@ export interface IUserContext {
   isProfileModalOpen: boolean;
   isAddressModalOpen: boolean;
   isSucessModalOpen: boolean;
+  isErrorModalOpen: boolean;
   isDeleteAccountModalOpen: boolean;
   setIsProfileModalOpen: (value: boolean) => void;
   setIsAddressModalOpen: (value: boolean) => void;
   setIsDeleteAccountModalOpen:(value: boolean) => void;
   setIsSucessModalOpen: (value: boolean) => void;
+  setIsErrorModalOpen: (value: boolean) => void;
 }
 
 export interface IUserContextProps {
