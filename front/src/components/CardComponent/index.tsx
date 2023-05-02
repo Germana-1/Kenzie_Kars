@@ -8,7 +8,7 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
@@ -25,10 +25,9 @@ interface IProps {
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { handleClick } = useContext(AnnouncementContext);
+  const { id } = useParams();
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
-  const shortDescription = announce.description.substring(0, 80) + "...";
-  const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
   const userName = announce.user?.name.substring(0, 32);
   const price = Number(announce.price).toLocaleString("pt-br", {
     style: "currency",
@@ -149,21 +148,26 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
       </Flex>
-      <Flex gap="10px" mt={"15px"}>
-        <ButtonGray10
-          bg={"transparent"}
-          hidden={announce.user?.id !== IdUser}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleClick("editAd");
-          }}
-        >
-          Editar
-        </ButtonGray10>
-        <ButtonGray10 bg={"transparent"} hidden={announce.user?.id !== IdUser}>
-          Ver detalhe
-        </ButtonGray10>
-      </Flex>
+      {id && (
+        <Flex gap="10px" mt={"15px"}>
+          <ButtonGray10
+            bg={"transparent"}
+            hidden={announce.user?.id !== IdUser}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClick("editAd");
+            }}
+          >
+            Editar
+          </ButtonGray10>
+          <ButtonGray10
+            bg={"transparent"}
+            hidden={announce.user?.id !== IdUser}
+          >
+            Ver detalhe
+          </ButtonGray10>
+        </Flex>
+      )}
     </Box>
   );
 };
