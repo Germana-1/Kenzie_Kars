@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InfoIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { HeaderComponent } from "./../../components/HeaderComponent/index";
@@ -23,6 +23,7 @@ import { UserContext } from "../../contexts/userContext";
 import { registerUserSchema } from "../../schemas/register.schema";
 import { ModalSucess } from "../../components/ModalComponents/ModalSucessComponent";
 import { labelCSS } from "../../styles/global";
+import axios from "axios";
 
 const formStyle = {
     width: "100%",
@@ -31,10 +32,17 @@ const formStyle = {
     gap: 45,
 };
 
+interface ICepInfo {
+  uf: string
+  localidade: string
+}
+
 export const RegisterPage = () => {
     const { userRegister, isSucessModalOpen, setIsSucessModalOpen } =
         useContext(UserContext);
     const [isError, setIsError] = useState<boolean>(true);
+    const [cepValue, setCepValue] = useState("")
+    const [cepInfo, setCepInfo] = useState<ICepInfo>({ localidade: "", uf: "" })
 
     const [showPassword, setShowPassword] = useState(true);
     const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
@@ -50,6 +58,21 @@ export const RegisterPage = () => {
     } = useForm({
         resolver: yupResolver(registerUserSchema),
     });
+
+    useEffect(() => {
+      (async () => {
+        if (cepValue.length === 9 && !cepValue.includes("_")) {
+          const zipCodeFormat = cepValue.replace(".", "")
+          const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`
+          const { data } = await axios.get(url)
+          if (data.error) {
+            // Abrir modal de error
+            return
+          }
+          setCepInfo(data)
+        }
+      })()
+    }, [cepValue])
 
     const setBuyerOption = () => {
         setIsError(false);
@@ -88,14 +111,13 @@ export const RegisterPage = () => {
         setAnimation(false);
     };
 
-    const registerUserForm = (data: any) => {
+    const registerUserForm = async (data: any) => {
         if (!optionIsBuyer && !optionIsAdvertiser) return;
         const dataUpdate = {
             ...data,
             accountType: optionIsBuyer ? "buyer" : "seller",
         };
-        console.log(dataUpdate);
-        // userRegister(dataUpdate);
+        userRegister(dataUpdate);
     };
 
     return (
@@ -164,7 +186,6 @@ export const RegisterPage = () => {
                                     name="birthdate"
                                     autoComplete="off"
                                 />
-
                                 <FormControl isRequired={false}>
                                     <InputFormComponent
                                         hasTextArea={true}
@@ -191,6 +212,12 @@ export const RegisterPage = () => {
                                     mask={"99999.999"}
                                     labelText={"CEP"}
                                     register={register}
+                                    onChange={(e) => {
+                                      const value = e.target.value
+                                      if (value.length === 9) {
+                                        setCepValue(value)
+                                      }
+                                    }}
                                     name="address.zipCode"
                                     autoComplete="off"
                                 />
@@ -200,6 +227,7 @@ export const RegisterPage = () => {
                                             labelText={"Estado"}
                                             register={register}
                                             name="address.state"
+                                            value={cepInfo.uf}
                                             autoComplete="off"
                                         />
                                     </Flex>
@@ -207,6 +235,7 @@ export const RegisterPage = () => {
                                         <InputFormComponent
                                             labelText={"Cidade"}
                                             register={register}
+                                            value={cepInfo.localidade}
                                             name="address.city"
                                             autoComplete="off"
                                         />
