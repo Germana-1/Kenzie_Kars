@@ -25,6 +25,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] =
     useState(false);
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === "profile") {
@@ -159,6 +160,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsDeleteAccountModalOpen,
         isSucessModalOpen,
         setIsSucessModalOpen,
+        isErrorModalOpen,
+        setIsErrorModalOpen
         userResetPassword,
         emailSend,
       }}
