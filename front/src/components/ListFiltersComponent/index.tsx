@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FilterComponent } from "../../components/FilterComponent";
 import { FilterWithInputComponent } from "../FilterWithInputComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
@@ -25,6 +25,8 @@ export const ListFiltersComponent = () => {
     colors,
     years,
     fuel,
+    setHiddenButtonResetFilters,
+    hiddenButtonResetFilters,
   } = useContext(AnnouncementContext);
 
   const resetFilters = () => {
@@ -37,6 +39,7 @@ export const ListFiltersComponent = () => {
     setMaxKm("");
     setMinPrice("");
     setMaxPrice("");
+    setHiddenButtonResetFilters(true);
   };
 
   const filterBrands = new Set(brands);
@@ -90,7 +93,7 @@ export const ListFiltersComponent = () => {
       <ButtonBrand1
         maxW="305px"
         onClick={resetFilters}
-        hidden={!minKm && !maxKm && !minPrice && !maxPrice}
+        hidden={hiddenButtonResetFilters}
       >
         Limpar filtros
       </ButtonBrand1>
