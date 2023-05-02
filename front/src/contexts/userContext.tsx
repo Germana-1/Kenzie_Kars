@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import {
+  IEmailSubmission,
+  IResetPassword,
   IUser,
   IUserContext,
   IUserContextProps,
@@ -10,6 +12,7 @@ import {
   IUserRegister,
 } from "../interfaces/user.interface";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
@@ -19,17 +22,18 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [sessionError, setSessioError] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] =
+    useState(false);
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === "profile") {
       setIsProfileModalOpen(true);
     }
-    if (typeModal === 'delete') {
+    if (typeModal === "delete") {
       setIsDeleteAccountModalOpen(true);
       setIsProfileModalOpen(false);
-    } else if (typeModal === 'address') {
+    } else if (typeModal === "address") {
       setIsAddressModalOpen(true);
     }
   };
@@ -66,10 +70,36 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
       api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-      
+
       await userAuth();
 
       navigate("/");
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
+  async function userResetPassword(data: IResetPassword, resetToken: string) {
+    try {
+      const res = await api.patch(`/users/resetPassword/${resetToken}`, data);
+      toast.success("Nova senha foi criada com sucesso!");
+      console.log(res.data);
+      navigate("/login");
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
+  async function emailSend(data: IEmailSubmission) {
+    try {
+      const res = await api.post("/users/resetPassword/", data);
+      toast.success("Email enviado com sucesso!");
+      console.log(res.data);
+
       setSessioError(false);
     } catch (error) {
       console.error(error);
@@ -85,8 +115,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       await api.post("/users", data);
 
-      setIsSucessModalOpen(true)
-
+      setIsSucessModalOpen(true);
     } catch (error: any) {
       if (error.response.status === 409) {
         // Abrir modal de error
@@ -117,11 +146,13 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsAddressModalOpen,
         isDeleteAccountModalOpen,
         setIsDeleteAccountModalOpen,
-        isSucessModalOpen, 
+        isSucessModalOpen,
         setIsSucessModalOpen,
+        userResetPassword,
+        emailSend,
       }}
     >
       {children}
     </UserContext.Provider>
-  );  
+  );
 };
