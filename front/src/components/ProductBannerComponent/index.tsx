@@ -1,8 +1,8 @@
 import { Flex, Image } from "@chakra-ui/react";
 
-import car from "../../assets/unsplash_ZVgPUWC9Mjs.png";
 import { Colors } from "../../styles/colors";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import fallbackImg from "../../assets/selected_car.jpg";
 
 interface IProps {
   announcement: IAnnouncement;
@@ -23,6 +23,7 @@ export const ProductBannerComponent = ({ announcement }: IProps) => {
         w={"inherit"}
         h={"inherit"}
         objectFit={"cover"}
+        fallbackSrc={fallbackImg}
       />
     </Flex>
   );
