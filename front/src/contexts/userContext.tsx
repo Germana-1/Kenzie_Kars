@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import {
+  IEmailSubmission,
+  IResetPassword,
   IUser,
   IUserContext,
   IUserContextProps,
@@ -10,6 +12,7 @@ import {
   IUserRegister,
 } from "../interfaces/user.interface";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
@@ -78,6 +81,32 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  async function userResetPassword(data: IResetPassword, resetToken: string) {
+    try {
+      const res = await api.patch(`/users/resetPassword/${resetToken}`, data);
+      toast.success("Nova senha foi criada com sucesso!");
+      console.log(res.data);
+      navigate("/login");
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
+  async function emailSend(data: IEmailSubmission) {
+    try {
+      const res = await api.post("/users/resetPassword/", data);
+      toast.success("Email enviado com sucesso!");
+      console.log(res.data);
+
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
   async function userRegister(data: IUserRegister) {
     try {
       const brDate = data.birthdate.split("/");
@@ -132,6 +161,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsDeleteAccountModalOpen,
         isSucessModalOpen,
         setIsSucessModalOpen,
+        userResetPassword,
+        emailSend,
       }}
     >
       {children}

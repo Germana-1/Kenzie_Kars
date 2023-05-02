@@ -108,7 +108,7 @@ export const LoginPage = () => {
 
           <Box textAlign={"end"}>
             <TextB2 color={Colors.grey2}>
-              <Link to=""> Esqueci minha senha</Link>
+              <Link to="/passwordRecovery"> Esqueci minha senha</Link>
             </TextB2>
           </Box>
 
