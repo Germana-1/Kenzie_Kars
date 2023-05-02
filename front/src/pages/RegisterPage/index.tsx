@@ -24,6 +24,7 @@ import { registerUserSchema } from "../../schemas/register.schema";
 import { ModalSucess } from "../../components/ModalComponents/ModalSucessComponent";
 import { labelCSS } from "../../styles/global";
 import axios from "axios";
+import { ModalError } from "../../components/ModalComponents/ModalErrorComponent";
 
 const formStyle = {
     width: "100%",
@@ -38,7 +39,7 @@ interface ICepInfo {
 }
 
 export const RegisterPage = () => {
-    const { userRegister, isSucessModalOpen, setIsSucessModalOpen } =
+    const { userRegister, isSucessModalOpen, setIsSucessModalOpen, isErrorModalOpen, setIsErrorModalOpen } =
         useContext(UserContext);
     const [isError, setIsError] = useState<boolean>(true);
     const [cepValue, setCepValue] = useState("")
@@ -65,8 +66,8 @@ export const RegisterPage = () => {
           const zipCodeFormat = cepValue.replace(".", "")
           const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`
           const { data } = await axios.get(url)
-          if (data.error) {
-            // Abrir modal de error
+          if (data.erro) {
+            setIsErrorModalOpen(true)
             return
           }
           setCepInfo(data)
@@ -229,6 +230,7 @@ export const RegisterPage = () => {
                                             name="address.state"
                                             value={cepInfo.uf}
                                             autoComplete="off"
+                                            readOnly={true}
                                         />
                                     </Flex>
                                     <Flex flexDir={"column"} gap={2}>
@@ -238,6 +240,7 @@ export const RegisterPage = () => {
                                             value={cepInfo.localidade}
                                             name="address.city"
                                             autoComplete="off"
+                                            readOnly={true}
                                         />
                                     </Flex>
                                 </Flex>
@@ -441,6 +444,11 @@ export const RegisterPage = () => {
             <ModalSucess
                 isOpen={isSucessModalOpen}
                 onClose={() => setIsSucessModalOpen(false)}
+                children={undefined}
+            />
+            <ModalError
+                isOpen={isErrorModalOpen}
+                onClose={() => setIsErrorModalOpen(false)}
                 children={undefined}
             />
         </>
