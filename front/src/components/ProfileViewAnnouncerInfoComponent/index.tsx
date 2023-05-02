@@ -5,12 +5,9 @@ import { TextB1, TextH6 } from "../TextComponents";
 import { ButtonBrand1OutlineBrand1, ButtonBrand4 } from "../ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { ModalRegisterAnnoucement } from "../ModalComponents/ModalRegisterAnnouncementComponent";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../contexts/userContext";
 
-export const ProfileViewAnnouncerInfoComponent = () => {
+export const ProfileViewAnnouncerInfoComponent = ({ userProfile }: any) => {
   const { id } = useParams();
-  const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userId = localStorage.getItem("@kenzieId");
 
@@ -27,14 +24,14 @@ export const ProfileViewAnnouncerInfoComponent = () => {
       >
         <Avatar size={"xl"} />
         <Flex gap={"10px"} alignItems={"center"}>
-          <TextH6 fontWeight={"600"}>{user?.name}</TextH6>
+          <TextH6 fontWeight={"600"}>{userProfile?.name}</TextH6>
           <ButtonBrand4 size={"sm"} cursor={"default"}>
             Anunciante
           </ButtonBrand4>
         </Flex>
 
         <TextB1 fontWeight={"400"} color={Colors.grey2}>
-          {user?.description}
+          {userProfile?.description}
         </TextB1>
 
         <ButtonBrand1OutlineBrand1

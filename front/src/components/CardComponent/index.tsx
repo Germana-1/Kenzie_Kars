@@ -8,7 +8,7 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
@@ -25,10 +25,9 @@ interface IProps {
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { handleClick } = useContext(AnnouncementContext);
+  const { id } = useParams();
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
-  const shortDescription = announce.description.substring(0, 80) + "...";
-  const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
   const userName = announce.user?.name.substring(0, 32);
   const price = Number(announce.price).toLocaleString("pt-br", {
     style: "currency",
@@ -90,13 +89,21 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         overflow={"hidden"}
         textOverflow={"ellipsis"}
         _hover={{
-          border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
-            }`,
+          border: `2px solid ${
+            announce.isActive ? Colors.brand1 : Colors.grey4
+          }`,
         }}
         objectFit={"cover"}
       />
 
-      <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
+      <Flex
+        display="flex"
+        flexDirection="column"
+        gap="16px"
+        marginTop="16px"
+        justifyContent={"space-between"}
+        h={"180px"}
+      >
         <Heading
           size="16px"
           whiteSpace={"nowrap"}
@@ -115,7 +122,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           textOverflow="ellipsis"
           display="-webkit-box"
           style={{
-            WebkitLineClamp: "3",
+            WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
           }}
         >
@@ -140,22 +147,27 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
-        {announce.user?.id == IdUser ? (
-          <Flex gap="10px">
-            <ButtonGray10
-              bg={"transparent"}
-              onClick={(e) => {
-                e.stopPropagation()
-                handleClick('editAd')
-              }}>
-              Editar
-            </ButtonGray10>
-            <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
-          </Flex>
-        ) : (
-          <></>
-        )}
       </Flex>
+      {id && (
+        <Flex gap="10px" mt={"15px"}>
+          <ButtonGray10
+            bg={"transparent"}
+            hidden={announce.user?.id !== IdUser}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClick("editAd");
+            }}
+          >
+            Editar
+          </ButtonGray10>
+          <ButtonGray10
+            bg={"transparent"}
+            hidden={announce.user?.id !== IdUser}
+          >
+            Ver detalhe
+          </ButtonGray10>
+        </Flex>
+      )}
     </Box>
   );
 };
