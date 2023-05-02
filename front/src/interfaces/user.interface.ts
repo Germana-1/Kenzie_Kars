@@ -43,6 +43,7 @@ export interface IUserContext {
   sessionError: boolean;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
+  userListOne: (userId: string | undefined) => Promise<IUser>;
   logout: () => void;
   handleClick: (type: string) => void;
   isProfileModalOpen: boolean;

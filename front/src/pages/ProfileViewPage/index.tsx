@@ -15,7 +15,7 @@ import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdCom
 
 export const ProfileViewPage = () => {
   const { id } = useParams();
-  const { user } = useContext(UserContext);
+  const { user, userListOne } = useContext(UserContext);
   const navigate = useNavigate();
   const {
     editAdModalOpen,
@@ -28,6 +28,13 @@ export const ProfileViewPage = () => {
     if (user?.accountType !== "seller" && user?.id === id) {
       navigate("/");
     }
+
+    // async function main() {
+    //   const res = await userListOne(id);
+
+    //   console.log(res);
+    // }
+    // main();
   }, []);
 
   return (
