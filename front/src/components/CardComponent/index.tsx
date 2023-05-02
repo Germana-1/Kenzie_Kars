@@ -115,7 +115,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           textOverflow="ellipsis"
           display="-webkit-box"
           style={{
-            WebkitLineClamp: "3",
+            WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
           }}
         >
