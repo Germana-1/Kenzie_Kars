@@ -57,7 +57,7 @@ export const HeaderComponent = () => {
             <img src={logo} alt="logo" />
           </Link>
         </Box>
-        
+
         <Divider
           border={`1px solid ${Colors.grey6}`}
           opacity={"1"}
@@ -86,9 +86,6 @@ export const HeaderComponent = () => {
               </MenuItem>
               <MenuItem onClick={() => handleClick("address")}>
                 Alterar endereço
-              </MenuItem>
-              <MenuItem onClick={() => handleClick("delete")}>
-                Excluir conta
               </MenuItem>
               <MenuItem onClick={() => logout()}>Sair</MenuItem>
             </MenuList>
