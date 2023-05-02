@@ -7,7 +7,7 @@ import { ProfileViewAnnouncerInfoComponent } from "../../components/ProfileViewA
 import { ListCardComponent } from "../../components/ListCardComponent";
 import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComponent";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/userContext";
 import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
@@ -16,6 +16,7 @@ import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdCom
 export const ProfileViewPage = () => {
   const { id } = useParams();
   const { user, userListOne } = useContext(UserContext);
+  const [userProfile, setUserProfile] = useState({});
   const navigate = useNavigate();
   const {
     editAdModalOpen,
@@ -28,23 +29,23 @@ export const ProfileViewPage = () => {
     if (user?.accountType !== "seller" && user?.id === id) {
       navigate("/");
     }
-
-    // async function main() {
-    //   const res = await userListOne(id);
-
-    //   console.log(res);
-    // }
-    // main();
+    async function main() {
+      const res = await userListOne(id);
+      console.log(id);
+      
+      setUserProfile(res);
+    }
+    main();
   }, []);
 
-  return (
+  return userProfile ? (
     <>
       <HeaderComponent />
 
       <PurpleBackgroundComponent />
 
       <Container maxW="1200px" pt={"130px"} minH={"85vh"}>
-        <ProfileViewAnnouncerInfoComponent />
+        <ProfileViewAnnouncerInfoComponent userProfile={userProfile} />
 
         <TextH5 fontWeight={"600"} my={"30px"}>
           Anúncios
@@ -66,5 +67,7 @@ export const ProfileViewPage = () => {
         children={undefined}
       />
     </>
+  ) : (
+    <h1>User not found.</h1>
   );
 };
