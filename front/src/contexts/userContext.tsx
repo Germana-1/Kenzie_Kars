@@ -98,10 +98,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
   async function userListOne(userId: string | undefined) {
     try {
-      const res = await api.get(`/users/3c807559-5282-42fe-b2ec-f7a22811dbe3`);
-    
-      console.log(res);
-      
+      const res = await api.get(`/users/${userId}`);
+
       return res.data;
     } catch (error) {
       console.log(error);
