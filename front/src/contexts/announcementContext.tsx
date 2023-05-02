@@ -37,6 +37,8 @@ export const AnnouncementProvider = ({
   const [maxKm, setMaxKm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [hiddenButtonResetFilters, setHiddenButtonResetFilters] =
+    useState(true);
 
   async function announcementRegister(data: IAnnouncementRegister) {
     try {
@@ -66,7 +68,7 @@ export const AnnouncementProvider = ({
     if (typeModal === "editAd") {
       setEditAdModalOpen(true);
     }
-    if (typeModal === 'delete') {
+    if (typeModal === "delete") {
       setDeleteAdModalOpen(true);
       setEditAdModalOpen(false);
     }
@@ -133,6 +135,19 @@ export const AnnouncementProvider = ({
             return el.mileage <= Number(maxKm);
           });
         }
+        if (
+          selectedBrand ||
+          selectedModel ||
+          selectedYear ||
+          selectedColor ||
+          selectedFuel ||
+          minKm ||
+          maxKm ||
+          minPrice ||
+          maxPrice
+        ) {
+          setHiddenButtonResetFilters(false);
+        }
 
         data = filteredData;
 
@@ -198,6 +213,8 @@ export const AnnouncementProvider = ({
         colors,
         years,
         fuel,
+        setHiddenButtonResetFilters,
+        hiddenButtonResetFilters,
       }}
     >
       {children}
