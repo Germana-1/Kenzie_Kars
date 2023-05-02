@@ -78,6 +78,8 @@ export interface IAnnouncementContext {
   setMaxKm: React.Dispatch<React.SetStateAction<string>>;
   setMinPrice: React.Dispatch<React.SetStateAction<string>>;
   setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
+  setHiddenButtonResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  hiddenButtonResetFilters: boolean;
   minKm: string;
   maxKm: string;
   minPrice: string;
