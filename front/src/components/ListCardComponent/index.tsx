@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import { useParams } from "react-router-dom";
 
 interface IListCardComponent {
   centered?: boolean;
@@ -16,7 +17,11 @@ export const ListCardComponent = ({
   hideTag,
   centered,
 }: IListCardComponent) => {
+  const { id } = useParams();
   const { announcements } = useContext(AnnouncementContext);
+  let data = announcements;
+
+  if (id) data = announcements.filter((el) => el.user?.id === id);
 
   return (
     <Flex
@@ -26,7 +31,7 @@ export const ListCardComponent = ({
       maxW={centered ? "986.95px" : "100%"}
     >
       {filterActive
-        ? announcements.map(
+        ? data.map(
             (announce: IAnnouncement) =>
               announce.isActive && (
                 <CardComponent
@@ -36,7 +41,7 @@ export const ListCardComponent = ({
                 />
               )
           )
-        : announcements.map((announce: IAnnouncement) => (
+        : data.map((announce: IAnnouncement) => (
             <CardComponent
               announce={announce}
               hideTag={hideTag}
@@ -46,4 +51,3 @@ export const ListCardComponent = ({
     </Flex>
   );
 };
-

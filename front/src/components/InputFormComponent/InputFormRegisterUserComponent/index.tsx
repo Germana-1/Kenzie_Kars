@@ -11,6 +11,7 @@ interface IInputFormComponent extends InputProps {
   placeholderTextArea?: string;
   register: any;
   name: string;
+  readOnly?: boolean;
   errors?: FieldErrors<FieldValues>;
 }
 
@@ -21,6 +22,7 @@ export const InputFormComponent = ({
   placeholderTextArea,
   register,
   name,
+  readOnly,
   errors,
   ...rest
 }: IInputFormComponent) => {
@@ -47,6 +49,7 @@ export const InputFormComponent = ({
             backgroundColor: Colors.grey7,
             cursor: "not-allowed",
           }}
+          readOnly={readOnly}
           {...register(name)}
           {...rest}
         />
@@ -65,6 +68,7 @@ export const InputFormComponent = ({
             backgroundColor: Colors.grey7,
             cursor: "not-allowed",
           }}
+          readOnly={readOnly}
           {...register(name)}
           {...rest}
         />

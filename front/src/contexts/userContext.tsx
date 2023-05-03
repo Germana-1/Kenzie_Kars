@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import {
+  IEmailSubmission,
+  IResetPassword,
   IUser,
   IUserContext,
   IUserContextProps,
@@ -12,6 +14,7 @@ import {
 } from "../interfaces/user.interface";
 import { api } from "../services/api";
 import { IAddressUpdate } from "../interfaces/address.interface";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
@@ -21,17 +24,19 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [sessionError, setSessioError] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] =
+    useState(false);
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === "profile") {
       setIsProfileModalOpen(true);
     }
-    if (typeModal === 'delete') {
+    if (typeModal === "delete") {
       setIsDeleteAccountModalOpen(true);
       setIsProfileModalOpen(false);
-    } else if (typeModal === 'address') {
+    } else if (typeModal === "address") {
       setIsAddressModalOpen(true);
     }
   };
@@ -79,6 +84,32 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  async function userResetPassword(data: IResetPassword, resetToken: string) {
+    try {
+      const res = await api.patch(`/users/resetPassword/${resetToken}`, data);
+      toast.success("Nova senha foi criada com sucesso!");
+      console.log(res.data);
+      navigate("/login");
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
+  async function emailSend(data: IEmailSubmission) {
+    try {
+      const res = await api.post("/users/resetPassword/", data);
+      toast.success("Email enviado com sucesso!");
+      console.log(res.data);
+
+      setSessioError(false);
+    } catch (error) {
+      console.error(error);
+      setSessioError(true);
+    }
+  }
+
   async function userRegister(data: IUserRegister) {
     try {
       const brDate = data.birthdate.split("/");
@@ -87,8 +118,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       await api.post("/users", data);
 
-      setIsSucessModalOpen(true)
-
+      setIsSucessModalOpen(true);
     } catch (error: any) {
       if (error.response.status === 409) {
         // Abrir modal de error
@@ -111,6 +141,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       document.location.reload()
     }
   }
+  
   async function userEditAddress(data: IAddressUpdate) {
     const token = localStorage.getItem("@kenzieToken")
     try {
@@ -122,6 +153,16 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
     finally {
       document.location.reload()
+    }
+  }
+  
+  async function userListOne(userId: string | undefined) {
+    try {
+      const res = await api.get(`/users/${userId}`);
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -140,6 +181,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         sessionError,
         userSession,
         userRegister,
+        userListOne,
         logout,
         handleClick,
         isProfileModalOpen,
@@ -150,6 +192,10 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsDeleteAccountModalOpen,
         isSucessModalOpen,
         setIsSucessModalOpen,
+        isErrorModalOpen,
+        setIsErrorModalOpen
+        userResetPassword,
+        emailSend,
       }}
     >
       {children}

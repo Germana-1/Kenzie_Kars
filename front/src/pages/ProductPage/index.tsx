@@ -25,7 +25,7 @@ export const ProductPage = () => {
     deleteAdModalOpen,
     setDeleteAdModalOpen,
     announcementListOne,
-    announcement
+    announcement,
   } = useContext(AnnouncementContext);
 
   useEffect(() => {

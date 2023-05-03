@@ -9,6 +9,7 @@ import {
   TagLabel,
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4, ButtonGray10 } from "../ButtomComponents";
@@ -17,7 +18,6 @@ import fallbackImg from "../../assets/selected_car.jpg";
 import { useContext, useState } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 
-
 interface IProps {
   announce: IAnnouncement;
   hideTag: boolean;
@@ -25,10 +25,9 @@ interface IProps {
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
   const { handleClick, setCardId } = useContext(AnnouncementContext);
+  const { id } = useParams();
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
-  const shortDescription = announce.description.substring(0, 80) + "...";
-  const title = `${announce.brand} - ${announce.model}`.substring(0, 37);
   const userName = announce.user?.name.substring(0, 32);
   const price = Number(announce.price).toLocaleString("pt-br", {
     style: "currency",
@@ -92,13 +91,21 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
         overflow={"hidden"}
         textOverflow={"ellipsis"}
         _hover={{
-          border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
-            }`,
+          border: `2px solid ${
+            announce.isActive ? Colors.brand1 : Colors.grey4
+          }`,
         }}
         objectFit={"cover"}
       />
 
-      <Flex display="flex" flexDirection="column" gap="16px" marginTop="16px">
+      <Flex
+        display="flex"
+        flexDirection="column"
+        gap="16px"
+        marginTop="16px"
+        justifyContent={"space-between"}
+        h={"180px"}
+      >
         <Heading
           size="16px"
           whiteSpace={"nowrap"}
@@ -117,7 +124,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           textOverflow="ellipsis"
           display="-webkit-box"
           style={{
-            WebkitLineClamp: "3",
+            WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
           }}
         >
@@ -156,7 +163,6 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             </ButtonGray10>
             <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
           </Flex>) : null}
-      </Flex>
     </Box>
   );
 };

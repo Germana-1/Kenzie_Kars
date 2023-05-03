@@ -56,18 +56,32 @@ export interface IUserContext {
   userRegister: (data: IUserRegister) => void;
   userEditProfile: (data: IUserUpdate) => void;
   userEditAddress: (data: IAddressUpdate) => void;
+  userListOne: (userId: string | undefined) => Promise<IUser>;
   logout: () => void;
   handleClick: (type: string) => void;
   isProfileModalOpen: boolean;
   isAddressModalOpen: boolean;
   isSucessModalOpen: boolean;
+  isErrorModalOpen: boolean;
   isDeleteAccountModalOpen: boolean;
   setIsProfileModalOpen: (value: boolean) => void;
   setIsAddressModalOpen: (value: boolean) => void;
   setIsDeleteAccountModalOpen: (value: boolean) => void;
   setIsSucessModalOpen: (value: boolean) => void;
+  setIsErrorModalOpen: (value: boolean) => void;
+  userResetPassword: (data: IResetPassword, resetToken: string) => void;
+  emailSend: (data: IEmailSubmission) => void;
 }
 
 export interface IUserContextProps {
   children: React.ReactNode;
+}
+
+export interface IResetPassword {
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IEmailSubmission {
+  email: string;
 }
