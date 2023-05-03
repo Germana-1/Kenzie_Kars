@@ -37,6 +37,20 @@ export interface IAnnouncementRegister {
   images: IImage[] | any;
   [key: string]: any;
 }
+export interface IAnnoucementUpdate {
+  brand?: string;
+  banner?: string;
+  color?: string;
+  description?: string;
+  fuelType?: string;
+  mileage?: string;
+  model?: string;
+  price?: number;
+  priceFipe?: number;
+  year?: number;
+  images?: IImage[] | any;
+  [key: string]: any;
+}
 
 export interface IAnnouncementFormRegister {
   brand: string;
@@ -62,6 +76,7 @@ export interface IAnnouncementContext {
   announcements: IAnnouncement[];
   announcement: IAnnouncement | undefined;
   announcementRegister: (data: IAnnouncementRegister) => void;
+  announcementUpdate: (data: IAnnoucementUpdate) => void;
   announcementListAll: () => void;
   announcementListOne: (data: string) => void;
   handleClick: (type: string) => void;
@@ -69,6 +84,7 @@ export interface IAnnouncementContext {
   deleteAdModalOpen: boolean;
   setEditAdModalOpen: (value: boolean) => void;
   setDeleteAdModalOpen: (value: boolean) => void;
+  setCardId: React.Dispatch<React.SetStateAction<string | undefined>>;
   setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
   setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
   setSelectedColor: React.Dispatch<React.SetStateAction<string>>;

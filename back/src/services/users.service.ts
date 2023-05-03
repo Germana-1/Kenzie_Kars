@@ -67,11 +67,18 @@ export const getOneUserService = async (id: string): Promise<any> => {
 export const updateUserService = async (
   req: Request
 ): Promise<ICreateUserResponse> => {
+  const { password, ...data } = req.body;
+
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    data.password = hashedPassword;
+  }
+
   const user = await prisma.user.update({
     where: {
       id: req.authUser.id,
     },
-    data: req.body,
+    data,
     include: {
       address: true,
       comments: true,

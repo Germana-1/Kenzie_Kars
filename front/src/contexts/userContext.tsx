@@ -8,8 +8,10 @@ import {
   IUserContextProps,
   IUserLogin,
   IUserRegister,
+  IUserUpdate,
 } from "../interfaces/user.interface";
 import { api } from "../services/api";
+import { IAddressUpdate } from "../interfaces/address.interface";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
@@ -66,7 +68,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       localStorage.setItem("@kenzieToken", res.data.token);
       api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-      
+
       await userAuth();
 
       navigate("/");
@@ -96,6 +98,33 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  async function userEditProfile(data: IUserUpdate) {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.patch(`/users/profile/`, data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    finally {
+      document.location.reload()
+    }
+  }
+  async function userEditAddress(data: IAddressUpdate) {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.patch(`/users/profile/address`, data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    finally {
+      document.location.reload()
+    }
+  }
+
   const logout = () => {
     window.localStorage.clear();
     setUser(undefined);
@@ -106,6 +135,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     <UserContext.Provider
       value={{
         user,
+        userEditProfile,
+        userEditAddress,
         sessionError,
         userSession,
         userRegister,
@@ -117,11 +148,11 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsAddressModalOpen,
         isDeleteAccountModalOpen,
         setIsDeleteAccountModalOpen,
-        isSucessModalOpen, 
+        isSucessModalOpen,
         setIsSucessModalOpen,
       }}
     >
       {children}
     </UserContext.Provider>
-  );  
+  );
 };

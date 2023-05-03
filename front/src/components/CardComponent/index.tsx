@@ -8,15 +8,15 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4, ButtonGray10 } from "../ButtomComponents";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 import fallbackImg from "../../assets/selected_car.jpg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+
 
 interface IProps {
   announce: IAnnouncement;
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 export const CardComponent = ({ announce, hideTag }: IProps) => {
-  const { handleClick } = useContext(AnnouncementContext);
+  const { handleClick, setCardId } = useContext(AnnouncementContext);
   const navigate = useNavigate();
   const IdUser = localStorage.getItem("@kenzieId");
   const shortDescription = announce.description.substring(0, 80) + "...";
@@ -34,6 +34,8 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
     style: "currency",
     currency: "BRL",
   });
+
+  const location = useLocation();
 
   return (
     <Box
@@ -140,21 +142,20 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
-        {announce.user?.id == IdUser ? (
+        {location.pathname == `/profile/${IdUser}/` && announce.user?.id == IdUser ? (
           <Flex gap="10px">
             <ButtonGray10
               bg={"transparent"}
+              
               onClick={(e) => {
                 e.stopPropagation()
                 handleClick('editAd')
+                setCardId(announce.id ?? undefined)
               }}>
               Editar
             </ButtonGray10>
             <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
-          </Flex>
-        ) : (
-          <></>
-        )}
+          </Flex>) : null}
       </Flex>
     </Box>
   );

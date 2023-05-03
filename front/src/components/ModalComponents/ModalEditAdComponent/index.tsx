@@ -12,6 +12,7 @@ import {
   Box,
   FormLabel,
   Select,
+  Input,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -30,14 +31,22 @@ import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUs
 import { Colors } from "../../../styles/colors";
 import { inputCSS, labelCSS } from "../../../styles/global";
 import { IFipeModel } from "../../../interfaces/fipe.interface";
+import { updateUserAddressSchema } from "../../../schemas/user.schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { UserContext } from "../../../contexts/userContext";
+import { IImage } from "../../../interfaces/image.interface";
+import { updateAnnouncementSchema } from "../../../schemas/announcement.schema";
+import { number } from "yup";
 
 export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
-  const { announcementRegister, handleClick } = useContext(AnnouncementContext);
+  const { announcementUpdate, handleClick } = useContext(AnnouncementContext);
+  const { user } = useContext(UserContext);
   const { getAllBrands, getAllModelsByBrand } = useContext(FipeContext);
   const [carDetail, setCarDetail] = useState<IFipeModel>({} as IFipeModel);
   const [models, setModels] = useState<IFipeModel[]>([]);
   const [brands, setBrands] = useState<string[]>([]);
   const [showInput, setShowInput] = useState(false);
+  const [image, setImage] = useState<number[]>([]);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formValues, setFormValues] = useState({
     brand: "",
@@ -48,9 +57,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     color: "",
     priceFipe: "",
     price: "",
-    images1: "",
-    images2: "",
-    images3: "",
+    images: "",
     banner: "",
     description: "",
   });
@@ -60,9 +67,81 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(updateAnnouncementSchema)
+  });
 
   const descriptionValue = watch("description");
+
+  const handlerForm = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault()
+
+    const updatedFields: {
+      brand?: string;
+      banner?: string;
+      color?: string;
+      description?: string;
+      fuelType?: string;
+      mileage?: any;
+      model?: string;
+      price?: any;
+      priceFipe?: any;
+      year?: any;
+      images?: IImage[] | any;
+      [key: string]: any;
+    } = {};
+
+    if (user) {
+      if (formValues.brand !== '') {
+        updatedFields.brand = formValues.brand;
+      }
+
+      if (formValues.banner !== '') {
+        updatedFields.banner = formValues.banner;
+      }
+
+      if (formValues.color !== '') {
+        updatedFields.color = formValues.color;
+      }
+
+      if (formValues.description !== '') {
+        updatedFields.description = formValues.description
+      }
+
+      if (formValues.fuelType !== '') {
+        updatedFields.fuelType = formValues.fuelType;
+      }
+
+      if (formValues.mileage !== '') {
+        updatedFields.mileage = parseInt(formValues.mileage)
+      }
+      if (formValues.model !== '') {
+        updatedFields.model = formValues.model;
+      }
+      if (formValues.price !== '') {
+        updatedFields.price = parseInt(formValues.price)
+      }
+      if (formValues.priceFipe !== '') {
+        updatedFields.priceFipe = parseInt(formValues.priceFipe)
+      }
+      if (formValues.year !== '') {
+        updatedFields.year = parseInt(formValues.year);
+      }
+      if (formValues.images !== '') {
+        updatedFields.images = formValues.images;
+      }
+
+      const dataUpdate = {
+        ...updatedFields,
+      };
+
+      try {
+        announcementUpdate(dataUpdate)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
@@ -97,22 +176,6 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     setIsFormValid(!!descriptionValue);
   }, [descriptionValue]);
 
-  async function onSubmit(data: any) {
-    const numberOnly = /[^\d,]/g;
-
-    data.mileage = +data.mileage;
-    data.year = +data.year;
-    data.price = parseFloat(
-      data.price.replace(numberOnly, "").replace(",", ".")
-    );
-    data.priceFipe = parseFloat(
-      data.priceFipe.replace(numberOnly, "").replace(",", ".")
-    );
-
-    const normalizedData = announcementDataNormalizer(data);
-
-    announcementRegister(normalizedData);
-  }
 
   useEffect(() => {
     (async () => {
@@ -133,7 +196,10 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
           mt="100px"
           as="form"
           fontFamily="Lexend"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(event) => {
+            event.preventDefault();
+            handlerForm(event)
+          }}
           zIndex="10000"
         >
           <ModalHeader>
@@ -159,8 +225,10 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       css={inputCSS}
                       color={Colors.brand1}
                       focusBorderColor={Colors.brand1}
+                      value={formValues.brand}
                       {...register("brand", {
                         onChange: (e) => {
+                          setFormValues({ ...formValues, brand: e.target.value });
                           handleInputChange
                           getModels(e.target.value);
                         },
@@ -179,8 +247,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       color={Colors.brand1}
                       focusBorderColor={Colors.brand1}
                       isDisabled={models.length ? false : true}
+                      value={formValues.model}
                       {...register("model", {
-                        onChange: (e) => getCarDetails(e.target.value),
+                        onChange: (e) => {
+                          setFormValues({ ...formValues, model: e.target.value });
+                          handleInputChange
+                          getCarDetails(e.target.value)
+                        }
                       })}
                     >
                       {models.map((model, i) => (
@@ -194,8 +267,14 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"Combustivel"}
                         placeholder={"Gasolina / Etanol"}
                         register={register}
-                        name="fuelType"
-                        onChange={handleInputChange}
+                        value={formValues.fuelType}
+                        {...register("model", {
+                          onChange: (e) => {
+                            setFormValues({ ...formValues, fuelType: e.target.value });
+                            handleInputChange
+                            getCarDetails(e.target.value)
+                          }
+                        })}
                         autoComplete="off"
                       />
                       <InputFormComponent
@@ -204,7 +283,12 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         placeholder={"2018"}
                         register={register}
                         name="year"
-                        onChange={handleInputChange}
+                        value={formValues.year}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, year: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                     </Flex>
@@ -215,15 +299,25 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         placeholder={"30.000"}
                         register={register}
                         name="mileage"
-                        onChange={handleInputChange}
+                        value={formValues.mileage}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, mileage: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                       <InputFormComponent
                         labelText={"Cor"}
                         placeholder={"Branco"}
                         register={register}
-                        onChange={handleInputChange}
                         name="color"
+                        value={formValues.color}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, color: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                     </Flex>
@@ -233,8 +327,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"Preço tabela FIPE"}
                         placeholder={"R$ 48.000,00"}
                         register={register}
-                        onChange={handleInputChange}
                         name="priceFipe"
+                        value={formValues.priceFipe}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, priceFipe: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                       <InputFormComponent
@@ -242,8 +341,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         labelText={"Preço"}
                         placeholder={"R$ 50.000,00"}
                         register={register}
-                        onChange={handleInputChange}
                         name="price"
+                        value={formValues.price}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, price: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                     </Flex>
@@ -251,22 +355,16 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       <InputFormComponent
                         hasTextArea={true}
                         labelText={"Descrição"}
-                        onChange={handleInputChange}
-                        register={register}
                         name="description"
+                        register={register}
+                        value={formValues.description}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, description: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Publicado</FormLabel>
-                      <Flex gap={3}>
-                        <ButtonGray10 w={"full"}>
-                          Sim
-                        </ButtonGray10>
-                        <ButtonBrand1 w={"full"}>
-                          Não
-                        </ButtonBrand1>
-                      </Flex>
                     </FormControl>
                     <Flex flexDir={"column"} gap={2}>
                       <InputFormComponent
@@ -274,58 +372,58 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         placeholder={"https://image.com"}
                         register={register}
                         name="banner"
-                        onChange={handleInputChange}
+                        value={formValues.banner}
+                        onChange={(event) => {
+                          setFormValues({ ...formValues, banner: event.target.value });
+                          handleInputChange(event);
+                        }
+                        }
                         autoComplete="off"
                       />
                     </Flex>
-                    <Flex flexDir={"column"} gap={5}>
-                      <InputFormComponent
-                        labelText={"1° Imagem da galeria"}
-                        placeholder={"https://image.com"}
-                        register={register}
-                        name="images1"
-                        onChange={handleInputChange}
-                        autoComplete="off"
-                      />
-                    </Flex>
-                    <Flex flexDir={"column"} gap={5}>
-                      <InputFormComponent
-                        labelText={"2° Imagem da galeria"}
-                        placeholder={"https://image.com"}
-                        register={register}
-                        name="images2"
-                        onChange={handleInputChange}
-                        autoComplete="off"
-                      />
-                      {showInput && (<InputFormComponent
-                        labelText={"3° Imagem da galeria"}
-                        placeholder={"https://image.com"}
-                        register={register}
-                        name="images3"
-                        onChange={handleInputChange}
-                        autoComplete="off"
-                      />)}
-                      <Flex justifyContent="space-between">
-                        <ButtonBrand4 onClick={handleButtonClick} size={"sm"}>
-                          Adicionar campo para imagem da galeria
-                        </ButtonBrand4>
-                      </Flex>
-                    </Flex>
+                    {image.map((_, i) => {
+                      if (i >= 6) return null;
+                      return (
+                        <Box key={i}>
+                          <FormLabel>{`${i + 1}º Imagem da galeria`}</FormLabel>
+                          <Input
+                            css={inputCSS}
+                            placeholder="Ex: http://www.imagestock.com"
+                            autoComplete="off"
+                            color={Colors.brand1}
+                            focusBorderColor={Colors.brand1}
+                            {...register(`image${i + 1}`, {
+                              onChange: (e) => {
+                                setFormValues({ ...formValues, images: e.target.value });
+                                handleInputChange
+                              }
+                            })}
+                          />
+                        </Box>
+                      );
+                    })}
+                    <ButtonBrand4
+                      alignSelf="flex-start"
+                      fontSize="14px"
+                      onClick={() => setImage((prevImages) => [...prevImages, 1])}
+                    >
+                      Adicionar campo para imagem da galeria
+                    </ButtonBrand4>
                   </Flex>
                 </Box>
               </Flex>
             </FormControl>
-          </ModalBody>
+          </ModalBody >
           <ModalFooter gap="10px">
             <ButtonGray6 fontWeight={500} color={Colors.grey2} onClick={() => handleClick('delete')}>
               Excluir anúncio
             </ButtonGray6>
-            <ButtonGray5 isDisabled={!isFormValid} type="submit">
+            <ButtonGray5 isDisabled={!isFormValid} type="submit" onClick={(event) => handlerForm(event)}>
               Salvar Alterações
             </ButtonGray5>
           </ModalFooter>
-        </ModalContent>
-      </Modal>
+        </ModalContent >
+      </Modal >
     </>
   );
 };

@@ -18,16 +18,14 @@ import {
   ButtonGray5,
 } from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
-import { AnnouncementContext } from "../../../contexts/announcementContext";
-import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
-import { FipeContext } from "../../../contexts/fipeContext";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
 import { Colors } from "../../../styles/colors";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { updateUserAddressSchema } from "../../../schemas/user.schema";
+import { UserContext } from "../../../contexts/userContext";
 
 export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
-  const { announcementRegister } = useContext(AnnouncementContext);
-  const { getAllBrands } = useContext(FipeContext);
-  const [brands, setBrands] = useState<string[]>([]);
+  const { handleClick, userEditAddress, user } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formValues, setFormValues] = useState({
     zipCode: "",
@@ -38,6 +36,66 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
     complement: "",
   });
 
+  useEffect(() => {
+    const allValuesAreEmpty = Object.values(formValues).every(
+      (value) => value === ""
+    );
+    setIsFormValid(!allValuesAreEmpty);
+  }, [formValues]);
+
+
+  const { register, handleSubmit, formState: { errors }, } = useForm({
+    resolver: yupResolver(updateUserAddressSchema)
+  });
+
+  const handlerForm = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault()
+
+    const updatedFields: {
+      complement?: string;
+      street?: string;
+      number?: string;
+      city?: string;
+      state?: string;
+      zipCode?: string;
+    } = {};
+
+    if (user) {
+      if (formValues.complement !== '') {
+        updatedFields.complement = formValues.complement;
+      }
+
+      if (formValues.street !== '') {
+        updatedFields.street = formValues.street;
+      }
+
+      if (formValues.number !== '') {
+        updatedFields.number = formValues.number;
+      }
+
+      if (formValues.city !== '') {
+        updatedFields.city = formValues.city
+      }
+
+      if (formValues.state !== '') {
+        updatedFields.state = formValues.state;
+      }
+
+      if (formValues.zipCode !== '') {
+        updatedFields.zipCode = formValues.zipCode;
+      }
+
+      const dataUpdate = {
+        ...updatedFields,
+      };
+
+      try {
+        userEditAddress(dataUpdate)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
@@ -53,32 +111,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
   }, [formValues]);
 
 
-  const { register, handleSubmit, formState: { errors }, } = useForm();
 
-  async function onSubmit(data: any) {
-    const numberOnly = /[^\d,]/g;
-
-    data.mileage = +data.mileage;
-    data.year = +data.year;
-    data.price = parseFloat(
-      data.price.replace(numberOnly, "").replace(",", ".")
-    );
-    data.priceFipe = parseFloat(
-      data.priceFipe.replace(numberOnly, "").replace(",", ".")
-    );
-
-    const normalizedData = announcementDataNormalizer(data);
-
-    announcementRegister(normalizedData);
-  }
-
-  useEffect(() => {
-    (async () => {
-      const res = await getAllBrands();
-      const brands = Object.keys(res);
-      setBrands(brands);
-    })();
-  }, []);
 
   return (
     <>
@@ -88,7 +121,10 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
           mt="100px"
           as="form"
           fontFamily="Lexend"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(event) => {
+            event.preventDefault();
+            handlerForm(event)
+          }}
           zIndex="10000"
         >
           <ModalHeader>
@@ -114,8 +150,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"CEP"}
                       placeholder={"00000.000"}
                       register={register}
-                      name="address.zipCode"
-                      onChange={handleInputChange}
+                      name="zipCode"
+                      value={formValues.zipCode}
+                      onChange={(event) => {
+                        setFormValues({ ...formValues, zipCode: event.target.value });
+                        handleInputChange(event);
+                      }}
                       autoComplete="off"
                     />
                     <Flex gap={3}>
@@ -124,8 +164,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Estado"}
                           placeholder={"Digitar Estado"}
                           register={register}
-                          name="address.state"
-                          onChange={handleInputChange}
+                          name="state"
+                          value={formValues.state}
+                          onChange={(event) => {
+                            setFormValues({ ...formValues, state: event.target.value });
+                            handleInputChange(event);
+                          }}
                           autoComplete="off"
                         />
                       </Flex>
@@ -134,8 +178,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Cidade"}
                           placeholder={"Digitar Cidade"}
                           register={register}
-                          name="address.city"
-                          onChange={handleInputChange}
+                          name="city"
+                          value={formValues.city}
+                          onChange={(event) => {
+                            setFormValues({ ...formValues, city: event.target.value });
+                            handleInputChange(event);
+                          }}
                           autoComplete="off"
                         />
                       </Flex>
@@ -144,8 +192,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       labelText={"Rua"}
                       placeholder={"Digitar Rua"}
                       register={register}
-                      name="address.street"
-                      onChange={handleInputChange}
+                      name="street"
+                      value={formValues.street}
+                      onChange={(event) => {
+                        setFormValues({ ...formValues, street: event.target.value });
+                        handleInputChange(event);
+                      }}
                       autoComplete="off"
                     />
                     <Flex gap={3}>
@@ -155,8 +207,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           type="number"
                           placeholder={"Digitar Numero"}
                           register={register}
-                          name="address.number"
-                          onChange={handleInputChange}
+                          name="number"
+                          value={formValues.number}
+                          onChange={(event) => {
+                            setFormValues({ ...formValues, number: event.target.value });
+                            handleInputChange(event);
+                          }}
                           autoComplete="off"
                         />
                       </Flex>
@@ -165,8 +221,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                           labelText={"Complemento"}
                           placeholder={"Ex: apart 307"}
                           register={register}
-                          onChange={handleInputChange}
-                          name="address.complement"
+                          name="complement"
+                          value={formValues.complement}
+                          onChange={(event) => {
+                            setFormValues({ ...formValues, complement: event.target.value });
+                            handleInputChange(event);
+                          }}
                           autoComplete="off"
                         />
                       </Flex>
@@ -180,7 +240,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
             <ButtonGray6 fontWeight={500} color={Colors.grey2} onClick={onClose}>
               Cancelar
             </ButtonGray6>
-            <ButtonGray5 isDisabled={!isFormValid} type="submit">
+            <ButtonGray5 isDisabled={!isFormValid} onClick={(event) => handlerForm(event)} type="submit">
               Salvar Alterações
             </ButtonGray5>
           </ModalFooter>

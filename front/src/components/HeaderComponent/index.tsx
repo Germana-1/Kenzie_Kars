@@ -36,7 +36,7 @@ export const HeaderComponent = () => {
     setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <>

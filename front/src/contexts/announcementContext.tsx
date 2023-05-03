@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 import {
+  IAnnoucementUpdate,
   IAnnouncement,
   IAnnouncementContext,
   IAnnouncementContextProps,
@@ -23,6 +24,7 @@ export const AnnouncementProvider = ({
   }, []);
   const [editAdModalOpen, setEditAdModalOpen] = useState(false);
   const [deleteAdModalOpen, setDeleteAdModalOpen] = useState(false);
+  const [cardId, setCardId] = useState<string | undefined>(undefined);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -45,6 +47,18 @@ export const AnnouncementProvider = ({
       await api.post("/announcements", data);
     } catch (error) {
       console.log(error);
+    }
+  }
+  async function announcementUpdate(data: IAnnoucementUpdate) {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.patch(`/announcements/${cardId}`, data);
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      document.location.reload()
     }
   }
 
@@ -190,11 +204,13 @@ export const AnnouncementProvider = ({
         deleteAdModalOpen,
         setDeleteAdModalOpen,
         handleClick,
+        setCardId,
         announcements,
         announcement,
         announcementRegister,
         announcementListOne,
         announcementListAll,
+        announcementUpdate,
         setSelectedBrand,
         setSelectedModel,
         setSelectedColor,

@@ -1,4 +1,4 @@
-import { IAddress } from "./address.interface";
+import { IAddress, IAddressUpdate } from "./address.interface";
 import { IAnnouncement } from "./announcement.interface";
 import { IComment } from "./comment.interface";
 
@@ -37,12 +37,25 @@ export interface IUserRegister {
   avatar?: string | null;
   address: IAddress;
 }
+export interface IUserUpdate {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  phone?: string;
+  birthdate?: string;
+  description?: string;
+  password?: string;
+  accountType?: string;
+  avatar?: string;
+}
 
 export interface IUserContext {
   user: IUser | undefined;
   sessionError: boolean;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
+  userEditProfile: (data: IUserUpdate) => void;
+  userEditAddress: (data: IAddressUpdate) => void;
   logout: () => void;
   handleClick: (type: string) => void;
   isProfileModalOpen: boolean;
@@ -51,7 +64,7 @@ export interface IUserContext {
   isDeleteAccountModalOpen: boolean;
   setIsProfileModalOpen: (value: boolean) => void;
   setIsAddressModalOpen: (value: boolean) => void;
-  setIsDeleteAccountModalOpen:(value: boolean) => void;
+  setIsDeleteAccountModalOpen: (value: boolean) => void;
   setIsSucessModalOpen: (value: boolean) => void;
 }
 

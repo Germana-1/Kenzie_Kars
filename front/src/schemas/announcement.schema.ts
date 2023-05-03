@@ -17,3 +17,17 @@ export const registerAnnouncementSchema: yup.ObjectSchema<IAnnouncementRegister>
     description: yup.string().required(),
     images: yup.array().of(imageSchema).required(),
   });
+
+export const updateAnnouncementSchema: any = yup.object().shape({
+  brand: yup.string().notRequired(),
+  model: yup.string().notRequired(),
+  year: yup.number().notRequired(),
+  mileage: yup.number().notRequired(),
+  color: yup.string().notRequired(),
+  price: yup.number().notRequired(),
+  priceFipe: yup.number().notRequired(),
+  fuelType: yup.string().notRequired(),
+  description: yup.string().notRequired(),
+  images: yup.array().of(imageSchema).notRequired(),
+  banner: yup.string().url().notRequired(),
+});
