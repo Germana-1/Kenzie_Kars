@@ -14,42 +14,13 @@ import {
   ButtonBrand1,
 } from "../../ButtomComponents";
 import { TextB1, TextB2, TextH7 } from "../../TextComponents";
-import { AnnouncementContext } from "../../../contexts/announcementContext";
-import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
-import { FipeContext } from "../../../contexts/fipeContext";
-import { Colors } from "../../../styles/colors";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../contexts/userContext";
 
 export const ModalSucess = ({ isOpen, onClose }: ModalProps) => {
-  const { announcementRegister } = useContext(AnnouncementContext);
-  const { getAllBrands } = useContext(FipeContext);
-  const [brands, setBrands] = useState<string[]>([]);
-
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  async function onSubmit(data: any) {
-    const numberOnly = /[^\d,]/g;
-
-    data.mileage = +data.mileage;
-    data.year = +data.year;
-    data.price = parseFloat(data.price.replace(numberOnly, "").replace(",", "."));
-    data.priceFipe = parseFloat(data.priceFipe.replace(numberOnly, "").replace(",", "."));
-
-    const normalizedData = announcementDataNormalizer(data);
-    announcementRegister(normalizedData);
-  }
-
-  useEffect(() => {
-    (async () => {
-      const res = await getAllBrands();
-      const brands = Object.keys(res);
-      setBrands(brands);
-    })();
-  }, []);
+    setIsSucessModalOpen
+  } = useContext(UserContext);
 
   return (
     <>
@@ -59,7 +30,6 @@ export const ModalSucess = ({ isOpen, onClose }: ModalProps) => {
           mt="100px"
           as="form"
           fontFamily="Lexend"
-          onSubmit={handleSubmit(onSubmit)}
           zIndex="10000"
         >
           <ModalHeader>
@@ -76,7 +46,7 @@ export const ModalSucess = ({ isOpen, onClose }: ModalProps) => {
           </ModalBody>
           <ModalFooter gap="10px">
             <Link to='/login'>
-              <ButtonBrand1>Ir para o login</ButtonBrand1>
+              <ButtonBrand1 onClick={() => setIsSucessModalOpen(false)}>Ir para o login</ButtonBrand1>
             </Link>
           </ModalFooter>
         </ModalContent>

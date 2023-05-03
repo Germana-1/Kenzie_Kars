@@ -35,7 +35,7 @@ export const HeaderComponent = () => {
     isDeleteAccountModalOpen,
     setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
-
+  
   return (
     <>
       <Flex

@@ -10,8 +10,10 @@ import {
   IUserContextProps,
   IUserLogin,
   IUserRegister,
+  IUserUpdate,
 } from "../interfaces/user.interface";
 import { api } from "../services/api";
+import { IAddressUpdate } from "../interfaces/address.interface";
 import { toast } from "react-toastify";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -126,6 +128,34 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  async function userEditProfile(data: IUserUpdate) {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.patch(`/users/profile/`, data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    finally {
+      document.location.reload()
+    }
+  }
+  
+  async function userEditAddress(data: IAddressUpdate) {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.patch(`/users/profile/address`, data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    finally {
+      document.location.reload()
+    }
+  }
+  
   async function userListOne(userId: string | undefined) {
     try {
       const res = await api.get(`/users/${userId}`);
@@ -146,6 +176,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     <UserContext.Provider
       value={{
         user,
+        userEditProfile,
+        userEditAddress,
         sessionError,
         userSession,
         userRegister,
