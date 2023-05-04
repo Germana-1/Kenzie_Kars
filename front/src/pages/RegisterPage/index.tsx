@@ -33,11 +33,6 @@ const formStyle = {
     gap: 45,
 };
 
-interface ICepInfo {
-    uf: string;
-    localidade: string;
-}
-
 export const RegisterPage = () => {
     const {
         userRegister,
@@ -46,11 +41,14 @@ export const RegisterPage = () => {
         isErrorModalOpen,
         setIsErrorModalOpen,
         messageModal,
-        setMessageModal
+        setMessageModal,
+        cepValue, 
+        setCepValue, 
+        cepInfo, 
+        setCepInfo,
+        validateCep
     } = useContext(UserContext);
     const [isError, setIsError] = useState<boolean>(true);
-    const [cepValue, setCepValue] = useState("");
-    const [cepInfo, setCepInfo] = useState<ICepInfo>({ localidade: "", uf: "" });
     const [showPassword, setShowPassword] = useState(true);
     const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
     const [optionIsAdvertiser, setOptionIsAdvertiser] =
@@ -68,20 +66,7 @@ export const RegisterPage = () => {
 
     useEffect(() => {
         (async () => {
-            if (cepValue.length === 9 && !cepValue.includes("_")) {
-                const zipCodeFormat = cepValue.replace(".", "");
-                const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`;
-                const { data } = await axios.get(url);
-                if (data.erro) {
-                    setIsErrorModalOpen(true);
-                    setMessageModal({
-                        textHeader: "Ops 😢",
-                        textBody: "CEP não encontrado"
-                    })
-                    return;
-                }
-                setCepInfo(data);
-            }
+            await validateCep()
         })();
     }, [cepValue]);
 
