@@ -25,7 +25,11 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] =
     useState(false);
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
+  const [isSucessResetPasswordModalOpen, setIsSucessResetPasswordModalOpen] =
+    useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [isErrorResetPasswordModalOpen, setIsErrorResetPasswordModalOpen] =
+    useState(false);
 
   const handleClick = (typeModal: string) => {
     if (typeModal === "profile") {
@@ -99,12 +103,17 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     try {
       const res = await api.post("/users/resetPassword/", data);
       toast.success("Email enviado com sucesso!");
+      setIsSucessResetPasswordModalOpen(true);
       console.log(res.data);
 
       setSessioError(false);
-    } catch (error) {
-      console.error(error);
-      setSessioError(true);
+    } catch (error: any) {
+      if (error.response.status === 404) {
+        setIsErrorResetPasswordModalOpen(true);
+      } else {
+        console.log(error.message);
+        console.error(error);
+      }
     }
   }
 
@@ -161,9 +170,13 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         isSucessModalOpen,
         setIsSucessModalOpen,
         isErrorModalOpen,
-        setIsErrorModalOpen
+        setIsErrorModalOpen,
         userResetPassword,
         emailSend,
+        isSucessResetPasswordModalOpen,
+        setIsSucessResetPasswordModalOpen,
+        isErrorResetPasswordModalOpen,
+        setIsErrorResetPasswordModalOpen,
       }}
     >
       {children}
