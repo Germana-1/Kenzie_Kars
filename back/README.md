@@ -45,24 +45,25 @@ npm run dev
 
 ### Índice
 
-- [Login](#2-anúncios)
-  - [POST - /login](#2-anúncios)
-- [Users](#1-users)
-  - [POST - /users](#11-criação-de-usuário)
-  - [GET - /users/{user_id}](#11-criação-de-usuário)
-  - [GET - /users/profile](#11-criação-de-usuário)
-  - [PATCH - /users/profile](#11-criação-de-usuário)
-  - [DELETE - /users/profile](#11-criação-de-usuário)
-  - [PATCH - /users/profile/address](#11-criação-de-usuário)
-  - [POST - /users/resetPassword](#11-criação-de-usuário)
-  - [PATCH - /users/resetPassword/{user_token}](#11-criação-de-usuário)
-- [Announcements](#2-announcements)
-  - [POST - /announcements](#21-criação-de-anúncio)
-  - [GET - /announcements](#22-listando-anúncios)
-  - [GET - /announcements/{announcement_id}](#22-listando-anúncios)
-  - [PATCH - /announcements/{announcement_id}](#23-atualizar-anúncio)
-  - [DELETE - /announcements/{announcement_id}](#24-deletar-anúncio)
-  - [GET - /announcements?(options: brand, model, color, year, fuelType)](#22-listando-anúncios)
+- [Login](#1-login)
+  - [POST - /login](#11-login-do-usuário)
+- [Users](#2-users)
+  - [POST - /users](#21-criação-de-usuário)
+  - [GET - /users/{user_id}](#22-busca-de-usuário-pelo-id)
+  - [GET - /users/profile](#231-busca-os-dados-do-usuário-logado)
+  - [PATCH - /users/profile](#232-atualiza-os-dados-do-usuário-logado)
+  - [DELETE - /users/profile](#233-deleta-o-usuário-logado)
+  - [PATCH - /users/profile/address](#24-atualiza-os-dados-de-endereço-do-usuário-logado)
+  - [POST - /users/resetPassword](#25-envia-mensagem-de-email-para-redefinição-de-senha)
+  - [PATCH - /users/resetPassword/{user_token}](#26-redefine-a-senha-usuário)
+- [Announcements](#3-announcements)
+  - [POST - /announcements](#311-criação-de-anúncio)
+  - [GET - /announcements](#312-listagem-dos-anúncios)
+  - [GET - /announcements/{announcement_id}](#321-lista-o-anúncio-por-id)
+  - [PATCH - /announcements/{announcement_id}](#331-atualização-de-anúncio)
+  - [DELETE - /announcements/{announcement_id}](#332-deleção-de-anúncio)
+- [Comments](#2-users)
+  - [POST - /comments/announcement/{announcement_id}](#4-adição-de-comentário)
 
 ---
 
@@ -541,7 +542,7 @@ Content-type: application/json
 
 ### `/users/resetPassword{reset_token}`
 
-### 2.6. **Atualiza os dados de endereço do usuário logado.**
+### 2.6. **Redefine a senha usuário.**
 
 ### Exemplo de Request:
 
@@ -579,7 +580,7 @@ Content-type: application/json
 
 ---
 
-## 3. **Anúncios**
+## 3. **Announcements**
 
 O objeto Announcement é definido como:
 
@@ -817,7 +818,88 @@ Não possui
 ]
 ```
 
-### 3.2.1 **Atualização de Anúncio**
+### `/announcements/{announcement_id}`
+
+### 3.2.1 **Lista o anúncio por ID**
+
+### Exemplo de Request:
+
+```
+POST /announcements/291e3157-a3d0-410c-8950-dca80fdb0ce
+Host: http://localhost:3001
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "brand": "Fiat",
+  "model": "Mobi",
+  "year": 2019,
+  "mileage": 20000,
+  "color": "preto",
+  "price": 32000,
+  "priceFipe": 27500,
+  "fuelType": "flex",
+  "description": "Carro em bom estado de conservação.",
+  "banner": "http://example.com",
+  "images": [
+    {
+      "imgUrl": "http://example2.com"
+    }
+  ]
+}
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "f49216df-a607-4cdb-9058-101fe05cfc7b",
+  "brand": "Fiat",
+  "model": "Mobi",
+  "year": 2019,
+  "mileage": 20000,
+  "price": "32000",
+  "priceFipe": "27500",
+  "fuelType": "flex",
+  "color": "preto",
+  "banner": "http://example.com",
+  "description": "Carro em bom estado de conservação.",
+  "isActive": true,
+  "isGoodBuy": false,
+  "createdAt": "2023-04-20T16:27:40.568Z",
+  "updatedAt": "2023-04-20T16:27:40.568Z",
+  "userId": "281ddb25-e210-40f3-8a5f-66f8adf2e6d2",
+  "images": [
+    {
+      "id": "d0b765ea-404b-4779-9e0a-95791bb5529e",
+      "imgUrl": "http://example2.com",
+      "announcementId": "f49216df-a607-4cdb-9058-101fe05cfc7b"
+    }
+  ],
+  "comments": []
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro   | Descrição                                              |
+| ---------------- | ------------------------------------------------------ |
+| 401 Unauthorized | Missing token.                                         |
+| 401 Unauthorized | Invalid token.                                         |
+| 403 Forbidden    | Only sellers are allowed to perform this action.       |
+| 400 Bad Request  | The data sent in the request is invalid or incomplete. |
+
+### 3.3.1 **Atualização de Anúncio**
 
 ### Exemplo de Request:
 
@@ -870,7 +952,7 @@ Content-type: application/json
 | --------------- | --------------------- |
 | 400 Bad Request | Annoucement Not Exist |
 
-### 3.2.2 **Deleção de Anúncio**
+### 3.3.2 **Deleção de Anúncio**
 
 ### Exemplo de Request:
 
@@ -896,3 +978,53 @@ Não possui.
 | 401 Bad Request | missing token |
 
 ---
+
+### `/comments/announcement/{announcement_id}`
+
+### 4. **Adição de Comentário**
+
+### Exemplo de Request:
+
+```
+POST /comments/announcement/291e3157-a3d0-410c-8950-dca80fd7b0ce
+Host: http://localhost:3001
+Authorization: Bearer Token
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "comment": "Gostei do carro!"
+}
+```
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "44452b24-e23a-42b6-8f09-5399127ff90f",
+  "comment": "Gostei do carro",
+  "createdAt": "2023-05-04T21:07:33.237Z",
+  "updatedAt": "2023-05-04T21:07:33.237Z",
+  "announcementId": "291e3157-a3d0-410c-8950-dca80fd7b0ce",
+  "userId": "ed724322-bbbc-4077-8489-307279e6e52d",
+  "user": {
+    "name": "Felipe César",
+    "avatar": "http://foto"
+  }
+}
+```
+
+### Possíveis Erros:
+
+| Cód. | Descrição               |
+| ---- | ----------------------- |
+| 404  | Announcement not found. |
+| 401  | "missing token          |
