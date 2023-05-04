@@ -58,6 +58,10 @@ export interface IUserContext {
   setIsErrorModalOpen: (value: boolean) => void;
   userResetPassword: (data: IResetPassword, resetToken: string) => void;
   emailSend: (data: IEmailSubmission) => void;
+  isSucessResetPasswordModalOpen: boolean;
+  setIsSucessResetPasswordModalOpen: (value: boolean) => void;
+  isErrorResetPasswordModalOpen: boolean;
+  setIsErrorResetPasswordModalOpen: (value: boolean) => void;
 }
 
 export interface IUserContextProps {
