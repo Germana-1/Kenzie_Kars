@@ -1,21 +1,15 @@
 import {
-  Box,
   Container,
   Flex,
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Input,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-
-import { ButtonGray10OutlineG4 } from "../../components/ButtomComponents";
 import { HeaderComponent } from "../../components/HeaderComponent";
 import { FooterComponent } from "../../components/FooterComponent";
-import { TextH1, TextH5, TextH7 } from "../../components/TextComponents";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
@@ -24,12 +18,18 @@ import {
   IResetPassword,
   IUserLogin,
 } from "../../interfaces/user.interface";
-import { TextB2 } from "../../components/TextComponents";
 import { labelCSS } from "../../styles/global";
-import { ViewIcon, ViewOffIcon, WarningIcon } from "@chakra-ui/icons";
+import { ModalSucessSendEmailComponent } from "../../components/ModalComponents/ModalSucessSendEmailComponent";
+import { ModalErrorSendEmailComponent } from "../../components/ModalComponents/ModalErrorSendEmailComponent";
 
 export const EmailSubmissionPage = () => {
-  const { emailSend } = useContext(UserContext);
+  const {
+    emailSend,
+    isSucessResetPasswordModalOpen,
+    setIsSucessResetPasswordModalOpen,
+    isErrorResetPasswordModalOpen,
+    setIsErrorResetPasswordModalOpen,
+  } = useContext(UserContext);
   const { register, handleSubmit } = useForm<IEmailSubmission>();
 
   const formSubmit = async (data: IEmailSubmission) => emailSend(data);
@@ -78,6 +78,16 @@ export const EmailSubmissionPage = () => {
       </Container>
 
       <FooterComponent />
+      <ModalSucessSendEmailComponent
+        isOpen={isSucessResetPasswordModalOpen}
+        onClose={() => setIsSucessResetPasswordModalOpen(false)}
+        children={undefined}
+      />
+      <ModalErrorSendEmailComponent
+        isOpen={isErrorResetPasswordModalOpen}
+        onClose={() => setIsErrorResetPasswordModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };
