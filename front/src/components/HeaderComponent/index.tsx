@@ -16,7 +16,7 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Colors } from "../../styles/colors";
 import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
 import { ModalEditProfile } from "../ModalComponents/ModalEditProfileComponent";
@@ -35,7 +35,9 @@ export const HeaderComponent = () => {
     isDeleteAccountModalOpen,
     setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
-  
+
+  const location = useLocation();
+
   return (
     <>
       <Flex
@@ -94,7 +96,7 @@ export const HeaderComponent = () => {
               <ButtonGroup>
                 <Link to={"/login"}>
                   <Button
-                    color={Colors.grey2}
+                    color={location.pathname.includes("login") || location.pathname.includes("register") ? Colors.brand1 : Colors.grey2}
                     variant="ghost"
                     _focus={{ color: Colors.brand1, bg: "transparent" }}
                   >
@@ -109,6 +111,8 @@ export const HeaderComponent = () => {
                     borderRadius="4px"
                     borderColor={Colors.grey4}
                     _focus={{ bg: "transparent" }}
+                    _hover={{ bgColor: Colors.grey1, color: Colors.grey10}}
+
                   >
                     Cadastrar
                   </Button>

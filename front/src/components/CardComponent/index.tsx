@@ -139,6 +139,25 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             </Text>
           </Flex>
 
+// ! aqui
+          <Flex
+            alignItems={"center"}>
+            <Text
+              color={Colors.grey1}
+              h="2rem"
+              fontWeight={600}
+              fontSize={"sm"}>
+              {price}
+            </Text>
+          </Flex>
+        </Flex>
+        {location.pathname == `/profile/${IdUser}/` && announce.user?.id == IdUser ? (
+          <Flex gap="10px">
+            <ButtonGray10
+              bg={"transparent"}
+              
+// ! aqui     
+              
           <Flex justifyContent="space-between">
             <Flex gap="10px">
               <ButtonBrand4 size={"sm"}>{`${announce.mileage.toLocaleString(
@@ -146,7 +165,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
               )} KM`}</ButtonBrand4>
               <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
             </Flex>
-
+// ! aqui
             <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
           </Flex>
         </Flex>
