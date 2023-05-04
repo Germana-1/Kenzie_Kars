@@ -28,6 +28,7 @@ export const ButtonGray6 = ({ ...rest }: ButtonProps) => {
       color={Colors.grey2}
       _hover={{
         color: Colors.white,
+        bgColor: Colors.grey5
       }}
       {...rest}
     >
@@ -93,9 +94,7 @@ export const ButtonGray10 = ({ ...rest }: ButtonProps) => {
       backgroundColor={Colors.grey10}
       color={Colors.grey0}
       border={`1.5px solid ${Colors.grey0}`}
-      _hover={{
-        backgroundColor: Colors.white,
-      }}
+      _hover={{ bgColor: Colors.grey1, color: Colors.grey10, borderColor: Colors.grey1}}
       {...rest}
     >
       {rest.children}
@@ -165,6 +164,9 @@ export const ButtonAlert3 = ({ ...rest }: ButtonProps) => {
       borderRadius={"4px"}
       backgroundColor={Colors.alert3}
       color={Colors.alert1}
+      _hover={{
+        backgroundColor: Colors.alert2,
+      }}
       {...rest}
     >
       {rest.children}

@@ -148,7 +148,16 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
           </Flex>
 
-          <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
+          <Flex
+            alignItems={"center"}>
+            <Text
+              color={Colors.grey1}
+              h="2rem"
+              fontWeight={600}
+              fontSize={"sm"}>
+              {price}
+            </Text>
+          </Flex>
         </Flex>
         {location.pathname == `/profile/${IdUser}/` && announce.user?.id == IdUser ? (
           <Flex gap="10px">
