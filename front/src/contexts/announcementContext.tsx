@@ -18,10 +18,6 @@ export const AnnouncementProvider = ({
 }: IAnnouncementContextProps) => {
   const [announcements, setAnnouncements] = useState<IAnnouncement[]>([]);
   const [announcement, setAnnouncement] = useState<IAnnouncement>();
-
-  useEffect(() => {
-    announcementListAll();
-  }, []);
   const [editAdModalOpen, setEditAdModalOpen] = useState(false);
   const [deleteAdModalOpen, setDeleteAdModalOpen] = useState(false);
   const [cardId, setCardId] = useState<string | undefined>(undefined);
@@ -91,7 +87,7 @@ export const AnnouncementProvider = ({
     }
   }
 
-  const handleClick = (typeModal: string) => {
+  function handleClick (typeModal: string) {
     if (typeModal === "editAd") {
       setEditAdModalOpen(true);
     }
@@ -100,6 +96,10 @@ export const AnnouncementProvider = ({
       setEditAdModalOpen(false);
     }
   };
+
+  useEffect(() => {
+    announcementListAll();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

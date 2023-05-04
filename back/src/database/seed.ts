@@ -60,6 +60,11 @@ async function seed() {
             password: passUserAdvertiser1,
             phone: "(21) 96459-9179",
         },
+        include: {
+            address: true,
+            announcements: true,
+            comments: true
+        }
     });
 
     const pedroAdvertiser = await prisma.user.create({
@@ -72,6 +77,11 @@ async function seed() {
             password: passUserAdvertiser2,
             phone: "(11) 98128-8890",
         },
+        include: {
+            address: true,
+            announcements: true,
+            comments: true
+        }
     });
 
     const julianaAdvertiser = await prisma.user.create({
@@ -84,6 +94,11 @@ async function seed() {
             password: passUserAdvertiser3,
             phone: "(51) 97723-7765",
         },
+        include: {
+            address: true,
+            announcements: true,
+            comments: true
+        }
     });
 
     const lucasAdvertiser = await prisma.user.create({
@@ -96,6 +111,11 @@ async function seed() {
             password: passUserAdvertiser4,
             phone: "(31) 96236-6689",
         },
+        include: {
+            address: true,
+            announcements: true,
+            comments: true
+        }
     });
 
     const marianaAdvertiser = await prisma.user.create({
@@ -108,6 +128,11 @@ async function seed() {
             password: passUserAdvertiser5,
             phone: "(12) 97544-4444",
         },
+        include: {
+            address: true,
+            announcements: true,
+            comments: true
+        }
     });
 
     // Anúncios Gabriela
