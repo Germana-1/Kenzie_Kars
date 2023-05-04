@@ -47,18 +47,19 @@ export const AnnouncementProvider = ({
       await api.post("/announcements", data);
     } catch (error) {
       console.log(error);
+    } finally {
+      document.location.reload();
     }
   }
   async function announcementUpdate(data: IAnnoucementUpdate) {
-    const token = localStorage.getItem("@kenzieToken")
+    const token = localStorage.getItem("@kenzieToken");
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/announcements/${cardId}`, data);
     } catch (error) {
       console.log(error);
-    }
-    finally {
-      document.location.reload()
+    } finally {
+      document.location.reload();
     }
   }
 
@@ -79,15 +80,14 @@ export const AnnouncementProvider = ({
   }
 
   async function announcementDelete() {
-    const token = localStorage.getItem("@kenzieToken")
+    const token = localStorage.getItem("@kenzieToken");
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/announcements/${cardId}`);
     } catch (err) {
       console.log(err);
-    }
-    finally {
-      document.location.reload()
+    } finally {
+      document.location.reload();
     }
   }
 
