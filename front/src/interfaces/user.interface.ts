@@ -37,6 +37,7 @@ export interface IUserRegister {
   avatar?: string | null;
   address: IAddress;
 }
+
 export interface IUserUpdate {
   name?: string;
   email?: string;
@@ -47,6 +48,11 @@ export interface IUserUpdate {
   password?: string;
   accountType?: string;
   avatar?: string;
+}
+
+export interface IMessageModal {
+  textHeader: string;
+  textBody: string;
 }
 
 export interface IUserContext {
@@ -76,6 +82,8 @@ export interface IUserContext {
   setIsSucessResetPasswordModalOpen: (value: boolean) => void;
   isErrorResetPasswordModalOpen: boolean;
   setIsErrorResetPasswordModalOpen: (value: boolean) => void;
+  messageModal: IMessageModal
+  setMessageModal: React.Dispatch<React.SetStateAction<IMessageModal>>
 }
 
 export interface IUserContextProps {
