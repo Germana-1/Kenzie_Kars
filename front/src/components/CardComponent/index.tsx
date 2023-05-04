@@ -44,12 +44,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       cursor="pointer"
       onClick={() => navigate(`/product/${announce.id}`)}
     >
-      <Flex
-        gap="14px"
-        flexDir={"column"}
-        justifyContent={"space-between"}
-        height={"320px"}
-      >
+      <Flex gap="14px" flexDir={"column"}>
         <Tag
           position={"absolute"}
           top={"2px"}
@@ -107,7 +102,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           display="flex"
           flexDirection="column"
           gap="16px"
+          mt={"16px"}
           justifyContent={"space-between"}
+          h={"180px"}
         >
           <Heading
             size="16px"
@@ -117,47 +114,46 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           >
             {`${announce.brand} - ${announce.model}`}
           </Heading>
-        </Flex>
 
-        <Text
-          fontSize="14px"
-          fontWeight="400"
-          color={Colors.grey2}
-          lineHeight="24px"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          display="-webkit-box"
-          style={{
-            WebkitLineClamp: "2",
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {announce.description}
-        </Text>
-
-        <Flex gap="10px" alignItems="center">
-          <Avatar src={announce.user?.avatar} w="32px" h="32px" />
-
-          <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
-            {userName}
+          <Text
+            fontSize="14px"
+            fontWeight="400"
+            color={Colors.grey2}
+            lineHeight="24px"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            display="-webkit-box"
+            style={{
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {announce.description}
           </Text>
-        </Flex>
 
-        <Flex justifyContent="space-between">
-          <Flex gap="10px">
-            <ButtonBrand4 size={"sm"}>{`${announce.mileage.toLocaleString(
-              "pt-BR"
-            )} KM`}</ButtonBrand4>
-            <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
+          <Flex gap="10px" alignItems="center">
+            <Avatar src={announce.user?.avatar} w="32px" h="32px" />
+
+            <Text fontSize="14px" fontWeight="500" color={Colors.grey2}>
+              {userName}
+            </Text>
           </Flex>
 
-          <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
+          <Flex justifyContent="space-between">
+            <Flex gap="10px">
+              <ButtonBrand4 size={"sm"}>{`${announce.mileage.toLocaleString(
+                "pt-BR"
+              )} KM`}</ButtonBrand4>
+              <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
+            </Flex>
+
+            <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
+          </Flex>
         </Flex>
       </Flex>
-
       {location.pathname == `/profile/${IdUser}/` &&
       announce.user?.id == IdUser ? (
-        <Flex gap="10px" mt={"20px"}>
+        <Flex gap="10px" mt={"15px"}>
           <ButtonGray10
             bg={"transparent"}
             onClick={(e) => {
