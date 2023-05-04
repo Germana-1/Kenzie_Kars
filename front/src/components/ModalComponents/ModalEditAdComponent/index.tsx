@@ -13,6 +13,7 @@ import {
   FormLabel,
   Select,
   Input,
+  Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -36,7 +37,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../../../contexts/userContext";
 import { IImage } from "../../../interfaces/image.interface";
 import { updateAnnouncementSchema } from "../../../schemas/announcement.schema";
-import { number } from "yup";
+
 
 export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
   const { announcementUpdate, handleClick } = useContext(AnnouncementContext);
@@ -105,7 +106,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
       }
 
       if (formValues.description !== '') {
-        updatedFields.description = formValues.description
+        updatedFields.description = formValues.description;
       }
 
       if (formValues.fuelType !== '') {
@@ -160,11 +161,6 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     setCarDetail(car[0]);
   }
 
-
-  const handleButtonClick = () => {
-    setShowInput(true);
-  };
-
   useEffect(() => {
     const allValuesAreEmpty = Object.values(formValues).every(
       (value) => value === ""
@@ -175,6 +171,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
   useEffect(() => {
     setIsFormValid(!!descriptionValue);
   }, [descriptionValue]);
+
 
 
   useEffect(() => {
@@ -351,21 +348,21 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         autoComplete="off"
                       />
                     </Flex>
-                    <FormControl mt="15px">
-                      <InputFormComponent
-                        hasTextArea={true}
-                        labelText={"Descrição"}
-                        name="description"
-                        register={register}
-                        value={formValues.description}
-                        onChange={(event) => {
-                          setFormValues({ ...formValues, description: event.target.value });
-                          handleInputChange(event);
+                    <FormLabel m={0}>Descrição</FormLabel>
+                    <Textarea
+                      css={inputCSS}
+                      autoComplete="off"
+                      color={Colors.brand1}
+                      focusBorderColor={Colors.brand1}
+                      value={formValues.description}
+                      placeholder={"Digitar descrição"}
+                      {...register("description", {
+                        onChange: (e) => {
+                          setFormValues({ ...formValues, description: e.target.value });
+                          handleInputChange(e)
                         }
-                        }
-                        autoComplete="off"
-                      />
-                    </FormControl>
+                      })}
+                    />
                     <Flex flexDir={"column"} gap={2}>
                       <InputFormComponent
                         labelText={"Imagem da capa"}

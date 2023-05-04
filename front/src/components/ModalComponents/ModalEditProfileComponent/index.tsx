@@ -13,6 +13,7 @@ import {
   IconButton,
   Input,
   InputGroup,
+  Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -30,7 +31,7 @@ import { UserContext } from "../../../contexts/userContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateUserSchema } from "../../../schemas/user.schema";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { labelCSS } from "../../../styles/global";
+import { inputCSS, labelCSS } from "../../../styles/global";
 
 
 export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
@@ -330,20 +331,21 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
               value={formValues.birthdate}
               autoComplete="off"
             />
-            <InputFormComponent
-              hasTextArea={true}
-              labelText={"Descrição"}
-              placeholderTextArea={"Digitar descrição"}
-              register={register}
-              name="description"
-              onChange={(event) => {
-                setFormValues({ ...formValues, description: event.target.value });
-                handleInputChange(event);
-              }}
-              value={formValues.description}
+            <FormLabel m={0}>Descrição</FormLabel>
+            <Textarea
+              css={inputCSS}
               autoComplete="off"
+              color={Colors.brand1}
+              focusBorderColor={Colors.brand1}
+              value={formValues.description}
+              placeholder={"Digitar descrição"}
+              {...register("description", {
+                onChange: (e) => {
+                  setFormValues({ ...formValues, description: e.target.value });
+                  handleInputChange(e)
+                }
+              })}
             />
-
           </ModalBody>
           <ModalFooter gap="10px">
             <ButtonGray6 onClick={onClose}>Cancelar</ButtonGray6>

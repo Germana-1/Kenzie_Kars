@@ -78,6 +78,19 @@ export const AnnouncementProvider = ({
     }
   }
 
+  async function announcementDelete() {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.delete(`/announcements/${cardId}`);
+    } catch (err) {
+      console.log(err);
+    }
+    finally {
+      document.location.reload()
+    }
+  }
+
   const handleClick = (typeModal: string) => {
     if (typeModal === "editAd") {
       setEditAdModalOpen(true);
@@ -211,6 +224,7 @@ export const AnnouncementProvider = ({
         announcementListOne,
         announcementListAll,
         announcementUpdate,
+        announcementDelete,
         setSelectedBrand,
         setSelectedModel,
         setSelectedColor,

@@ -54,6 +54,7 @@ export interface IUserContext {
   sessionError: boolean;
   userSession: (data: IUserLogin) => void;
   userRegister: (data: IUserRegister) => void;
+  userDelete: () => void;
   userEditProfile: (data: IUserUpdate) => void;
   userEditAddress: (data: IAddressUpdate) => void;
   userListOne: (userId: string | undefined) => Promise<IUser>;
