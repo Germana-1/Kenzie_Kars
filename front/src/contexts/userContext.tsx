@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {
   IEmailSubmission,
+  IMessageModal,
   IResetPassword,
   IUser,
   IUserContext,
@@ -28,7 +29,10 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
   const [isSucessResetPasswordModalOpen, setIsSucessResetPasswordModalOpen] =
     useState(false);
+  
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [messageModal, setMessageModal] = useState<IMessageModal>({ textHeader: "Ops!", textBody: "CPF Inválido" })
+
   const [isErrorResetPasswordModalOpen, setIsErrorResetPasswordModalOpen] =
     useState(false);
 
@@ -127,9 +131,20 @@ export const UserProvider = ({ children }: IUserContextProps) => {
 
       setIsSucessModalOpen(true);
     } catch (error: any) {
+      setIsErrorModalOpen(true)
       if (error.response.status === 409) {
-        // Abrir modal de error
-      } else {
+        const messageError = error.response.data.message.split(" ")[0]
+        setMessageModal({
+          textHeader: "Ops! 😢",
+          textBody: `${messageError} já existe`,
+        })
+      } else if (error.response.status === 500) {
+        setMessageModal({
+          textHeader: "Ops! Ocorreu um erro inesperado 😢",
+          textBody: "Por favor. Tente novamente em alguns minutos",
+        })
+      }
+      else {
         console.log(error.message);
       }
     }
@@ -152,9 +167,14 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/users/profile/address`, data);
-    } catch (err) {
-      console.log(err);
-    } finally {
+    } catch(error: any) {
+      setIsErrorModalOpen(true)
+      setMessageModal({
+        textHeader: "Ops! 😢",
+        textBody: `CEP não existe`,
+      })
+    } 
+    finally {
       document.location.reload();
     }
   }
@@ -183,7 +203,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
-  const logout = () => {
+  function logout () {
     window.localStorage.clear();
     setUser(undefined);
     navigate("/");
@@ -218,6 +238,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         setIsSucessResetPasswordModalOpen,
         isErrorResetPasswordModalOpen,
         setIsErrorResetPasswordModalOpen,
+        messageModal,
+        setMessageModal
       }}
     >
       {children}
