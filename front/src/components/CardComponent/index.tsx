@@ -47,6 +47,8 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
       <Flex
         gap="14px"
         flexDir={"column"}
+        justifyContent={"space-between"}
+        height={"320px"}
       >
         <Tag
           position={"absolute"}
@@ -94,8 +96,9 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           overflow={"hidden"}
           textOverflow={"ellipsis"}
           _hover={{
-            border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
-              }`,
+            border: `2px solid ${
+              announce.isActive ? Colors.brand1 : Colors.grey4
+            }`,
           }}
           objectFit={"cover"}
         />
@@ -150,21 +153,24 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
 
           <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
         </Flex>
-        {location.pathname == `/profile/${IdUser}/` && announce.user?.id == IdUser ? (
-          <Flex gap="10px">
-            <ButtonGray10
-              bg={"transparent"}
-
-              onClick={(e) => {
-                e.stopPropagation()
-                handleClick('editAd')
-                setCardId(announce.id ?? undefined)
-              }}>
-              Editar
-            </ButtonGray10>
-            <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
-          </Flex>) : null}
       </Flex>
+
+      {location.pathname == `/profile/${IdUser}/` &&
+      announce.user?.id == IdUser ? (
+        <Flex gap="10px" mt={"20px"}>
+          <ButtonGray10
+            bg={"transparent"}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClick("editAd");
+              setCardId(announce.id ?? undefined);
+            }}
+          >
+            Editar
+          </ButtonGray10>
+          <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
+        </Flex>
+      ) : null}
     </Box>
   );
 };
