@@ -50,6 +50,11 @@ export interface IUserUpdate {
   avatar?: string;
 }
 
+export interface ICepInfo {
+  uf: string;
+  localidade: string;
+}
+
 export interface IMessageModal {
   textHeader: string;
   textBody: string;
@@ -84,6 +89,11 @@ export interface IUserContext {
   setIsErrorResetPasswordModalOpen: (value: boolean) => void;
   messageModal: IMessageModal
   setMessageModal: React.Dispatch<React.SetStateAction<IMessageModal>>
+  cepValue: string
+  setCepValue: React.Dispatch<React.SetStateAction<string>>
+  cepInfo: ICepInfo
+  setCepInfo: React.Dispatch<React.SetStateAction<ICepInfo>>
+  validateCep(): Promise<void>
 }
 
 export interface IUserContextProps {
