@@ -34,17 +34,23 @@ const formStyle = {
 };
 
 interface ICepInfo {
-  uf: string
-  localidade: string
+    uf: string;
+    localidade: string;
 }
 
 export const RegisterPage = () => {
-    const { userRegister, isSucessModalOpen, setIsSucessModalOpen, isErrorModalOpen, setIsErrorModalOpen } =
-        useContext(UserContext);
+    const {
+        userRegister,
+        isSucessModalOpen,
+        setIsSucessModalOpen,
+        isErrorModalOpen,
+        setIsErrorModalOpen,
+        messageModal,
+        setMessageModal
+    } = useContext(UserContext);
     const [isError, setIsError] = useState<boolean>(true);
-    const [cepValue, setCepValue] = useState("")
-    const [cepInfo, setCepInfo] = useState<ICepInfo>({ localidade: "", uf: "" })
-
+    const [cepValue, setCepValue] = useState("");
+    const [cepInfo, setCepInfo] = useState<ICepInfo>({ localidade: "", uf: "" });
     const [showPassword, setShowPassword] = useState(true);
     const [optionIsBuyer, setOptionIsBuyer] = useState<boolean>(false);
     const [optionIsAdvertiser, setOptionIsAdvertiser] =
@@ -61,19 +67,23 @@ export const RegisterPage = () => {
     });
 
     useEffect(() => {
-      (async () => {
-        if (cepValue.length === 9 && !cepValue.includes("_")) {
-          const zipCodeFormat = cepValue.replace(".", "")
-          const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`
-          const { data } = await axios.get(url)
-          if (data.erro) {
-            setIsErrorModalOpen(true)
-            return
-          }
-          setCepInfo(data)
-        }
-      })()
-    }, [cepValue])
+        (async () => {
+            if (cepValue.length === 9 && !cepValue.includes("_")) {
+                const zipCodeFormat = cepValue.replace(".", "");
+                const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`;
+                const { data } = await axios.get(url);
+                if (data.erro) {
+                    setIsErrorModalOpen(true);
+                    setMessageModal({
+                        textHeader: "Ops 😢",
+                        textBody: "CEP não encontrado"
+                    })
+                    return;
+                }
+                setCepInfo(data);
+            }
+        })();
+    }, [cepValue]);
 
     const setBuyerOption = () => {
         setIsError(false);
@@ -214,10 +224,10 @@ export const RegisterPage = () => {
                                     labelText={"CEP"}
                                     register={register}
                                     onChange={(e) => {
-                                      const value = e.target.value
-                                      if (value.length === 9) {
-                                        setCepValue(value)
-                                      }
+                                        const value = e.target.value;
+                                        if (value.length === 9) {
+                                            setCepValue(value);
+                                        }
                                     }}
                                     name="address.zipCode"
                                     autoComplete="off"
@@ -449,6 +459,8 @@ export const RegisterPage = () => {
             <ModalError
                 isOpen={isErrorModalOpen}
                 onClose={() => setIsErrorModalOpen(false)}
+                textHeader={messageModal.textHeader}
+                textBody={messageModal.textBody}
                 children={undefined}
             />
         </>
