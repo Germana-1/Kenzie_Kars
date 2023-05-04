@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {
+  ICepInfo,
   IEmailSubmission,
   IMessageModal,
   IResetPassword,
@@ -15,6 +16,7 @@ import {
 import { api } from "../services/api";
 import { IAddressUpdate } from "../interfaces/address.interface";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
@@ -29,7 +31,8 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   const [isSucessModalOpen, setIsSucessModalOpen] = useState(false);
   const [isSucessResetPasswordModalOpen, setIsSucessResetPasswordModalOpen] =
     useState(false);
-  
+  const [cepValue, setCepValue] = useState("");
+  const [cepInfo, setCepInfo] = useState<ICepInfo>({ localidade: "", uf: "" });
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [messageModal, setMessageModal] = useState<IMessageModal>({ textHeader: "Ops!", textBody: "CPF Inválido" })
 
@@ -61,6 +64,27 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       console.error(error);
     }
   }, []);
+
+  async function validateCep() {
+    if (cepValue.length === 9 && !cepValue.includes("_")) {
+        const zipCodeFormat = cepValue.replace(".", "");
+        const url = `https://viacep.com.br/ws/${zipCodeFormat}/json/`;
+        const { data } = await axios.get(url);
+        if (data.erro) {
+            setIsErrorModalOpen(true);
+            setMessageModal({
+                textHeader: "Ops 😢",
+                textBody: "CEP não encontrado"
+            })
+            setCepInfo({
+              localidade: "",
+              uf: ""
+            })
+            return;
+        }
+        setCepInfo(data);
+    }
+  }
 
   async function userAuth() {
     try {
@@ -147,6 +171,11 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       else {
         console.log(error.message);
       }
+    } finally {
+      setCepInfo({
+        localidade: "",
+        uf: ""
+      })
     }
   }
 
@@ -168,11 +197,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/users/profile/address`, data);
     } catch(error: any) {
-      setIsErrorModalOpen(true)
-      setMessageModal({
-        textHeader: "Ops! 😢",
-        textBody: `CEP não existe`,
-      })
+      await validateCep()
     } 
     finally {
       document.location.reload();
@@ -239,7 +264,12 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         isErrorResetPasswordModalOpen,
         setIsErrorResetPasswordModalOpen,
         messageModal,
-        setMessageModal
+        setMessageModal,
+        cepValue,
+        setCepValue,
+        cepInfo,
+        setCepInfo,
+        validateCep
       }}
     >
       {children}
