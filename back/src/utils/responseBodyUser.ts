@@ -10,5 +10,6 @@ export const responseBodyUser = {
   createdAt: true,
   updatedAt: true,
   address: true,
-  announcements: false,
+  announcements: true,
+  comments: true
 };

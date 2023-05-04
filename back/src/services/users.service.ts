@@ -7,7 +7,7 @@ import { ICreateUserRequest, ICreateUserResponse } from "../interfaces";
 import { getUserResponseSchema, createUserResponseSchema } from "../schemas";
 import { AppError } from "../errors";
 import { Address } from "@prisma/client";
-import { resetPasswordTemplate, sendEmail } from "../utils";
+import { resetPasswordTemplate, responseBodyUser, sendEmail } from "../utils";
 
 export const createUserService = async (
   body: ICreateUserRequest
@@ -46,22 +46,12 @@ export const getOneUserService = async (id: string): Promise<any> => {
     where: {
       id,
     },
-    include: {
-      address: true,
-      comments: true,
-      announcements: true,
-    },
+    select: responseBodyUser,
   });
-
   if (!user) {
     throw new AppError("User Not Exist");
   }
-  const userValidated = await getUserResponseSchema.validate(user, {
-    stripUnknown: true,
-    abortEarly: false,
-  });
-
-  return userValidated;
+  return user;
 };
 
 export const updateUserService = async (
