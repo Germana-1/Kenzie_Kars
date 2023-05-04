@@ -78,6 +78,7 @@ export interface IAnnouncementContext {
   announcementRegister: (data: IAnnouncementRegister) => void;
   announcementUpdate: (data: IAnnoucementUpdate) => void;
   announcementListAll: () => void;
+  announcementDelete: () => void;
   announcementListOne: (data: string) => void;
   handleClick: (type: string) => void;
   editAdModalOpen: boolean;

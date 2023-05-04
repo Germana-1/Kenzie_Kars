@@ -166,6 +166,21 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     }
   }
 
+  async function userDelete() {
+    const token = localStorage.getItem("@kenzieToken")
+    try {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.delete(`/users/profile`);
+    } catch (err) {
+      console.log(err);
+    }
+    finally {
+      window.localStorage.clear();
+      setUser(undefined);
+      navigate("/");
+    }
+  }
+
   const logout = () => {
     window.localStorage.clear();
     setUser(undefined);
@@ -176,12 +191,13 @@ export const UserProvider = ({ children }: IUserContextProps) => {
     <UserContext.Provider
       value={{
         user,
-        userEditProfile,
-        userEditAddress,
         sessionError,
         userSession,
         userRegister,
         userListOne,
+        userDelete,
+        userEditProfile,
+        userEditAddress,
         logout,
         handleClick,
         isProfileModalOpen,
@@ -193,7 +209,7 @@ export const UserProvider = ({ children }: IUserContextProps) => {
         isSucessModalOpen,
         setIsSucessModalOpen,
         isErrorModalOpen,
-        setIsErrorModalOpen
+        setIsErrorModalOpen,
         userResetPassword,
         emailSend,
       }}

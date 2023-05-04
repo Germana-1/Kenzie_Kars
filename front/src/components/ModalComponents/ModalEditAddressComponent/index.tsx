@@ -25,7 +25,7 @@ import { updateUserAddressSchema } from "../../../schemas/user.schema";
 import { UserContext } from "../../../contexts/userContext";
 
 export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
-  const { handleClick, userEditAddress, user } = useContext(UserContext);
+  const { userEditAddress, user } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formValues, setFormValues] = useState({
     zipCode: "",
@@ -109,9 +109,6 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
     );
     setIsFormValid(!allValuesAreEmpty);
   }, [formValues]);
-
-
-
 
   return (
     <>

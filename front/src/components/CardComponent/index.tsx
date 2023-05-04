@@ -8,8 +8,7 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FontSizes } from "../../styles/fontSizes";
 import { Colors } from "../../styles/colors";
 import { ButtonBrand4, ButtonGray10 } from "../ButtomComponents";
@@ -17,6 +16,7 @@ import { IAnnouncement } from "../../interfaces/announcement.interface";
 import fallbackImg from "../../assets/selected_car.jpg";
 import { useContext, useState } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
+import { normalize } from "path";
 
 interface IProps {
   announce: IAnnouncement;
@@ -40,80 +40,81 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
     <Box
       minW="312px"
       maxW="312px"
-      h="420px"
       position="relative"
       cursor="pointer"
       onClick={() => navigate(`/product/${announce.id}`)}
     >
-      <Tag
-        position={"absolute"}
-        top={"2px"}
-        left={"2px"}
-        borderRadius={"initial"}
-        backgroundColor={announce.isActive ? Colors.brand1 : Colors.grey4}
-        hidden={hideTag ? true : false}
-        color={Colors.white}
-        fontSize={FontSizes.body2}
-      >
-        {announce.isActive ? "Ativo" : "Inativo"}
-      </Tag>
-
-      {announce.isGoodBuy && (
-        <Tag
-          w="15px"
-          h="27"
-          bg={Colors.random7}
-          borderRadius="2px"
-          position="absolute"
-          left="286px"
-          top="2px"
-          hidden={!announce.isActive && true}
-        >
-          <TagLabel
-            color={Colors.white}
-            fontWeight="500"
-            fontSize={FontSizes.buttonMediumText}
-          >
-            $
-          </TagLabel>
-        </Tag>
-      )}
-
-      <Image
-        src={announce.banner}
-        fallbackSrc={fallbackImg}
-        alt={`${announce.brand} - ${announce.model}`}
-        border={`2px solid ${Colors.grey7}`}
-        bg={Colors.grey7}
-        w="100%"
-        h="152px"
-        whiteSpace={"nowrap"}
-        overflow={"hidden"}
-        textOverflow={"ellipsis"}
-        _hover={{
-          border: `2px solid ${
-            announce.isActive ? Colors.brand1 : Colors.grey4
-          }`,
-        }}
-        objectFit={"cover"}
-      />
-
       <Flex
-        display="flex"
-        flexDirection="column"
-        gap="16px"
-        marginTop="16px"
-        justifyContent={"space-between"}
-        h={"180px"}
+        gap="14px"
+        flexDir={"column"}
       >
-        <Heading
-          size="16px"
+        <Tag
+          position={"absolute"}
+          top={"2px"}
+          left={"2px"}
+          borderRadius={"initial"}
+          backgroundColor={announce.isActive ? Colors.brand1 : Colors.grey4}
+          hidden={hideTag ? true : false}
+          color={Colors.white}
+          fontSize={FontSizes.body2}
+        >
+          {announce.isActive ? "Ativo" : "Inativo"}
+        </Tag>
+
+        {announce.isGoodBuy && (
+          <Tag
+            w="15px"
+            h="27"
+            bg={Colors.random7}
+            borderRadius="2px"
+            position="absolute"
+            left="286px"
+            top="2px"
+            hidden={!announce.isActive && true}
+          >
+            <TagLabel
+              color={Colors.white}
+              fontWeight="500"
+              fontSize={FontSizes.buttonMediumText}
+            >
+              $
+            </TagLabel>
+          </Tag>
+        )}
+
+        <Image
+          src={announce.banner}
+          fallbackSrc={fallbackImg}
+          alt={`${announce.brand} - ${announce.model}`}
+          border={`2px solid ${Colors.grey7}`}
+          bg={Colors.grey7}
+          w="100%"
+          h="152px"
           whiteSpace={"nowrap"}
           overflow={"hidden"}
           textOverflow={"ellipsis"}
+          _hover={{
+            border: `2px solid ${announce.isActive ? Colors.brand1 : Colors.grey4
+              }`,
+          }}
+          objectFit={"cover"}
+        />
+
+        <Flex
+          display="flex"
+          flexDirection="column"
+          gap="16px"
+          justifyContent={"space-between"}
         >
-          {`${announce.brand} - ${announce.model}`}
-        </Heading>
+          <Heading
+            size="16px"
+            whiteSpace={"nowrap"}
+            overflow={"hidden"}
+            textOverflow={"ellipsis"}
+          >
+            {`${announce.brand} - ${announce.model}`}
+          </Heading>
+        </Flex>
 
         <Text
           fontSize="14px"
@@ -153,7 +154,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           <Flex gap="10px">
             <ButtonGray10
               bg={"transparent"}
-              
+
               onClick={(e) => {
                 e.stopPropagation()
                 handleClick('editAd')
@@ -163,6 +164,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
             </ButtonGray10>
             <ButtonGray10 bg={"transparent"}>Ver detalhe</ButtonGray10>
           </Flex>) : null}
+      </Flex>
     </Box>
   );
 };
