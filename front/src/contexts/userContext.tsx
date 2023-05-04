@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-
 import {
   IEmailSubmission,
   IResetPassword,
@@ -91,12 +90,11 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   async function userResetPassword(data: IResetPassword, resetToken: string) {
     try {
       const res = await api.patch(`/users/resetPassword/${resetToken}`, data);
-      toast.success("Nova senha foi criada com sucesso!");
+      setIsSucessResetPasswordModalOpen(true);
       console.log(res.data);
-      navigate("/login");
       setSessioError(false);
     } catch (error) {
-      console.error(error);
+      setIsErrorResetPasswordModalOpen(true);
       setSessioError(true);
     }
   }
@@ -138,33 +136,29 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   }
 
   async function userEditProfile(data: IUserUpdate) {
-    const token = localStorage.getItem("@kenzieToken")
+    const token = localStorage.getItem("@kenzieToken");
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/users/profile/`, data);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
-    }
-    finally {
-      document.location.reload()
+    } finally {
+      document.location.reload();
     }
   }
-  
+
   async function userEditAddress(data: IAddressUpdate) {
-    const token = localStorage.getItem("@kenzieToken")
+    const token = localStorage.getItem("@kenzieToken");
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/users/profile/address`, data);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
-    }
-    finally {
-      document.location.reload()
+    } finally {
+      document.location.reload();
     }
   }
-  
+
   async function userListOne(userId: string | undefined) {
     try {
       const res = await api.get(`/users/${userId}`);
@@ -176,14 +170,13 @@ export const UserProvider = ({ children }: IUserContextProps) => {
   }
 
   async function userDelete() {
-    const token = localStorage.getItem("@kenzieToken")
+    const token = localStorage.getItem("@kenzieToken");
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/users/profile`);
     } catch (err) {
       console.log(err);
-    }
-    finally {
+    } finally {
       window.localStorage.clear();
       setUser(undefined);
       navigate("/");

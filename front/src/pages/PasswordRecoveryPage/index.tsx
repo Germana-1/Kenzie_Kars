@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   Flex,
   FormControl,
@@ -9,22 +8,27 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-
-import { ButtonGray10OutlineG4 } from "../../components/ButtomComponents";
+import { useParams } from "react-router-dom";
 import { HeaderComponent } from "../../components/HeaderComponent";
 import { FooterComponent } from "../../components/FooterComponent";
 import { TextH5, TextH7 } from "../../components/TextComponents";
 import { ButtonBrand1 } from "../../components/ButtomComponents";
 import { Colors } from "../../styles/colors";
 import { UserContext } from "../../contexts/userContext";
-import { IResetPassword, IUserLogin } from "../../interfaces/user.interface";
-import { TextB2 } from "../../components/TextComponents";
+import { IResetPassword } from "../../interfaces/user.interface";
 import { labelCSS } from "../../styles/global";
-import { ViewIcon, ViewOffIcon, WarningIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { ModalSucessResetPasswordComponent } from "../../components/ModalComponents/ModalSucessResetPasswordComponent";
+import { ModalErrorResetPasswordComponent } from "../../components/ModalComponents/ModalErrorResetPasswordComponent";
 
 export const PasswordRecoveryPage = () => {
-  const { userResetPassword } = useContext(UserContext);
+  const {
+    userResetPassword,
+    isSucessResetPasswordModalOpen,
+    setIsSucessResetPasswordModalOpen,
+    isErrorResetPasswordModalOpen,
+    setIsErrorResetPasswordModalOpen,
+  } = useContext(UserContext);
   const { register, handleSubmit } = useForm<IResetPassword>();
   const [showPassword, setShowPassword] = useState(true);
   const { resetToken } = useParams();
@@ -99,6 +103,16 @@ export const PasswordRecoveryPage = () => {
       </Container>
 
       <FooterComponent />
+      <ModalSucessResetPasswordComponent
+        isOpen={isSucessResetPasswordModalOpen}
+        onClose={() => setIsSucessResetPasswordModalOpen(false)}
+        children={undefined}
+      />
+      <ModalErrorResetPasswordComponent
+        isOpen={isErrorResetPasswordModalOpen}
+        onClose={() => setIsErrorResetPasswordModalOpen(false)}
+        children={undefined}
+      />
     </>
   );
 };
