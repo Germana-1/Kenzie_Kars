@@ -6,10 +6,11 @@ export const responseBodyUser = {
   accountType: true,
   birthdate: true,
   description: true,
+  avatar: true,
   phone: true,
   createdAt: true,
   updatedAt: true,
   address: true,
   announcements: true,
-  comments: true
+  comments: true,
 };

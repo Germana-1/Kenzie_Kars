@@ -4,17 +4,22 @@ import { Colors } from "../../styles/colors";
 import { TextB1, TextB2 } from "../TextComponents";
 
 interface IUserCommentary {
-  id: string;
-  name: string;
-  avatar: string;
-  comment: string;
-  createdAt: string;
-  updatedAt: string;
-  announcementId: string;
-  userId: string;
+  comment: {
+    id: string;
+    name: string;
+    avatar: string;
+    comment: string;
+    createdAt: string;
+    updatedAt: string;
+    announcementId: string;
+    user: {
+      avatar: string;
+      name: string;
+    };
+  };
 }
 
-export const CommentComponent = (user: IUserCommentary) => {
+export const CommentComponent = ({ comment }: IUserCommentary) => {
   const getTotalDays = (value: string) => {
     const date1 = new Date(value);
     const date2 = new Date();
@@ -33,19 +38,19 @@ export const CommentComponent = (user: IUserCommentary) => {
       backgroundColor={Colors.white}
     >
       <Flex gap={"10px"} alignItems="center">
-        <Avatar w="32px" h="32px" src={user.avatar} />
+        <Avatar w="32px" h="32px" src={comment.user.avatar} />
 
-        <TextB2 fontWeight="500">{user.name}</TextB2>
+        <TextB2 fontWeight="500">{comment.user.name}</TextB2>
         <TextB2 fontWeight="500" color={Colors.grey3}>
           ●
         </TextB2>
         <TextB2 fontWeight="500" color={Colors.grey3}>
-          há {getTotalDays(user.updatedAt)} dias
+          há {getTotalDays(comment.updatedAt)} dias
         </TextB2>
       </Flex>
 
       <TextB1 fontWeight="400" color={Colors.grey2}>
-        {user.comment}
+        {comment.comment}
       </TextB1>
     </Flex>
   );

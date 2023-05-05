@@ -21,13 +21,12 @@ export const ProductUserCommentComponent = ({ announcement }: IProps) => {
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
 
-  const handleClick = (comment: string) => {
-    api.post(`/comments/announcement/${announcement.id}`, {
+  const handleClick = async (comment: string) => {
+    await api.post(`/comments/announcement/${announcement.id}`, {
       comment: comment,
     });
+    window.location.reload();
   };
-
-  console.log(announcement.comments);
 
   return (
     <Flex
@@ -38,7 +37,7 @@ export const ProductUserCommentComponent = ({ announcement }: IProps) => {
       backgroundColor={Colors.grey10}
     >
       <Flex gap={"10px"} alignItems="center">
-        <Avatar w={"32px"} h={"32px"} />
+        <Avatar w={"32px"} h={"32px"} src={user?.avatar} />
         <TextB2 fontWeight={"500"}>{user?.name}</TextB2>
       </Flex>
 

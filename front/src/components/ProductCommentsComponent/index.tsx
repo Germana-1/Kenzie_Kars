@@ -20,9 +20,11 @@ export const ProductCommentsComponent = ({ announcement }: IProps) => {
     >
       <TextH6 fontWeight="600">Comentários</TextH6>
 
-      {announcement.comments?.map((user, i) => {
-        return <CommentComponent user={user} key={i}/>;
-      })}
+      {announcement.comments?.length
+        ? announcement.comments.map((comment, i) => (
+            <CommentComponent comment={comment} key={i} />
+          ))
+        : null}
     </Flex>
   );
 };

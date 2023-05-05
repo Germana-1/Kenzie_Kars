@@ -12,7 +12,7 @@ import { UserContext } from "../../contexts/userContext";
 import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
-import { ModalError } from './../../components/ModalComponents/ModalErrorComponent/index';
+import { ModalError } from "./../../components/ModalComponents/ModalErrorComponent/index";
 
 export const ProfileViewPage = () => {
   const { id } = useParams();
@@ -25,7 +25,8 @@ export const ProfileViewPage = () => {
     deleteAdModalOpen,
     setDeleteAdModalOpen,
   } = useContext(AnnouncementContext);
-  const { isErrorModalOpen, setIsErrorModalOpen, messageModal } = useContext(UserContext)
+  const { isErrorModalOpen, setIsErrorModalOpen, messageModal } =
+    useContext(UserContext);
 
   useEffect(() => {
     if (user?.accountType !== "seller" && user?.id === id) {
@@ -33,8 +34,7 @@ export const ProfileViewPage = () => {
     }
     async function main() {
       const res = await userListOne(id);
-      console.log(res);
-      
+
       setUserProfile(res);
     }
     main();
@@ -69,11 +69,11 @@ export const ProfileViewPage = () => {
         children={undefined}
       />
       <ModalError
-          isOpen={isErrorModalOpen}
-          onClose={() => setIsErrorModalOpen(false)}
-          textHeader={messageModal.textHeader}
-          textBody={messageModal.textBody}
-          children={undefined}
+        isOpen={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        textHeader={messageModal.textHeader}
+        textBody={messageModal.textBody}
+        children={undefined}
       />
     </>
   ) : (
