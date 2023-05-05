@@ -2,6 +2,10 @@
 
 Site de e-commerce voltado para compra de carros em geral.
 
+<p align="center">
+    <img src="./src/assets/project_video.gif" />
+</p>
+
 ---
 
 # Instalação
