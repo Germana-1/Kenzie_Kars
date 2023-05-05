@@ -37,6 +37,13 @@ export const ProductGalleryComponent = ({ announcement }: IProps) => {
     },
   ];
 
+  const foo = announcement.images?.map((el) => {
+    return {
+      original: el.imgUrl,
+      thumbnail: el.imgUrl,
+    };
+  });
+
   return (
     <>
       <Flex

@@ -13,10 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
-import {
-  ButtonGray6,
-  ButtonGray5,
-} from "../../ButtomComponents";
+import { ButtonGray6, ButtonGray5, ButtonBrand1 } from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
 import { Colors } from "../../../styles/colors";
@@ -43,13 +40,16 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
     setIsFormValid(!allValuesAreEmpty);
   }, [formValues]);
 
-
-  const { register, handleSubmit, formState: { errors }, } = useForm({
-    resolver: yupResolver(updateUserAddressSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(updateUserAddressSchema),
   });
 
-  const handlerForm = async (event: { preventDefault: () => void; }) => {
-    event.preventDefault()
+  const handlerForm = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
 
     const updatedFields: {
       complement?: string;
@@ -61,27 +61,27 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
     } = {};
 
     if (user) {
-      if (formValues.complement !== '') {
+      if (formValues.complement !== "") {
         updatedFields.complement = formValues.complement;
       }
 
-      if (formValues.street !== '') {
+      if (formValues.street !== "") {
         updatedFields.street = formValues.street;
       }
 
-      if (formValues.number !== '') {
+      if (formValues.number !== "") {
         updatedFields.number = formValues.number;
       }
 
-      if (formValues.city !== '') {
-        updatedFields.city = formValues.city
+      if (formValues.city !== "") {
+        updatedFields.city = formValues.city;
       }
 
-      if (formValues.state !== '') {
+      if (formValues.state !== "") {
         updatedFields.state = formValues.state;
       }
 
-      if (formValues.zipCode !== '') {
+      if (formValues.zipCode !== "") {
         updatedFields.zipCode = formValues.zipCode;
       }
 
@@ -90,12 +90,12 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
       };
 
       try {
-        userEditAddress(dataUpdate)
+        userEditAddress(dataUpdate);
       } catch (err) {
         console.log(err);
       }
     }
-  }
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
@@ -120,7 +120,7 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
           fontFamily="Lexend"
           onSubmit={(event) => {
             event.preventDefault();
-            handlerForm(event)
+            handlerForm(event);
           }}
           zIndex="10000"
         >
@@ -145,12 +145,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                     <InputFormComponent
                       mask={"99999.999"}
                       labelText={"CEP"}
-                      placeholder={"00000.000"}
                       register={register}
                       name="zipCode"
                       value={formValues.zipCode}
                       onChange={(event) => {
-                        setFormValues({ ...formValues, zipCode: event.target.value });
+                        setFormValues({
+                          ...formValues,
+                          zipCode: event.target.value,
+                        });
                         handleInputChange(event);
                       }}
                       autoComplete="off"
@@ -159,12 +161,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       <Flex flexDir={"column"} gap={2}>
                         <InputFormComponent
                           labelText={"Estado"}
-                          placeholder={"Digitar Estado"}
                           register={register}
                           name="state"
                           value={formValues.state}
                           onChange={(event) => {
-                            setFormValues({ ...formValues, state: event.target.value });
+                            setFormValues({
+                              ...formValues,
+                              state: event.target.value,
+                            });
                             handleInputChange(event);
                           }}
                           autoComplete="off"
@@ -173,12 +177,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       <Flex flexDir={"column"} gap={2}>
                         <InputFormComponent
                           labelText={"Cidade"}
-                          placeholder={"Digitar Cidade"}
                           register={register}
                           name="city"
                           value={formValues.city}
                           onChange={(event) => {
-                            setFormValues({ ...formValues, city: event.target.value });
+                            setFormValues({
+                              ...formValues,
+                              city: event.target.value,
+                            });
                             handleInputChange(event);
                           }}
                           autoComplete="off"
@@ -187,12 +193,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                     </Flex>
                     <InputFormComponent
                       labelText={"Rua"}
-                      placeholder={"Digitar Rua"}
                       register={register}
                       name="street"
                       value={formValues.street}
                       onChange={(event) => {
-                        setFormValues({ ...formValues, street: event.target.value });
+                        setFormValues({
+                          ...formValues,
+                          street: event.target.value,
+                        });
                         handleInputChange(event);
                       }}
                       autoComplete="off"
@@ -202,12 +210,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                         <InputFormComponent
                           labelText={"Número"}
                           type="number"
-                          placeholder={"Digitar Numero"}
                           register={register}
                           name="number"
                           value={formValues.number}
                           onChange={(event) => {
-                            setFormValues({ ...formValues, number: event.target.value });
+                            setFormValues({
+                              ...formValues,
+                              number: event.target.value,
+                            });
                             handleInputChange(event);
                           }}
                           autoComplete="off"
@@ -216,12 +226,14 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
                       <Flex flexDir={"column"} gap={2}>
                         <InputFormComponent
                           labelText={"Complemento"}
-                          placeholder={"Ex: apart 307"}
                           register={register}
                           name="complement"
                           value={formValues.complement}
                           onChange={(event) => {
-                            setFormValues({ ...formValues, complement: event.target.value });
+                            setFormValues({
+                              ...formValues,
+                              complement: event.target.value,
+                            });
                             handleInputChange(event);
                           }}
                           autoComplete="off"
@@ -234,12 +246,20 @@ export const ModalEditAddress = ({ isOpen, onClose }: ModalProps) => {
             </FormControl>
           </ModalBody>
           <ModalFooter gap="10px">
-            <ButtonGray6 fontWeight={500} color={Colors.grey2} onClick={onClose}>
+            <ButtonGray6
+              fontWeight={500}
+              color={Colors.grey2}
+              onClick={onClose}
+            >
               Cancelar
             </ButtonGray6>
-            <ButtonGray5 isDisabled={!isFormValid} onClick={(event) => handlerForm(event)} type="submit">
+            <ButtonBrand1
+              isDisabled={!isFormValid}
+              onClick={(event) => handlerForm(event)}
+              type="submit"
+            >
               Salvar Alterações
-            </ButtonGray5>
+            </ButtonBrand1>
           </ModalFooter>
         </ModalContent>
       </Modal>

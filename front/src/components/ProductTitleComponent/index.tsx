@@ -6,7 +6,7 @@ import { Colors } from "../../styles/colors";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/userContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface IProps {
   announcement: IAnnouncement;
@@ -15,13 +15,6 @@ interface IProps {
 export const ProductTitleComponent = ({ announcement }: IProps) => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
-  const [isOwner, setIsOnwer] = useState();
-
-  useEffect(() => {
-    const data = user?.announcements?.filter((el) => el.id === id);
-    
-    
-  }, []);
 
   return (
     <Flex
@@ -51,18 +44,18 @@ export const ProductTitleComponent = ({ announcement }: IProps) => {
         </Flex>
 
         <TextH7 fontWeight="500">
-          {announcement.price.toLocaleString("pt-BR", {
+          {Number(announcement.price).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}
         </TextH7>
       </Flex>
 
-      {!isOwner && (
-        <Box>
+      <Box>
+        <Link to={`https://wa.me/${announcement.user?.phone}`}>
           <ButtonBrand1>Comprar</ButtonBrand1>
-        </Box>
-      )}
+        </Link>
+      </Box>
     </Flex>
   );
 };

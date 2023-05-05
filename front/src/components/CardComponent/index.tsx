@@ -17,6 +17,7 @@ import fallbackImg from "../../assets/selected_car.jpg";
 import { useContext, useState } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { normalize } from "path";
+import { TextH7 } from "../TextComponents";
 
 interface IProps {
   announce: IAnnouncement;
@@ -146,7 +147,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
               )} KM`}</ButtonBrand4>
               <ButtonBrand4 size={"sm"}>{announce.year}</ButtonBrand4>
             </Flex>
-            <ButtonBrand4 size={"sm"}> {price}</ButtonBrand4>
+            <TextH7 fontWeight={500}>{price}</TextH7>
           </Flex>
         </Flex>
       </Flex>

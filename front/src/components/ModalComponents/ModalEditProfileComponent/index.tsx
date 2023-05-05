@@ -33,7 +33,6 @@ import { updateUserSchema } from "../../../schemas/user.schema";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { inputCSS, labelCSS } from "../../../styles/global";
 
-
 export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
   const { handleClick, userEditProfile, user } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(true);
@@ -51,7 +50,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     description: "",
     avatar: "",
     password: "",
-    accountType: ""
+    accountType: "",
   });
 
   const {
@@ -63,8 +62,8 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
   });
 
   const descriptionValue = watch("description");
-  const handlerForm = async (event: { preventDefault: () => void; }) => {
-    event.preventDefault()
+  const handlerForm = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
 
     const updatedFields: {
       name?: string;
@@ -79,19 +78,19 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
     } = {};
 
     if (user) {
-      if (formValues.name !== '') {
+      if (formValues.name !== "") {
         updatedFields.name = formValues.name;
       }
 
-      if (formValues.email !== '') {
+      if (formValues.email !== "") {
         updatedFields.email = formValues.email;
       }
 
-      if (formValues.password !== '') {
+      if (formValues.password !== "") {
         updatedFields.password = formValues.password;
       }
 
-      if (formValues.birthdate !== '') {
+      if (formValues.birthdate !== "") {
         const brDate = formValues.birthdate.split("/");
         if (brDate.length === 3) {
           const usDate = `${brDate[2]}-${brDate[1]}-${brDate[0]}`;
@@ -99,22 +98,25 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
         }
       }
 
-      if (formValues.cpf !== '') {
+      if (formValues.cpf !== "") {
         updatedFields.cpf = formValues.cpf;
       }
 
-      if (formValues.phone !== '') {
+      if (formValues.phone !== "") {
         updatedFields.phone = formValues.phone;
       }
 
-      if (formValues.description !== '' && formValues.description !== user.description) {
+      if (
+        formValues.description !== "" &&
+        formValues.description !== user.description
+      ) {
         updatedFields.description = formValues.description;
       }
-      if (formValues.avatar !== '' && formValues.avatar !== user.avatar) {
+      if (formValues.avatar !== "" && formValues.avatar !== user.avatar) {
         updatedFields.avatar = formValues.avatar;
       }
 
-      if (formValues.accountType !== '') {
+      if (formValues.accountType !== "") {
         updatedFields.accountType = formValues.accountType;
       }
 
@@ -124,12 +126,12 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
       };
 
       try {
-        userEditProfile(dataUpdate)
+        userEditProfile(dataUpdate);
       } catch (err) {
         console.log(err);
       }
     }
-  }
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
@@ -182,12 +184,12 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
           fontFamily="Lexend"
           onSubmit={(event) => {
             event.preventDefault();
-            handlerForm(event)
+            handlerForm(event);
           }}
           zIndex="10000"
         >
           <ModalHeader>
-            <TextH7 fontWeight={800} fontFamily="Lexend" color={Colors.brand1}>
+            <TextH7 fontWeight={800} color={Colors.brand1}>
               Editar perfil
             </TextH7>
           </ModalHeader>
@@ -199,7 +201,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <Flex flexDir={"column"} gap={5}>
               <InputFormComponent
                 labelText={"Nome"}
-                placeholder={"Samuel Leão Silva"}
                 register={register}
                 value={formValues.name}
                 onChange={(event) => {
@@ -211,7 +212,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
               />
               <InputFormComponent
                 labelText={"Email"}
-                placeholder={"samuel@kenzie.com.br"}
                 register={register}
                 value={formValues.email}
                 name="email"
@@ -224,7 +224,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
               <FormLabel css={labelCSS} mb={0}>
                 Senha
               </FormLabel>
-              <Flex >
+              <Flex>
                 <InputGroup>
                   <Input
                     borderRightRadius={0}
@@ -234,12 +234,14 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                     type={showPassword ? "password" : "text"}
                     name="password"
                     onChange={(event) => {
-                      setFormValues({ ...formValues, password: event.target.value });
+                      setFormValues({
+                        ...formValues,
+                        password: event.target.value,
+                      });
                       handleInputChange(event);
                     }}
                     autoComplete="off"
-                  >
-                  </Input>
+                  ></Input>
                   <IconButton
                     borderLeftRadius={0}
                     aria-label="Toggle password visibility"
@@ -265,7 +267,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <InputFormComponent
               mask={"999.999.999-99"}
               labelText={"CPF"}
-              placeholder={"000.000.000-00"}
               register={register}
               name="cpf"
               onChange={(event) => {
@@ -278,7 +279,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <InputFormComponent
               mask={"(99) 99999-9999"}
               labelText={"Celular"}
-              placeholder={"(DDD) 90000-0000"}
               register={register}
               name="phone"
               onChange={(event) => {
@@ -299,6 +299,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       : ""
                   }
                   isDisabled={optionIsBuyer}
+                  _hover={{ bg: Colors.brand1 }}
                   onClick={() => setBuyerOption()}
                 >
                   Comprador
@@ -312,6 +313,7 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
                       : ""
                   }
                   isDisabled={optionIsAdvertiser}
+                  _hover={{ bg: "none" }}
                   onClick={() => setAdvertiserOption()}
                 >
                   Anunciante
@@ -321,7 +323,6 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <InputFormComponent
               mask={"99/99/9999"}
               labelText={"Data de Nascimento"}
-              placeholder={"00/00/0000"}
               register={register}
               name="birthdate"
               onChange={(event) => {
@@ -335,15 +336,15 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <Textarea
               css={inputCSS}
               autoComplete="off"
+              resize={"none"}
               color={Colors.brand1}
               focusBorderColor={Colors.brand1}
               value={formValues.description}
-              placeholder={"Digitar descrição"}
               {...register("description", {
                 onChange: (e) => {
                   setFormValues({ ...formValues, description: e.target.value });
-                  handleInputChange(e)
-                }
+                  handleInputChange(e);
+                },
               })}
             />
           </ModalBody>
@@ -352,12 +353,16 @@ export const ModalEditProfile = ({ isOpen, onClose }: ModalProps) => {
             <ButtonAlert3 onClick={() => handleClick("delete")}>
               Excluir Perfil
             </ButtonAlert3>
-            <ButtonBrand1 type="submit" isDisabled={!isFormValid} onClick={(event) => handlerForm(event)}>
+            <ButtonBrand1
+              type="submit"
+              isDisabled={!isFormValid}
+              onClick={(event) => handlerForm(event)}
+            >
               Salvar Alterações
             </ButtonBrand1>
           </ModalFooter>
         </ModalContent>
-      </Modal >
+      </Modal>
     </>
   );
-}
+};
