@@ -4,15 +4,30 @@ import { Colors } from "../../styles/colors";
 import { TextB2 } from "../TextComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
+import { UserContext } from "../../contexts/userContext";
+import { api } from "../../services/api";
 
 interface IProps {
   announcement: IAnnouncement;
 }
 
+interface IComment {
+  comment: string;
+}
+
 export const ProductUserCommentComponent = ({ announcement }: IProps) => {
+  const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
+
+  const handleClick = (comment: string) => {
+    api.post(`/comments/announcement/${announcement.id}`, {
+      comment: comment,
+    });
+  };
+
+  console.log(announcement.comments);
 
   return (
     <Flex
@@ -24,7 +39,7 @@ export const ProductUserCommentComponent = ({ announcement }: IProps) => {
     >
       <Flex gap={"10px"} alignItems="center">
         <Avatar w={"32px"} h={"32px"} />
-        <TextB2 fontWeight={"500"}>{announcement.user?.name}</TextB2>
+        <TextB2 fontWeight={"500"}>{user?.name}</TextB2>
       </Flex>
 
       <Flex direction={"column"} gap={"10px"} position={"relative"}>
@@ -45,6 +60,7 @@ export const ProductUserCommentComponent = ({ announcement }: IProps) => {
             size="sm"
             width={"100%"}
             isDisabled={comment.trim().length ? false : true}
+            onClick={() => handleClick(comment)}
           >
             Comentar
           </ButtonBrand1>

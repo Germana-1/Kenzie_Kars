@@ -10,8 +10,6 @@ interface IProps {
 }
 
 export const ProductCommentsComponent = ({ announcement }: IProps) => {
-  const comments = [1, 2, 3];
-
   return (
     <Flex
       direction={"column"}
@@ -22,8 +20,8 @@ export const ProductCommentsComponent = ({ announcement }: IProps) => {
     >
       <TextH6 fontWeight="600">Comentários</TextH6>
 
-      {comments.map((el, i) => {
-        return <CommentComponent key={i} />;
+      {announcement.comments?.map((user, i) => {
+        return <CommentComponent user={user} key={i}/>;
       })}
     </Flex>
   );
