@@ -52,7 +52,9 @@ export const ProductTitleComponent = ({ announcement }: IProps) => {
       </Flex>
 
       <Box>
-        <Link to={`https://wa.me/${announcement.user?.phone}`}>
+        <Link
+          to={`https://wa.me/${announcement.user?.phone.replace(/\D/g, "")}`}
+        >
           <ButtonBrand1>Comprar</ButtonBrand1>
         </Link>
       </Box>
