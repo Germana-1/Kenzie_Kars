@@ -6,6 +6,7 @@ import { TextB1, TextB2 } from "../TextComponents";
 interface IUserCommentary {
   id: string;
   name: string;
+  avatar: string;
   comment: string;
   createdAt: string;
   updatedAt: string;
@@ -32,7 +33,7 @@ export const CommentComponent = (user: IUserCommentary) => {
       backgroundColor={Colors.white}
     >
       <Flex gap={"10px"} alignItems="center">
-        <Avatar w="32px" h="32px" />
+        <Avatar w="32px" h="32px" src={user.avatar} />
 
         <TextB2 fontWeight="500">{user.name}</TextB2>
         <TextB2 fontWeight="500" color={Colors.grey3}>

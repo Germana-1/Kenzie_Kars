@@ -38,7 +38,6 @@ import { UserContext } from "../../../contexts/userContext";
 import { IImage } from "../../../interfaces/image.interface";
 import { updateAnnouncementSchema } from "../../../schemas/announcement.schema";
 
-
 export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
   const { announcementUpdate, handleClick } = useContext(AnnouncementContext);
   const { user } = useContext(UserContext);
@@ -69,13 +68,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     formState: { errors },
     watch,
   } = useForm({
-    resolver: yupResolver(updateAnnouncementSchema)
+    resolver: yupResolver(updateAnnouncementSchema),
   });
 
   const descriptionValue = watch("description");
 
-  const handlerForm = async (event: { preventDefault: () => void; }) => {
-    event.preventDefault()
+  const handlerForm = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
 
     const updatedFields: {
       brand?: string;
@@ -93,42 +92,42 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     } = {};
 
     if (user) {
-      if (formValues.brand !== '') {
+      if (formValues.brand !== "") {
         updatedFields.brand = formValues.brand;
       }
 
-      if (formValues.banner !== '') {
+      if (formValues.banner !== "") {
         updatedFields.banner = formValues.banner;
       }
 
-      if (formValues.color !== '') {
+      if (formValues.color !== "") {
         updatedFields.color = formValues.color;
       }
 
-      if (formValues.description !== '') {
+      if (formValues.description !== "") {
         updatedFields.description = formValues.description;
       }
 
-      if (formValues.fuelType !== '') {
+      if (formValues.fuelType !== "") {
         updatedFields.fuelType = formValues.fuelType;
       }
 
-      if (formValues.mileage !== '') {
-        updatedFields.mileage = parseInt(formValues.mileage)
+      if (formValues.mileage !== "") {
+        updatedFields.mileage = parseInt(formValues.mileage);
       }
-      if (formValues.model !== '') {
+      if (formValues.model !== "") {
         updatedFields.model = formValues.model;
       }
-      if (formValues.price !== '') {
-        updatedFields.price = parseInt(formValues.price)
+      if (formValues.price !== "") {
+        updatedFields.price = parseInt(formValues.price);
       }
-      if (formValues.priceFipe !== '') {
-        updatedFields.priceFipe = parseInt(formValues.priceFipe)
+      if (formValues.priceFipe !== "") {
+        updatedFields.priceFipe = parseInt(formValues.priceFipe);
       }
-      if (formValues.year !== '') {
+      if (formValues.year !== "") {
         updatedFields.year = parseInt(formValues.year);
       }
-      if (formValues.images !== '') {
+      if (formValues.images !== "") {
         updatedFields.images = formValues.images;
       }
 
@@ -137,12 +136,12 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
       };
 
       try {
-        announcementUpdate(dataUpdate)
+        announcementUpdate(dataUpdate);
       } catch (err) {
         console.log(err);
       }
     }
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
@@ -172,8 +171,6 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
     setIsFormValid(!!descriptionValue);
   }, [descriptionValue]);
 
-
-
   useEffect(() => {
     (async () => {
       const res = await getAllBrands();
@@ -184,10 +181,14 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={() => {
-        setShowInput(false);
-        onClose();
-      }} closeOnOverlayClick={false}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setShowInput(false);
+          onClose();
+        }}
+        closeOnOverlayClick={false}
+      >
         <ModalOverlay />
         <ModalContent
           mt="100px"
@@ -195,7 +196,7 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
           fontFamily="Lexend"
           onSubmit={(event) => {
             event.preventDefault();
-            handlerForm(event)
+            handlerForm(event);
           }}
           zIndex="10000"
         >
@@ -217,7 +218,9 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
               <Flex direction="column" gap="15px">
                 <Box>
                   <Flex flexDir={"column"} gap={5}>
-                    <FormLabel margin={0} css={labelCSS}>Marca</FormLabel>
+                    <FormLabel margin={0} css={labelCSS}>
+                      Marca
+                    </FormLabel>
                     <Select
                       css={inputCSS}
                       color={Colors.brand1}
@@ -225,8 +228,11 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       value={formValues.brand}
                       {...register("brand", {
                         onChange: (e) => {
-                          setFormValues({ ...formValues, brand: e.target.value });
-                          handleInputChange
+                          setFormValues({
+                            ...formValues,
+                            brand: e.target.value,
+                          });
+                          handleInputChange;
                           getModels(e.target.value);
                         },
                       })}
@@ -238,7 +244,9 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                         </option>
                       ))}
                     </Select>
-                    <FormLabel margin={0} css={labelCSS}>Modelo</FormLabel>
+                    <FormLabel margin={0} css={labelCSS}>
+                      Modelo
+                    </FormLabel>
                     <Select
                       css={inputCSS}
                       color={Colors.brand1}
@@ -247,10 +255,13 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       value={formValues.model}
                       {...register("model", {
                         onChange: (e) => {
-                          setFormValues({ ...formValues, model: e.target.value });
-                          handleInputChange
-                          getCarDetails(e.target.value)
-                        }
+                          setFormValues({
+                            ...formValues,
+                            model: e.target.value,
+                          });
+                          handleInputChange;
+                          getCarDetails(e.target.value);
+                        },
                       })}
                     >
                       {models.map((model, i) => (
@@ -262,30 +273,33 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                     <Flex mt="15px" gap={2}>
                       <InputFormComponent
                         labelText={"Combustivel"}
-                        placeholder={"Gasolina / Etanol"}
                         register={register}
                         value={formValues.fuelType}
                         {...register("model", {
                           onChange: (e) => {
-                            setFormValues({ ...formValues, fuelType: e.target.value });
-                            handleInputChange
-                            getCarDetails(e.target.value)
-                          }
+                            setFormValues({
+                              ...formValues,
+                              fuelType: e.target.value,
+                            });
+                            handleInputChange;
+                            getCarDetails(e.target.value);
+                          },
                         })}
                         autoComplete="off"
                       />
                       <InputFormComponent
                         type="number"
                         labelText={"Ano"}
-                        placeholder={"2018"}
                         register={register}
                         name="year"
                         value={formValues.year}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, year: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            year: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                     </Flex>
@@ -293,28 +307,30 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       <InputFormComponent
                         type="number"
                         labelText={"Quilometragem"}
-                        placeholder={"30.000"}
                         register={register}
                         name="mileage"
                         value={formValues.mileage}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, mileage: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            mileage: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                       <InputFormComponent
                         labelText={"Cor"}
-                        placeholder={"Branco"}
                         register={register}
                         name="color"
                         value={formValues.color}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, color: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            color: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                     </Flex>
@@ -322,29 +338,31 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       <InputFormComponent
                         type="number"
                         labelText={"Preço tabela FIPE"}
-                        placeholder={"R$ 48.000,00"}
                         register={register}
                         name="priceFipe"
                         value={formValues.priceFipe}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, priceFipe: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            priceFipe: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                       <InputFormComponent
                         type="number"
                         labelText={"Preço"}
-                        placeholder={"R$ 50.000,00"}
                         register={register}
                         name="price"
                         value={formValues.price}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, price: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            price: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                     </Flex>
@@ -354,27 +372,32 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                       autoComplete="off"
                       color={Colors.brand1}
                       focusBorderColor={Colors.brand1}
+                      resize={"none"}
                       value={formValues.description}
-                      placeholder={"Digitar descrição"}
                       {...register("description", {
                         onChange: (e) => {
-                          setFormValues({ ...formValues, description: e.target.value });
-                          handleInputChange(e)
-                        }
+                          setFormValues({
+                            ...formValues,
+                            description: e.target.value,
+                          });
+                          handleInputChange(e);
+                        },
                       })}
                     />
                     <Flex flexDir={"column"} gap={2}>
                       <InputFormComponent
                         labelText={"Imagem da capa"}
-                        placeholder={"https://image.com"}
                         register={register}
                         name="banner"
+                        placeholder="Ex: http://www.imagestock.com"
                         value={formValues.banner}
                         onChange={(event) => {
-                          setFormValues({ ...formValues, banner: event.target.value });
+                          setFormValues({
+                            ...formValues,
+                            banner: event.target.value,
+                          });
                           handleInputChange(event);
-                        }
-                        }
+                        }}
                         autoComplete="off"
                       />
                     </Flex>
@@ -385,15 +408,18 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                           <FormLabel>{`${i + 1}º Imagem da galeria`}</FormLabel>
                           <Input
                             css={inputCSS}
-                            placeholder="Ex: http://www.imagestock.com"
                             autoComplete="off"
+                            placeholder="Ex: http://www.imagestock.com"
                             color={Colors.brand1}
                             focusBorderColor={Colors.brand1}
                             {...register(`image${i + 1}`, {
                               onChange: (e) => {
-                                setFormValues({ ...formValues, images: e.target.value });
-                                handleInputChange
-                              }
+                                setFormValues({
+                                  ...formValues,
+                                  images: e.target.value,
+                                });
+                                handleInputChange;
+                              },
                             })}
                           />
                         </Box>
@@ -402,25 +428,35 @@ export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
                     <ButtonBrand4
                       alignSelf="flex-start"
                       fontSize="14px"
-                      onClick={() => setImage((prevImages) => [...prevImages, 1])}
+                      onClick={() =>
+                        setImage((prevImages) => [...prevImages, 1])
+                      }
                     >
-                      Adicionar campo para imagem da galeria
+                      Adicionar imagem
                     </ButtonBrand4>
                   </Flex>
                 </Box>
               </Flex>
             </FormControl>
-          </ModalBody >
+          </ModalBody>
           <ModalFooter gap="10px">
-            <ButtonGray6 fontWeight={500} color={Colors.grey2} onClick={() => handleClick('delete')}>
+            <ButtonGray6
+              fontWeight={500}
+              color={Colors.grey2}
+              onClick={() => handleClick("delete")}
+            >
               Excluir anúncio
             </ButtonGray6>
-            <ButtonGray5 isDisabled={!isFormValid} type="submit" onClick={(event) => handlerForm(event)}>
+            <ButtonBrand1
+              isDisabled={!isFormValid}
+              type="submit"
+              onClick={(event) => handlerForm(event)}
+            >
               Salvar Alterações
-            </ButtonGray5>
+            </ButtonBrand1>
           </ModalFooter>
-        </ModalContent >
-      </Modal >
+        </ModalContent>
+      </Modal>
     </>
   );
 };

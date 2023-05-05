@@ -96,8 +96,15 @@ export const HeaderComponent = () => {
               <ButtonGroup>
                 <Link to={"/login"}>
                   <Button
-                    color={location.pathname.includes("login") || location.pathname.includes("register") ? Colors.brand1 : Colors.grey2}
+                    color={
+                      location.pathname.includes("login") ||
+                      location.pathname.includes("register")
+                        ? Colors.brand1
+                        : Colors.grey2
+                    }
+                    bg={"transparent"}
                     variant="ghost"
+                    _hover={{ bg: "transparent" }}
                     _focus={{ color: Colors.brand1, bg: "transparent" }}
                   >
                     Fazer Login
@@ -111,8 +118,7 @@ export const HeaderComponent = () => {
                     borderRadius="4px"
                     borderColor={Colors.grey4}
                     _focus={{ bg: "transparent" }}
-                    _hover={{ bgColor: Colors.grey1, color: Colors.grey10}}
-
+                    _hover={{ bgColor: Colors.grey1, color: Colors.grey10 }}
                   >
                     Cadastrar
                   </Button>

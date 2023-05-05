@@ -21,6 +21,7 @@ import {
 import { labelCSS } from "../../styles/global";
 import { ModalSucessSendEmailComponent } from "../../components/ModalComponents/ModalSucessSendEmailComponent";
 import { ModalErrorSendEmailComponent } from "../../components/ModalComponents/ModalErrorSendEmailComponent";
+import { TextH4, TextH6, TextH7 } from "../../components/TextComponents";
 
 export const EmailSubmissionPage = () => {
   const {
@@ -50,14 +51,14 @@ export const EmailSubmissionPage = () => {
           backgroundColor={Colors.white}
           onSubmit={handleSubmit(formSubmit)}
         >
-          <Heading
+          <TextH7
             fontSize={"18px"}
             fontWeight={800}
             fontFamily={"Lexend"}
             color={Colors.brand1}
           >
-            Insira seu E-mail e enviaremos um link para alterar sua senha
-          </Heading>
+            Insira seu email e enviaremos um link para alterar sua senha.
+          </TextH7>
 
           <FormControl isRequired>
             <FormLabel css={labelCSS}>Email</FormLabel>
@@ -67,6 +68,7 @@ export const EmailSubmissionPage = () => {
               color={Colors.brand1}
               type="text"
               borderRadius={"4px 0 0 4px"}
+              autoComplete="off"
               {...register("email")}
             />
           </FormControl>
