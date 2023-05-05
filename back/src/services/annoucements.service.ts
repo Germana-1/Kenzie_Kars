@@ -49,7 +49,7 @@ interface IDataCreateAnnouncementRequest {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
-  images?: any; // !Tipagem Indefinida!
+  images?: any;
 }
 
 export const createAnnouncementService = async (req: Request) => {
@@ -87,6 +87,17 @@ export const getOneAnnouncementService = async (
       id,
     },
     include: {
+      images: true,
+      comments: {
+        include: {
+          user: {
+            select: {
+              avatar: true,
+              name: true,
+            },
+          },
+        },
+      },
       user: {
         select: Utils.responseBodyUser,
       },

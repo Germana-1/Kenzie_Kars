@@ -24,7 +24,7 @@ export const ProductAnnouncerInfoComponent = ({ announcement }: IProps) => {
       borderRadius={"4px"}
       backgroundColor={Colors.grey10}
     >
-      <Avatar size={"xl"} />
+      <Avatar size={"xl"} src={announcement.user?.avatar} />
 
       <TextH6 fontWeight="600">{announcement.user?.name}</TextH6>
       <TextB1 fontWeight="400" color={Colors.grey2}>

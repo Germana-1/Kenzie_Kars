@@ -10,34 +10,7 @@ interface IProps {
 }
 
 export const ProductGalleryComponent = ({ announcement }: IProps) => {
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
-
-  const foo = announcement.images?.map((el) => {
+  const images = announcement.images?.map((el) => {
     return {
       original: el.imgUrl,
       thumbnail: el.imgUrl,
@@ -56,7 +29,7 @@ export const ProductGalleryComponent = ({ announcement }: IProps) => {
         <TextH6 fontWeight="600">Fotos</TextH6>
 
         <Flex gap={"20px"} wrap={"wrap"} justifyContent={"center"}>
-          <GalleryCarousel items={images} />
+          <GalleryCarousel items={images || []} />
         </Flex>
       </Flex>
     </>

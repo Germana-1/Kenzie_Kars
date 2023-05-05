@@ -76,7 +76,7 @@ export const HeaderComponent = () => {
             </MenuButton>
             <MenuList>
               {user.accountType === "seller" && (
-                <MenuItem as={Link} to={`/profile/${user.id}/`}>
+                <MenuItem as={Link} to={`/profile/${user.id}`}>
                   Meu perfil
                 </MenuItem>
               )}

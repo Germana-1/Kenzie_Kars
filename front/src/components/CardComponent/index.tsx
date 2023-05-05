@@ -151,7 +151,7 @@ export const CardComponent = ({ announce, hideTag }: IProps) => {
           </Flex>
         </Flex>
       </Flex>
-      {location.pathname == `/profile/${IdUser}/` &&
+      {location.pathname == `/profile/${IdUser}` &&
       announce.user?.id == IdUser ? (
         <Flex gap="10px" mt={"15px"}>
           <ButtonGray10
