@@ -55,7 +55,7 @@ export const ProductTitleComponent = ({ announcement }: IProps) => {
         <Link
           to={`https://wa.me/${announcement.user?.phone.replace(/\D/g, "")}`}
         >
-          <ButtonBrand1>Comprar</ButtonBrand1>
+          {user?.id !== announcement.user?.id && <ButtonBrand1>Comprar</ButtonBrand1>}
         </Link>
       </Box>
     </Flex>
