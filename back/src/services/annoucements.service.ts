@@ -11,12 +11,26 @@ export interface AnnouncementFilter {
   color?: string;
   year?: number;
   fuelType?: string;
+  minKm?: string;
+  maxKm?: string;
+  minPrice?: string;
+  maxPrice?: string;
 }
 
 export const getAllAnnouncementsService = async (
   filters?: AnnouncementFilter
 ) => {
-  const { brand, model, color, fuelType, year } = filters;
+  const {
+    brand,
+    model,
+    color,
+    fuelType,
+    year,
+    minKm,
+    maxKm,
+    minPrice,
+    maxPrice,
+  } = filters;
 
   const announcements = await prisma.announcement.findMany({
     select: Utils.getAllAnnoucementsOptions,
@@ -26,41 +40,45 @@ export const getAllAnnouncementsService = async (
       color: color ? { equals: color } : undefined,
       fuelType: fuelType ? { equals: fuelType } : undefined,
       year: year ? { equals: +year } : undefined,
+      mileage: {
+        gte: minKm ? +minKm : undefined,
+        lte: maxKm ? +maxKm : undefined,
+      },
+      price: {
+        gte: minPrice ? +minPrice : undefined,
+        lte: maxPrice ? +maxPrice : undefined,
+      },
     },
   });
 
   return announcements;
 };
 
-interface IDataCreateAnnouncementRequest {
-  id: string;
-  brand: string;
-  model: string;
-  year: number;
-  mileage: number;
-  price: number;
-  priceFipe: number;
-  fuelType: string;
-  color: string;
-  banner: string;
-  description: string;
-  isActive: boolean;
-  isGoodBuy: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
-  images?: any;
-}
-
 export const createAnnouncementService = async (req: Request) => {
   const { images, ...newBody } = req.body;
+  if (newBody.price <= newBody.priceFipe) {
+    newBody.isGoodBuy = true;
+  }
   const newAnnouncement = await prisma.announcement.create({
     data: { ...newBody, userId: req.authUser.id },
     include: {
       images: true,
       comments: true,
       user: {
-        select: Utils.responseBodyUser,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          cpf: true,
+          accountType: true,
+          birthdate: true,
+          description: true,
+          avatar: true,
+          phone: true,
+          createdAt: true,
+          updatedAt: true,
+          address: true,
+        },
       },
     },
   });
