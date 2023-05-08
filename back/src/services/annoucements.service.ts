@@ -18,7 +18,9 @@ export interface AnnouncementFilter {
 }
 
 export const getAllAnnouncementsService = async (
-  filters?: AnnouncementFilter
+  filters?: AnnouncementFilter,
+  page?: number,
+  pageSize?: number
 ) => {
   const {
     brand,
@@ -48,6 +50,11 @@ export const getAllAnnouncementsService = async (
         gte: minPrice ? +minPrice : undefined,
         lte: maxPrice ? +maxPrice : undefined,
       },
+    },
+    skip: page && pageSize ? (page - 1) * pageSize : undefined,
+    take: pageSize ? pageSize : undefined,
+    orderBy: {
+      createdAt: "asc",
     },
   });
 
