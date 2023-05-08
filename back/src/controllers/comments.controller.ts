@@ -12,3 +12,9 @@ export const createCommentController = async (req: Request, res: Response) => {
   );
   return res.status(201).json(data);
 };
+
+export const deleteCommentController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  await Service.deleteCommentService(id);
+  return res.status(204).json({});
+};

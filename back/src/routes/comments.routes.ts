@@ -13,4 +13,12 @@ commentsRoutes.post(
   Controller.createCommentController
 );
 
+commentsRoutes.delete(
+  "/:id",
+  Middlewares.ensureAuthMiddleware,
+  Middlewares.verifyIfCommentExistsMiddleware,
+  Middlewares.verifyIfUserIsCommentOwnerMiddleware,
+  Controller.deleteCommentController
+);
+
 export { commentsRoutes };
