@@ -87,7 +87,7 @@ export const AnnouncementProvider = ({
     }
   }
 
-  function handleClick (typeModal: string) {
+  function handleClick(typeModal: string) {
     if (typeModal === "editAd") {
       setEditAdModalOpen(true);
     }
@@ -95,7 +95,7 @@ export const AnnouncementProvider = ({
       setDeleteAdModalOpen(true);
       setEditAdModalOpen(false);
     }
-  };
+  }
 
   useEffect(() => {
     announcementListAll();
@@ -125,6 +125,22 @@ export const AnnouncementProvider = ({
         url += `${url.includes("?") ? "&" : "?"}fuelType=${selectedFuel}`;
       }
 
+      if (minKm !== "") {
+        url += `${url.includes("?") ? "&" : "?"}minKm=${minKm}`;
+      }
+
+      if (maxKm !== "") {
+        url += `${url.includes("?") ? "&" : "?"}maxKm=${maxKm}`;
+      }
+
+      if (minPrice !== "") {
+        url += `${url.includes("?") ? "&" : "?"}minPrice=${minPrice}`;
+      }
+
+      if (maxPrice !== "") {
+        url += `${url.includes("?") ? "&" : "?"}maxPrice=${maxPrice}`;
+      }
+
       try {
         const response = await api.get(url);
         let data = response.data;
@@ -135,33 +151,6 @@ export const AnnouncementProvider = ({
         const formatMinPrice = parseInt(minPrice.replace(/[^\d,-]/g, "")) + "";
         const formatMaxPrice = parseInt(maxPrice.replace(/[^\d,-]/g, "")) + "";
 
-        if (minPrice != "" && maxPrice != "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.price >= Number(minPrice) && el.price <= Number(maxPrice);
-          });
-        } else if (minPrice != "" && maxPrice == "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.price >= Number(minPrice);
-          });
-        } else if (maxPrice != "" && minPrice == "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.price <= Number(maxPrice);
-          });
-        }
-
-        if (minKm != "" && maxKm != "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.mileage >= Number(minKm) && el.mileage <= Number(maxKm);
-          });
-        } else if (minKm != "" && maxKm == "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.mileage >= Number(minKm);
-          });
-        } else if (maxKm != "" && minKm == "") {
-          filteredData = filteredData.filter((el: IAnnouncement) => {
-            return el.mileage <= Number(maxKm);
-          });
-        }
         if (
           selectedBrand ||
           selectedModel ||
