@@ -22,7 +22,7 @@ import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdCompone
 import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
 import { useContext } from "react";
 import { AnnouncementContext } from "../../contexts/announcementContext";
-import { ModalHomeFIltersComponent } from "../../components/ModalComponents/ModalHomeFiltersComponent";
+import { ModalHomeFiltersComponent } from "../../components/ModalComponents/ModalHomeFiltersComponent";
 
 export const HomePage = () => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -67,7 +67,7 @@ export const HomePage = () => {
                 </Flex>
             </Flex>
             <FooterComponent />
-            <ModalHomeFIltersComponent 
+            <ModalHomeFiltersComponent 
               onClose={onClose} 
               isOpen={isOpen} 
             />
