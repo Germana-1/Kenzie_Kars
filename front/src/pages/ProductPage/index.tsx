@@ -15,9 +15,11 @@ import { PurpleBackgroundComponent } from "../../components/PurpleBackgroundComp
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { ModalEditAd } from "../../components/ModalComponents/ModalEditAdComponent";
 import { ModalDeleteAd } from "../../components/ModalComponents/ModalDeleteAdComponent";
+import { UserContext } from "../../contexts/userContext";
 
 export const ProductPage = () => {
   const { id } = useParams();
+  const { user } = useContext(UserContext);
 
   const {
     editAdModalOpen,
