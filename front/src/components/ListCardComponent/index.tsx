@@ -72,7 +72,7 @@ export const ListCardComponent = ({
                   bgColor={"transparent"}
                   fontWeight={600}
                   color={Colors.brand1}
-                  fontSize={24}
+                  fontSize={18}
                   size="sm"
                 >
                   &lt; Anterior
@@ -86,7 +86,7 @@ export const ListCardComponent = ({
                   bgColor={"transparent"}
                   fontWeight={600}
                   color={Colors.brand1}
-                  fontSize={24}
+                  fontSize={18}
                   size="sm"
                 >
                   Seguinte &gt;
