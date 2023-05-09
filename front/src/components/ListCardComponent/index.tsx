@@ -3,10 +3,10 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Colors } from "../../styles/colors";
 import { StyledReactPaginate } from "./style";
-import { Flex, Image, Text } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
 import { SearchNotFound } from "../SearchNotFound";
+import { AnnouncementContext } from "../../contexts/announcementContext";
+import { IAnnouncement } from "../../interfaces/announcement.interface";
+import { CardComponent } from "../CardComponent";
 
 interface IListCardComponent {
   centered?: boolean;
