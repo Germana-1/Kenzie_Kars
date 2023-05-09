@@ -1,21 +1,17 @@
-import { Avatar, Box, Flex, Text, Textarea, Wrap } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Avatar, Box, Flex, Textarea, Wrap } from "@chakra-ui/react";
 
 import { Colors } from "../../styles/colors";
-import { TextB2, TextH3, TextH5 } from "../TextComponents";
+import { TextB2, TextH5 } from "../TextComponents";
 import { CommentSugestionComponent } from "../CommentSuggestionComponent";
 import { ButtonBrand1 } from "../ButtomComponents";
 import { useContext, useState } from "react";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
 import { UserContext } from "../../contexts/userContext";
 import { api } from "../../services/api";
-import { Link } from "react-router-dom";
 
 interface IProps {
   announcement: IAnnouncement;
-}
-
-interface IComment {
-  comment: string;
 }
 
 export const ProductUserCommentComponent = ({ announcement }: IProps) => {
@@ -26,6 +22,7 @@ export const ProductUserCommentComponent = ({ announcement }: IProps) => {
     await api.post(`/comments/announcement/${announcement.id}`, {
       comment: comment,
     });
+
     window.location.reload();
   };
 

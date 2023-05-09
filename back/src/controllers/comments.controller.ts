@@ -18,3 +18,10 @@ export const deleteCommentController = async (req: Request, res: Response) => {
   await Service.deleteCommentService(id);
   return res.status(204).json({});
 };
+
+export const updateCommentController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  const { comment } = req.body;
+  const data = await Service.updateCommentService(id, comment);
+  return res.json(data);
+};

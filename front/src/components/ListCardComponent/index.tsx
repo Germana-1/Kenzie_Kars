@@ -1,6 +1,7 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
@@ -56,11 +57,30 @@ export const ListCardComponent = ({
                   key={announce.id}
                 />
               ))
-          ) : (
+        /*<Flex
+          wrap={{ sm: "nowrap", md: "wrap" }}
+          overflowX={"auto"}
+          gap={"25px"}
+        >
+          {!!filterActive && data.length ? (
+            data
+              .slice(pagesVisited, pagesVisited + announcementsPerPage)
+              .map(
+                (announce: IAnnouncement) =>
+                  announce.isActive && (
+                    <CardComponent
+                      announce={announce}
+                      hideTag={hideTag}
+                      key={announce.id}
+                    />
+                  )
+              ))*/
+          : (
             <SearchNotFound />
           )}
         </Flex>
       </Box>
+
       {filteredData.length > announcementsPerPage && (
         <Flex justifyContent="center">
           <StyledReactPaginate
@@ -71,7 +91,7 @@ export const ListCardComponent = ({
                   bgColor="transparent"
                   fontWeight={600}
                   color={Colors.brand1}
-                  fontSize={24}
+                  fontSize={18}
                   size="sm"
                 >
                   &lt; Anterior
@@ -85,8 +105,9 @@ export const ListCardComponent = ({
                   bgColor={"transparent"}
                   fontWeight={600}
                   color={Colors.brand1}
-                  fontSize={24}
-                  size="sm">
+                  fontSize={18}
+                  size="sm"
+                >
                   Seguinte &gt;
                 </Button>
               ) : null
