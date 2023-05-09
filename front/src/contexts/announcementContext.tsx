@@ -35,7 +35,6 @@ export const AnnouncementProvider = ({
   const [maxKm, setMaxKm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [filteredAnnouncements, setFilteredAnnouncements] = useState<IAnnouncement[]>([]);
   const [hiddenButtonResetFilters, setHiddenButtonResetFilters] =
     useState(true);
 
@@ -61,14 +60,9 @@ export const AnnouncementProvider = ({
   }
 
   async function announcementListAll() {
-    try {
-      const res = await api.get("/announcements");
-      const data = res.data;
-      setAnnouncements(data);
-      setFilteredAnnouncements(data);
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await api.get("/announcements");
+
+    setAnnouncements(res.data);
   }
 
   async function announcementListOne(data: string) {
@@ -186,7 +180,6 @@ export const AnnouncementProvider = ({
           setYears((prev) => [...prev, el.year]);
           setFuel((prev) => [...prev, el.fuelType]);
         });
-        setFilteredAnnouncements(data);
       } catch (error) {
         console.error(error);
       }
