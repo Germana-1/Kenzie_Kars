@@ -1,5 +1,5 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
@@ -21,14 +21,22 @@ export const ListCardComponent = ({
 }: IListCardComponent) => {
   const { id } = useParams();
   const { announcements } = useContext(AnnouncementContext);
+  const [filteredData, setFilteredData] = useState<IAnnouncement[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
   const announcementsPerPage = 16;
 
-  let data = announcements;
-  if (id) data = announcements.filter((el) => el.user?.id === id);
+  useEffect(() => {
+    let data = announcements;
+    if (id) {
+      data = announcements.filter((el) => el.user?.id === id);
+    }
+    setFilteredData(data);
+    setPageNumber(0);
+
+  }, [id, announcements]);
 
   const pagesVisited = pageNumber * announcementsPerPage;
-  const pageCount = Math.ceil(data.length / announcementsPerPage);
+  const pageCount = Math.ceil(filteredData.length / announcementsPerPage);
 
   const handlePageChange = (selected: number) => {
     setPageNumber(selected);
@@ -37,51 +45,35 @@ export const ListCardComponent = ({
   return (
     <>
       <Box>
-        <Flex
-          wrap={{ sm: "nowrap", md: "wrap" }}
-          overflowX={"auto"}
-          gap={"25px"}
-            >
-          {!!filterActive &&
-            data
-              .slice(pagesVisited, pagesVisited + announcementsPerPage)
-              .map(
-                (announce: IAnnouncement) =>
-                  announce.isActive && (
-                    <CardComponent
-                      announce={announce}
-                      hideTag={hideTag}
-                      key={announce.id}
-                    />
-                  )
-              )
-          }
-      {data.length ? 
-        data
+        <Flex wrap={{ sm: "nowrap", md: "wrap" }} overflowX="auto" gap="25px">
+          {!!filteredData.length ? (
+            filteredData
               .slice(pagesVisited, pagesVisited + announcementsPerPage)
               .map((announce: IAnnouncement) => (
-              <CardComponent
-                announce={announce}
-                hideTag={hideTag}
-                key={announce.id}
-              />
-            )) : 
-          <SearchNotFound/>
-        }
+                <CardComponent
+                  announce={announce}
+                  hideTag={hideTag}
+                  key={announce.id}
+                />
+              ))
+          ) : (
+            <SearchNotFound />
+          )}
         </Flex>
       </Box>
-      {data.length > announcementsPerPage && (
-        <Flex justifyContent={"center"}>
+      {filteredData.length > announcementsPerPage && (
+        <Flex justifyContent="center">
           <StyledReactPaginate
             previousLabel={
               pagesVisited > 0 && (
                 <Button
                   marginRight={50}
-                  bgColor={"transparent"}
+                  bgColor="transparent"
                   fontWeight={600}
                   color={Colors.brand1}
                   fontSize={24}
-                  size="sm">
+                  size="sm"
+                >
                   &lt; Anterior
                 </Button>
               )

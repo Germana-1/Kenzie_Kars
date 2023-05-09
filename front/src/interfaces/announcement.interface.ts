@@ -81,6 +81,7 @@ export interface IAnnouncementContext {
   announcementDelete: () => void;
   announcementListOne: (data: string) => void;
   handleClick: (type: string) => void;
+  handleCleanFilter: () => void
   editAdModalOpen: boolean;
   deleteAdModalOpen: boolean;
   setEditAdModalOpen: (value: boolean) => void;

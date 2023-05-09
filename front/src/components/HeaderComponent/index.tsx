@@ -22,6 +22,7 @@ import { UserContext } from "../../contexts/userContext";
 import { ModalEditProfile } from "../ModalComponents/ModalEditProfileComponent";
 import { ModalEditAddress } from "../ModalComponents/ModalEditAddressComponent";
 import { ModalDeleteAccount } from "../ModalComponents/ModalDeleteAccountComponent";
+import { AnnouncementContext } from "../../contexts/announcementContext";
 
 export const HeaderComponent = () => {
   const {
@@ -35,6 +36,9 @@ export const HeaderComponent = () => {
     isDeleteAccountModalOpen,
     setIsDeleteAccountModalOpen,
   } = useContext(UserContext);
+  const {
+    handleCleanFilter
+  } = useContext(AnnouncementContext);
 
   const location = useLocation();
 
@@ -76,7 +80,7 @@ export const HeaderComponent = () => {
             </MenuButton>
             <MenuList>
               {user.accountType === "seller" && (
-                <MenuItem as={Link} to={`/profile/${user.id}`}>
+                <MenuItem as={Link} to={`/profile/${user.id}`} onClick={handleCleanFilter}>
                   Meu perfil
                 </MenuItem>
               )}
