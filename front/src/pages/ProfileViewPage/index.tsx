@@ -63,12 +63,10 @@ export const ProfileViewPage = () => {
       <ModalEditAd
         isOpen={editAdModalOpen}
         onClose={() => setEditAdModalOpen(false)}
-        children={undefined}
       />
       <ModalDeleteAd
         isOpen={deleteAdModalOpen}
         onClose={() => setDeleteAdModalOpen(false)}
-        children={undefined}
       />
       <ModalError
         isOpen={isErrorModalOpen}

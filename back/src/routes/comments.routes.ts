@@ -21,12 +21,4 @@ commentsRoutes.delete(
   Controller.deleteCommentController
 );
 
-commentsRoutes.patch(
-  "/:id",
-  Middlewares.ensureAuthMiddleware,
-  Middlewares.verifyIfCommentExistsMiddleware,
-  Middlewares.verifyIfUserIsCommentOwnerMiddleware,
-  Controller.updateCommentController
-);
-
 export { commentsRoutes };
