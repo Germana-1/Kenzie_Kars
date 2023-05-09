@@ -34,27 +34,50 @@ export const HomePage = () => {
         deleteAdModalOpen,
         setDeleteAdModalOpen,
     } = useContext(AnnouncementContext);
+  
+  return (
+    <Flex flexDirection={"column"}>
+      <HeaderComponent />
+      <BannerComponent />
+      <Flex
+        w="96%"
+        margin={"70px auto 0"}
+        justifyContent="space-between"
+        alignItems={isMobile ? "center" : "start"}
+        flexDir={isMobile ? "column" : "row"}
+      >
+        <Box minW={"400px"}>
+          <Show above="768px">
+            <ListFiltersComponent />
+          </Show>
+        </Box>
 
-    return (
-        <Flex flexDirection={"column"}>
-            <HeaderComponent />
-            <BannerComponent />
-            <Flex
-                w="full"
-                m={"70px auto 0"}
-                alignItems={isMobile ? "center" : "start"}
-                justifyContent={"space-between"}
-                flexDir={isMobile ? "column" : "row"}
-                px={10}
-                gap={50}
-            >
-                <Show above="1000px">
-                    <ListFiltersComponent />
-                </Show>
-                <Flex
-                    flexDir={"column"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
+        <Flex w={"1325px"} maxW={"100%"} justifyContent={"center"} flexDir={"column"}>
+          <ListCardComponent filterActive hideTag />
+        </Flex>
+
+        <Show below="768px">
+          <Flex margin="90px" alignItems="center">
+            <ButtonBrand1 width="279px" onClick={onOpen}>
+              Filtros
+            </ButtonBrand1>
+          </Flex>
+
+          <Flex>
+            <Modal onClose={onClose} isOpen={isOpen}>
+              <ModalOverlay />
+              <ModalContent
+                display="flex"
+                alignItems="center"
+                marginTop="80px"
+                borderRadius="0"
+              >
+                <ModalHeader
+                  fontSize={FontSizes.heading7}
+                  fontFamily={"Lexend"}
+                  fontWeight="500"
+                  alignSelf="start"
+                  p={"15px"}
                 >
                     <ListCardComponent filterActive hideTag />
                     <Show below="1000px">
