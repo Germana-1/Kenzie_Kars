@@ -1,6 +1,7 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
@@ -41,8 +42,8 @@ export const ListCardComponent = ({
           wrap={{ sm: "nowrap", md: "wrap" }}
           overflowX={"auto"}
           gap={"25px"}
-            >
-          {!!filterActive &&
+        >
+          {!!filterActive && data.length ? (
             data
               .slice(pagesVisited, pagesVisited + announcementsPerPage)
               .map(
@@ -55,21 +56,12 @@ export const ListCardComponent = ({
                     />
                   )
               )
-          }
-      {data.length ? 
-        data
-              .slice(pagesVisited, pagesVisited + announcementsPerPage)
-              .map((announce: IAnnouncement) => (
-              <CardComponent
-                announce={announce}
-                hideTag={hideTag}
-                key={announce.id}
-              />
-            )) : 
-          <SearchNotFound/>
-        }
+          ) : (
+            <SearchNotFound />
+          )}
         </Flex>
       </Box>
+
       {data.length > announcementsPerPage && (
         <Flex justifyContent={"center"}>
           <StyledReactPaginate
@@ -81,7 +73,8 @@ export const ListCardComponent = ({
                   fontWeight={600}
                   color={Colors.brand1}
                   fontSize={24}
-                  size="sm">
+                  size="sm"
+                >
                   &lt; Anterior
                 </Button>
               )
@@ -94,7 +87,8 @@ export const ListCardComponent = ({
                   fontWeight={600}
                   color={Colors.brand1}
                   fontSize={24}
-                  size="sm">
+                  size="sm"
+                >
                   Seguinte &gt;
                 </Button>
               ) : null

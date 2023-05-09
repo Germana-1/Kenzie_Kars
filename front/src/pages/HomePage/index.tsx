@@ -45,7 +45,7 @@ export const HomePage = () => {
         alignItems={isMobile ? "center" : "start"}
         justifyContent={"space-between"}
         flexDir={isMobile ? "column" : "row"}
-        px={10}
+        px={["10px", "50px"]}
         gap={50}
       >
         <Box minW={"400px"}>
@@ -54,7 +54,12 @@ export const HomePage = () => {
           </Show>
         </Box>
 
-        <Flex w={"1325px"} maxW={"100%"} justifyContent={"center"} flexDir={"column"}>
+        <Flex
+          w={"1325px"}
+          maxW={"100%"}
+          justifyContent={"center"}
+          flexDir={"column"}
+        >
           <ListCardComponent filterActive hideTag />
         </Flex>
 
