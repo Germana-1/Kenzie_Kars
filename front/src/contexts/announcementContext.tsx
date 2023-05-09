@@ -205,6 +205,18 @@ export const AnnouncementProvider = ({
     maxPrice,
   ]);
 
+  const handleCleanFilter = () => {
+    setSelectedBrand("");
+    setSelectedModel("");
+    setSelectedColor("");
+    setSelectedYear(0);
+    setSelectedFuel("");
+    setMinKm("");
+    setMaxKm("");
+    setMinPrice("");
+    setMaxPrice("");
+  }
+
   return (
     <AnnouncementContext.Provider
       value={{
@@ -213,6 +225,7 @@ export const AnnouncementProvider = ({
         deleteAdModalOpen,
         setDeleteAdModalOpen,
         handleClick,
+        handleCleanFilter,
         setCardId,
         announcements,
         announcement,
