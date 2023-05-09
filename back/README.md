@@ -63,7 +63,9 @@ npm run dev
   - [PATCH - /announcements/{announcement_id}](#331-atualização-de-anúncio)
   - [DELETE - /announcements/{announcement_id}](#332-deleção-de-anúncio)
 - [Comments](#2-users)
-  - [POST - /comments/announcement/{announcement_id}](#4-adição-de-comentário)
+  - [POST - /comments/announcement/{announcement_id}](#41-adição-de-comentário)
+  - [PATCH - /comments/announcement/{announcement_id}](#42-adição-de-comentário)
+  - [DELETE - /comments/announcement/{announcement_id}](#43-adição-de-comentário)
 
 ---
 
@@ -969,7 +971,9 @@ Não possui.
 
 ### Exemplo de Response:
 
-Não possui.
+```
+204 No Content
+```
 
 ### Possíveis Erros:
 
@@ -981,7 +985,7 @@ Não possui.
 
 ### `/comments/announcement/{announcement_id}`
 
-### 4. **Adição de Comentário**
+### 4 **Adição de Comentário**
 
 ### Exemplo de Request:
 
@@ -1028,3 +1032,86 @@ Content-type: application/json
 | ---- | ----------------------- |
 | 404  | Announcement not found. |
 | 401  | "missing token          |
+
+### `/comments/{announcement_id}`
+
+### 5.1 **Atualização de Comentário**
+
+### Exemplo de Request:
+
+```
+PATCH /comments/291e3157-a3d0-410c-8950-dca80fd7b0ce
+Host: http://localhost:3001
+Authorization: Bearer Token
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "comment": "Como posso entrar em contato?"
+}
+```
+
+### Exemplo de Response:
+
+```
+200 Accepted
+```
+
+```json
+{
+  "id": "291e3157-a3d0-410c-8950-dca80fd7b0ce",
+  "comment": "Como posso entrar em contato?",
+  "createdAt": "2023-05-04T21:07:33.237Z",
+  "updatedAt": "2023-05-04T21:07:33.237Z",
+  "announcementId": "291e3157-a3d0-410c-8950-dca80fd7b0ce",
+  "userId": "ed724322-bbbc-4077-8489-307279e6e52d",
+  "user": {
+    "name": "Felipe César",
+    "avatar": "http://foto"
+  }
+}
+```
+
+### Possíveis Erros:
+
+| Cód. | Descrição           |
+| ---- | ------------------- |
+| 401  | "missing token "    |
+| 401  | "Comment not found" |
+
+### 5.2 **Deleção de Comentário**
+
+### Exemplo de Request:
+
+```
+DELETE /comments/291e3157-a3d0-410c-8950-dca80fd7b0ce
+Host: http://localhost:3001
+Authorization: Bearer Token
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+Não possui.
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+### Possíveis Erros:
+
+| Cód. | Descrição           |
+| ---- | ------------------- |
+| 401  | "missing token "    |
+| 401  | "Comment not found" |
+
+```
+
+```
