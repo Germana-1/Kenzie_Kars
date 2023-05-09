@@ -22,7 +22,7 @@ export const ProductCommentsComponent = ({ announcement }: IProps) => {
 
       {announcement.comments?.length
         ? announcement.comments.map((comment, i) => (
-            <CommentComponent comment={comment} key={i} />
+            <CommentComponent key={i} comment={comment} />
           ))
         : null}
     </Flex>
