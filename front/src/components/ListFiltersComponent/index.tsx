@@ -49,7 +49,7 @@ export const ListFiltersComponent = () => {
   const filterFuel = new Set(fuel);
 
   return (
-    <Flex flexDirection="column" gap="42px" marginTop="16px">
+    <Flex flexDirection="column" gap="42px">
       <FilterComponent
         titleFilter={"Marca"}
         filters={[...filterBrands]}
