@@ -33,7 +33,6 @@ export const ListCardComponent = ({
     }
     setFilteredData(data);
     setPageNumber(0);
-
   }, [id, announcements]);
 
   const pagesVisited = pageNumber * announcementsPerPage;
@@ -57,25 +56,7 @@ export const ListCardComponent = ({
                   key={announce.id}
                 />
               ))
-        /*<Flex
-          wrap={{ sm: "nowrap", md: "wrap" }}
-          overflowX={"auto"}
-          gap={"25px"}
-        >
-          {!!filterActive && data.length ? (
-            data
-              .slice(pagesVisited, pagesVisited + announcementsPerPage)
-              .map(
-                (announce: IAnnouncement) =>
-                  announce.isActive && (
-                    <CardComponent
-                      announce={announce}
-                      hideTag={hideTag}
-                      key={announce.id}
-                    />
-                  )
-              ))*/
-          : (
+          ) : (
             <SearchNotFound />
           )}
         </Flex>
