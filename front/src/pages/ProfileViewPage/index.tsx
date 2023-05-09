@@ -1,4 +1,4 @@
-import { Container, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 import { FooterComponent } from "../../components/FooterComponent";
 import { HeaderComponent } from "../../components/HeaderComponent";
@@ -53,20 +53,20 @@ export const ProfileViewPage = () => {
           Anúncios
         </TextH5>
 
-        <Flex justifyContent={"center"}>
-          <ListCardComponent filterActive={false} hideTag={false} centered />
+        <Flex justifyContent={"center"} flexDir={"column"}>
+          <Box mx="auto">
+            <ListCardComponent filterActive={false} hideTag={false} centered />
+          </Box>
         </Flex>
       </Container>
       <FooterComponent />
       <ModalEditAd
         isOpen={editAdModalOpen}
         onClose={() => setEditAdModalOpen(false)}
-        children={undefined}
       />
       <ModalDeleteAd
         isOpen={deleteAdModalOpen}
         onClose={() => setDeleteAdModalOpen(false)}
-        children={undefined}
       />
       <ModalError
         isOpen={isErrorModalOpen}
