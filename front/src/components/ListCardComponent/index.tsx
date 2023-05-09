@@ -1,12 +1,12 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Colors } from "../../styles/colors";
-import { StyledReactPaginate } from "./style";
-import { SearchNotFound } from "../SearchNotFound";
+import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
-import { CardComponent } from "../CardComponent";
+import { SearchNotFound } from "../SearchNotFound";
+import { StyledReactPaginate } from "./style";
+import { Colors } from "../../styles/colors";
 
 interface IListCardComponent {
   centered?: boolean;
@@ -41,10 +41,9 @@ export const ListCardComponent = ({
           wrap={{ sm: "nowrap", md: "wrap" }}
           overflowX={"auto"}
           gap={"25px"}
-          maxW={centered ? "986.95px" : "100%"}
-        >
-          {filterActive
-            ? data
+            >
+          {!!filterActive &&
+            data
               .slice(pagesVisited, pagesVisited + announcementsPerPage)
               .map(
                 (announce: IAnnouncement) =>
@@ -56,15 +55,19 @@ export const ListCardComponent = ({
                     />
                   )
               )
-            : data
+          }
+      {data.length ? 
+        data
               .slice(pagesVisited, pagesVisited + announcementsPerPage)
               .map((announce: IAnnouncement) => (
-                <CardComponent
-                  announce={announce}
-                  hideTag={hideTag}
-                  key={announce.id}
-                />
-              ))}
+              <CardComponent
+                announce={announce}
+                hideTag={hideTag}
+                key={announce.id}
+              />
+            )) : 
+          <SearchNotFound/>
+        }
         </Flex>
       </Box>
       {data.length > announcementsPerPage && (
