@@ -96,20 +96,6 @@ export const HomePage = () => {
             </Modal>
           </Flex>
         </Show>
-        <Flex
-          flexDir={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <ListCardComponent filterActive hideTag />
-          <Show below="1000px">
-            <Flex margin="90px" alignItems="center">
-              <ButtonBrand1 width="279px" onClick={onOpen}>
-                Filtros
-              </ButtonBrand1>
-            </Flex>
-          </Show>
-        </Flex>
       </Flex>
       <FooterComponent />
       <ModalHomeFiltersComponent onClose={onClose} isOpen={isOpen} />

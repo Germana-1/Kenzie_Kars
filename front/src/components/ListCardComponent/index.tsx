@@ -1,22 +1,9 @@
-<<<<<<< HEAD
-import { Box, Button, Flex } from "@chakra-ui/react";
-import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Colors } from "../../styles/colors";
-import { StyledReactPaginate } from "./style";
-import { Flex, Image, Text } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { SearchNotFound } from "../SearchNotFound";
-=======
 import { Flex } from "@chakra-ui/react";
 import { useContext } from "react";
-
+import { useParams } from "react-router-dom";
 import { CardComponent } from "../../components/CardComponent";
 import { AnnouncementContext } from "../../contexts/announcementContext";
 import { IAnnouncement } from "../../interfaces/announcement.interface";
-import { useParams } from "react-router-dom";
->>>>>>> parent of 6c0db8f (feat: add cards paging front)
 
 interface IListCardComponent {
   centered?: boolean;
