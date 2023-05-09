@@ -54,7 +54,7 @@ export const HomePage = () => {
           </Show>
         </Box>
 
-        <Flex w={"1325px"} maxW={"100%"} justifyContent={"center"}>
+        <Flex w={"1325px"} maxW={"100%"} justifyContent={"center"} flexDir={"column"}>
           <ListCardComponent filterActive hideTag />
         </Flex>
 
