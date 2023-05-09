@@ -7,13 +7,13 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalProps,
   FormControl,
   Box,
   FormLabel,
   Select,
   Input,
   Textarea,
+  UseModalProps,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useState, useContext, useEffect } from "react";
@@ -26,7 +26,6 @@ import {
 } from "../../ButtomComponents";
 import { TextB2, TextH7 } from "../../TextComponents";
 import { AnnouncementContext } from "../../../contexts/announcementContext";
-import { announcementDataNormalizer } from "../../../utils/announcementDataNormalizer";
 import { FipeContext } from "../../../contexts/fipeContext";
 import { InputFormComponent } from "../../InputFormComponent/InputFormRegisterUserComponent";
 import { Colors } from "../../../styles/colors";
@@ -38,7 +37,7 @@ import { UserContext } from "../../../contexts/userContext";
 import { IImage } from "../../../interfaces/image.interface";
 import { updateAnnouncementSchema } from "../../../schemas/announcement.schema";
 
-export const ModalEditAd = ({ isOpen, onClose }: ModalProps) => {
+export const ModalEditAd = ({ isOpen, onClose }: UseModalProps) => {
   const { announcementUpdate, handleClick } = useContext(AnnouncementContext);
   const { user } = useContext(UserContext);
   const { getAllBrands, getAllModelsByBrand } = useContext(FipeContext);
