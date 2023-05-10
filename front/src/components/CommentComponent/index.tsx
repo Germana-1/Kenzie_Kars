@@ -31,8 +31,8 @@ export const CommentComponent = ({ comment }: IUserCommentary) => {
 
     if (diffInMinutes === 0) return "Poucos segundos atrás";
     if (diffInMinutes < 59) return `${diffInMinutes} minutos atrás`;
-    if (diffInHours === 1) return `${diffInMinutes} hora atrás`;
-    if (diffInHours < 24) return `${diffInMinutes} horas atrás`;
+    if (diffInHours === 1) return `${diffInHours} hora atrás`;
+    if (diffInHours < 24) return `${diffInHours} horas atrás`;
     if (diffInDays === 1) return `${diffInDays} dia atrás`;
 
     return `${diffInDays} dias atrás`;
